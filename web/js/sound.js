@@ -1,0 +1,77 @@
+// Little synthesized sound effects (Web Audio, no files). Players choose on/off + volume.
+let ctx = null
+let enabled = true
+let volume = 0.7
+
+export function configure({ sound = true, volume: v = 70 } = {}) {
+  enabled = !!sound
+  volume = Math.max(0, Math.min(1, v / 100))
+}
+export const isOn = () => enabled
+export function toggle() { enabled = !enabled; return enabled }
+
+function ac() {
+  if (!ctx) {
+    const C = window.AudioContext || window.webkitAudioContext
+    if (!C) return null
+    ctx = new C()
+  }
+  if (ctx.state === "suspended") ctx.resume()
+  return ctx
+}
+// iOS needs a first user gesture to unlock audio.
+document.addEventListener("pointerdown", () => ac(), { once: true })
+
+function tone(freq, dur, { type = "sine", vol = .3, slide = 0, delay = 0 } = {}) {
+  const a = ac()
+  if (!a || !enabled) return
+  const t = a.currentTime + delay
+  const o = a.createOscillator(), g = a.createGain()
+  o.type = type
+  o.frequency.setValueAtTime(freq, t)
+  if (slide) o.frequency.exponentialRampToValueAtTime(Math.max(40, freq + slide), t + dur)
+  g.gain.setValueAtTime(0.0001, t)
+  g.gain.exponentialRampToValueAtTime(vol * volume, t + 0.01)
+  g.gain.exponentialRampToValueAtTime(0.0001, t + dur)
+  o.connect(g).connect(a.destination)
+  o.start(t)
+  o.stop(t + dur + 0.02)
+}
+function noise(dur, { vol = .2, delay = 0, hp = 800 } = {}) {
+  const a = ac()
+  if (!a || !enabled) return
+  const t = a.currentTime + delay
+  const buf = a.createBuffer(1, a.sampleRate * dur, a.sampleRate)
+  const d = buf.getChannelData(0)
+  for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / d.length)
+  const s = a.createBufferSource(), f = a.createBiquadFilter(), g = a.createGain()
+  s.buffer = buf
+  f.type = "highpass"
+  f.frequency.value = hp
+  g.gain.value = vol * volume
+  s.connect(f).connect(g).connect(a.destination)
+  s.start(t)
+}
+
+export const sfx = {
+  click: () => tone(520, .06, { type: "triangle", vol: .15 }),
+  pop: () => tone(660, .09, { type: "sine", vol: .25, slide: 300 }),
+  place: () => { tone(320, .08, { type: "triangle", vol: .3 }); tone(480, .06, { type: "sine", vol: .15, delay: .04 }) },
+  dice: () => { for (let i = 0; i < 6; i++) noise(.05, { vol: .25, delay: i * .07, hp: 1500 }) },
+  card: () => noise(.12, { vol: .18, hp: 2500 }),
+  coin: () => { tone(988, .08, { type: "square", vol: .08 }); tone(1319, .25, { type: "square", vol: .08, delay: .08 }) },
+  right: () => { tone(660, .1, { vol: .25 }); tone(880, .18, { vol: .25, delay: .1 }) },
+  wrong: () => tone(180, .25, { type: "sawtooth", vol: .12, slide: -60 }),
+  tick: () => tone(1200, .03, { type: "square", vol: .06 }),
+  turn: () => { tone(523, .1, { vol: .2 }); tone(784, .15, { vol: .2, delay: .1 }) },
+  win: () => [523, 659, 784, 1047].forEach((f, i) => tone(f, .25, { type: "triangle", vol: .25, delay: i * .12 })),
+  lose: () => [392, 370, 349, 311].forEach((f, i) => tone(f, i === 3 ? .7 : .28, { type: "sawtooth", vol: .1, delay: i * .3, slide: i === 3 ? -40 : 0 })),
+  goal: () => { noise(.8, { vol: .25, hp: 500 }); tone(784, .3, { vol: .2, delay: .1 }) },
+  whoosh: () => noise(.25, { vol: .15, hp: 300 }),
+  blip: () => tone(880, .05, { vol: .1 }),
+  boop: () => tone(300, .12, { vol: .2, slide: 200 }),
+  capture: () => { tone(200, .15, { type: "square", vol: .12, slide: -80 }); noise(.1, { vol: .15, delay: .05 }) },
+  ladder: () => [523, 587, 659, 698, 784].forEach((f, i) => tone(f, .08, { vol: .15, delay: i * .05 })),
+  snake: () => tone(700, .5, { type: "sawtooth", vol: .08, slide: -550 }),
+  cash: () => { tone(1568, .06, { type: "square", vol: .06 }); tone(2093, .2, { type: "square", vol: .06, delay: .07 }) },
+}

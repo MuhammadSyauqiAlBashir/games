@@ -1,0 +1,2508 @@
+[
+{
+"answer": "mind over matter",
+"alts": [],
+"hint": "a saying",
+"level": 2,
+"elements": [
+{
+"t": "MIND",
+"x": 50,
+"y": 36,
+"size": 16,
+"color": "#2b2622",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "",
+"x": 50,
+"y": 50,
+"size": 0,
+"color": "#2b2622",
+"rotate": 0,
+"style": "line"
+},
+{
+"t": "MATTER",
+"x": 50,
+"y": 64,
+"size": 16,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "head over heels",
+"alts": [],
+"hint": "in love",
+"level": 1,
+"elements": [
+{
+"t": "HEAD",
+"x": 50,
+"y": 36,
+"size": 16,
+"color": "#2b2622",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "",
+"x": 50,
+"y": 50,
+"size": 0,
+"color": "#2b2622",
+"rotate": 0,
+"style": "line"
+},
+{
+"t": "HEELS",
+"x": 50,
+"y": 64,
+"size": 16,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "man overboard",
+"alts": [],
+"hint": "on a ship",
+"level": 2,
+"elements": [
+{
+"t": "MAN",
+"x": 50,
+"y": 36,
+"size": 16,
+"color": "#2b2622",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "",
+"x": 50,
+"y": 50,
+"size": 0,
+"color": "#2b2622",
+"rotate": 0,
+"style": "line"
+},
+{
+"t": "BOARD",
+"x": 50,
+"y": 64,
+"size": 16,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "water under the bridge",
+"alts": [],
+"hint": "forgive and forget",
+"level": 3,
+"elements": [
+{
+"t": "BRIDGE",
+"x": 50,
+"y": 36,
+"size": 16,
+"color": "#2b2622",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "",
+"x": 50,
+"y": 50,
+"size": 0,
+"color": "#2b2622",
+"rotate": 0,
+"style": "line"
+},
+{
+"t": "WATER",
+"x": 50,
+"y": 64,
+"size": 16,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "undercover agent",
+"alts": [],
+"hint": "a spy",
+"level": 3,
+"elements": [
+{
+"t": "COVER",
+"x": 50,
+"y": 36,
+"size": 16,
+"color": "#2b2622",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "",
+"x": 50,
+"y": 50,
+"size": 0,
+"color": "#2b2622",
+"rotate": 0,
+"style": "line"
+},
+{
+"t": "AGENT",
+"x": 50,
+"y": 64,
+"size": 16,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "I understand",
+"alts": [],
+"hint": "you get it",
+"level": 1,
+"elements": [
+{
+"t": "STAND",
+"x": 50,
+"y": 36,
+"size": 16,
+"color": "#2b2622",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "",
+"x": 50,
+"y": 50,
+"size": 0,
+"color": "#2b2622",
+"rotate": 0,
+"style": "line"
+},
+{
+"t": "I",
+"x": 50,
+"y": 64,
+"size": 16,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "under the weather",
+"alts": [],
+"hint": "feeling sick",
+"level": 2,
+"elements": [
+{
+"t": "WEATHER",
+"x": 50,
+"y": 36,
+"size": 16,
+"color": "#2b2622",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "",
+"x": 50,
+"y": 50,
+"size": 0,
+"color": "#2b2622",
+"rotate": 0,
+"style": "line"
+},
+{
+"t": "🤒",
+"x": 50,
+"y": 64,
+"size": 16,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "you are under arrest",
+"alts": [
+"you're under arrest"
+],
+"hint": "police",
+"level": 3,
+"elements": [
+{
+"t": "ARREST",
+"x": 50,
+"y": 36,
+"size": 16,
+"color": "#2b2622",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "",
+"x": 50,
+"y": 50,
+"size": 0,
+"color": "#2b2622",
+"rotate": 0,
+"style": "line"
+},
+{
+"t": "YOU",
+"x": 50,
+"y": 64,
+"size": 16,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "skating on thin ice",
+"alts": [],
+"hint": "risky",
+"level": 3,
+"elements": [
+{
+"t": "SKATING",
+"x": 50,
+"y": 36,
+"size": 16,
+"color": "#2b2622",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "",
+"x": 50,
+"y": 50,
+"size": 0,
+"color": "#2b2622",
+"rotate": 0,
+"style": "line"
+},
+{
+"t": "ice",
+"x": 50,
+"y": 64,
+"size": 16,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "underestimate",
+"alts": [],
+"hint": "think too little of",
+"level": 3,
+"elements": [
+{
+"t": "ESTIMATE",
+"x": 50,
+"y": 36,
+"size": 16,
+"color": "#2b2622",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "",
+"x": 50,
+"y": 50,
+"size": 0,
+"color": "#2b2622",
+"rotate": 0,
+"style": "line"
+},
+{
+"t": "UNDER",
+"x": 50,
+"y": 64,
+"size": 16,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "ready to go",
+"alts": [],
+"hint": "let's leave!",
+"level": 2,
+"elements": [
+{
+"t": "E",
+"x": 30,
+"y": 50,
+"size": 34,
+"color": "#c8453a",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "GO GO",
+"x": 70,
+"y": 50,
+"size": 16,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "seven seas",
+"alts": [
+"the seven seas"
+],
+"hint": "sailing",
+"level": 2,
+"elements": [
+{
+"t": "SEAS ",
+"x": 22,
+"y": 30,
+"size": 11,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "SEAS ",
+"x": 50,
+"y": 30,
+"size": 11,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "SEAS ",
+"x": 78,
+"y": 30,
+"size": 11,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "SEAS ",
+"x": 22,
+"y": 55,
+"size": 11,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "SEAS ",
+"x": 50,
+"y": 55,
+"size": 11,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "SEAS ",
+"x": 78,
+"y": 55,
+"size": 11,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "SEAS ",
+"x": 50,
+"y": 78,
+"size": 11,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "time after time",
+"alts": [],
+"hint": "again and again",
+"level": 2,
+"elements": [
+{
+"t": "TIME",
+"x": 32,
+"y": 50,
+"size": 18,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "TIME",
+"x": 68,
+"y": 50,
+"size": 18,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "day after day",
+"alts": [],
+"hint": "every day",
+"level": 1,
+"elements": [
+{
+"t": "DAY",
+"x": 32,
+"y": 50,
+"size": 18,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "DAY",
+"x": 68,
+"y": 50,
+"size": 18,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "side by side",
+"alts": [],
+"hint": "together",
+"level": 1,
+"elements": [
+{
+"t": "SIDE",
+"x": 32,
+"y": 50,
+"size": 18,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "SIDE",
+"x": 68,
+"y": 50,
+"size": 18,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "big deal",
+"alts": [],
+"hint": "so what?",
+"level": 1,
+"elements": [
+{
+"t": "DEAL",
+"x": 50,
+"y": 50,
+"size": 40,
+"color": "#2b2622",
+"rotate": 0,
+"style": "bold"
+}
+],
+"lang": "en"
+},
+{
+"answer": "small potatoes",
+"alts": [],
+"hint": "not important",
+"level": 3,
+"elements": [
+{
+"t": "potatoes",
+"x": 50,
+"y": 50,
+"size": 6,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "small talk",
+"alts": [],
+"hint": "chit-chat",
+"level": 2,
+"elements": [
+{
+"t": "talk",
+"x": 50,
+"y": 50,
+"size": 6,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "big shot",
+"alts": [],
+"hint": "an important person",
+"level": 2,
+"elements": [
+{
+"t": "SHOT",
+"x": 50,
+"y": 50,
+"size": 40,
+"color": "#2b2622",
+"rotate": 0,
+"style": "bold"
+}
+],
+"lang": "en"
+},
+{
+"answer": "backpedal",
+"alts": [
+"back pedal"
+],
+"hint": "change your mind",
+"level": 3,
+"elements": [
+{
+"t": "PEDAL",
+"x": 50,
+"y": 50,
+"size": 18,
+"color": "#2b2622",
+"rotate": 0,
+"style": "mirror"
+}
+],
+"lang": "en"
+},
+{
+"answer": "backfire",
+"alts": [
+"back fire"
+],
+"hint": "plan goes wrong",
+"level": 2,
+"elements": [
+{
+"t": "FIRE",
+"x": 50,
+"y": 50,
+"size": 20,
+"color": "#c8453a",
+"rotate": 0,
+"style": "mirror"
+}
+],
+"lang": "en"
+},
+{
+"answer": "backtrack",
+"alts": [
+"back track"
+],
+"hint": "go back",
+"level": 3,
+"elements": [
+{
+"t": "TRACK",
+"x": 50,
+"y": 50,
+"size": 18,
+"color": "#2b2622",
+"rotate": 0,
+"style": "mirror"
+}
+],
+"lang": "en"
+},
+{
+"answer": "uptown",
+"alts": [],
+"hint": "part of the city",
+"level": 2,
+"elements": [
+{
+"t": "TOWN",
+"x": 50,
+"y": 50,
+"size": 18,
+"color": "#2b2622",
+"rotate": 0,
+"style": "up"
+}
+],
+"lang": "en"
+},
+{
+"answer": "downtown",
+"alts": [],
+"hint": "city centre",
+"level": 1,
+"elements": [
+{
+"t": "TOWN",
+"x": 50,
+"y": 50,
+"size": 18,
+"color": "#2b2622",
+"rotate": 0,
+"style": "down"
+}
+],
+"lang": "en"
+},
+{
+"answer": "downstairs",
+"alts": [],
+"hint": "lower floor",
+"level": 1,
+"elements": [
+{
+"t": "STAIRS",
+"x": 50,
+"y": 50,
+"size": 16,
+"color": "#2b2622",
+"rotate": 0,
+"style": "down"
+}
+],
+"lang": "en"
+},
+{
+"answer": "downhill",
+"alts": [],
+"hint": "getting worse",
+"level": 2,
+"elements": [
+{
+"t": "HILL",
+"x": 50,
+"y": 50,
+"size": 18,
+"color": "#2b2622",
+"rotate": 0,
+"style": "down"
+}
+],
+"lang": "en"
+},
+{
+"answer": "upside down",
+"alts": [
+"upside-down"
+],
+"hint": "flipped",
+"level": 1,
+"elements": [
+{
+"t": "SIDE",
+"x": 50,
+"y": 50,
+"size": 22,
+"color": "#2b2622",
+"rotate": 180,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "update",
+"alts": [],
+"hint": "new version",
+"level": 1,
+"elements": [
+{
+"t": "DATE",
+"x": 50,
+"y": 50,
+"size": 18,
+"color": "#2b2622",
+"rotate": 0,
+"style": "up"
+}
+],
+"lang": "en"
+},
+{
+"answer": "download",
+"alts": [],
+"hint": "get a file",
+"level": 1,
+"elements": [
+{
+"t": "LOAD",
+"x": 50,
+"y": 50,
+"size": 18,
+"color": "#2b2622",
+"rotate": 0,
+"style": "down"
+}
+],
+"lang": "en"
+},
+{
+"answer": "upgrade",
+"alts": [],
+"hint": "better model",
+"level": 2,
+"elements": [
+{
+"t": "GRADE",
+"x": 50,
+"y": 50,
+"size": 18,
+"color": "#2b2622",
+"rotate": 0,
+"style": "up"
+}
+],
+"lang": "en"
+},
+{
+"answer": "broken heart",
+"alts": [],
+"hint": "sad love",
+"level": 2,
+"elements": [
+{
+"t": "HE",
+"x": 38,
+"y": 44,
+"size": 18,
+"color": "#c8453a",
+"rotate": -12,
+"style": ""
+},
+{
+"t": "ART",
+"x": 64,
+"y": 56,
+"size": 18,
+"color": "#c8453a",
+"rotate": 12,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "broken promise",
+"alts": [],
+"hint": "didn't keep your word",
+"level": 3,
+"elements": [
+{
+"t": "PROM",
+"x": 34,
+"y": 46,
+"size": 16,
+"color": "#2b2622",
+"rotate": -10,
+"style": ""
+},
+{
+"t": "ISE",
+"x": 66,
+"y": 56,
+"size": 16,
+"color": "#2b2622",
+"rotate": 10,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "crossroads",
+"alts": [],
+"hint": "decide which way",
+"level": 2,
+"elements": [
+{
+"t": "ROADS",
+"x": 50,
+"y": 50,
+"size": 16,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "ROADS",
+"x": 50,
+"y": 50,
+"size": 16,
+"color": "#2b2622",
+"rotate": 90,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "crossword",
+"alts": [],
+"hint": "a puzzle",
+"level": 1,
+"elements": [
+{
+"t": "WORD",
+"x": 50,
+"y": 50,
+"size": 16,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "WORD",
+"x": 50,
+"y": 50,
+"size": 16,
+"color": "#2b2622",
+"rotate": 90,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "reading between the lines",
+"alts": [],
+"hint": "hidden meaning",
+"level": 3,
+"elements": [
+{
+"t": "",
+"x": 50,
+"y": 28,
+"size": 0,
+"color": "#2b2622",
+"rotate": 0,
+"style": "line"
+},
+{
+"t": "READING",
+"x": 50,
+"y": 50,
+"size": 16,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "",
+"x": 50,
+"y": 72,
+"size": 0,
+"color": "#2b2622",
+"rotate": 0,
+"style": "line"
+}
+],
+"lang": "en"
+},
+{
+"answer": "think outside the box",
+"alts": [],
+"hint": "be creative",
+"level": 2,
+"elements": [
+{
+"t": "",
+"x": 50,
+"y": 50,
+"size": 0,
+"color": "#2b2622",
+"rotate": 0,
+"style": "box"
+},
+{
+"t": "THINK",
+"x": 50,
+"y": 14,
+"size": 14,
+"color": "#2b2622",
+"rotate": 0,
+"style": "bold"
+}
+],
+"lang": "en"
+},
+{
+"answer": "raining cats and dogs",
+"alts": [
+"it's raining cats and dogs"
+],
+"hint": "heavy rain",
+"level": 1,
+"elements": [
+{
+"t": "🌧️",
+"x": 50,
+"y": 24,
+"size": 20,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🐱",
+"x": 35,
+"y": 62,
+"size": 18,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🐶",
+"x": 65,
+"y": 62,
+"size": 18,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "piece of cake",
+"alts": [
+"a piece of cake"
+],
+"hint": "very easy",
+"level": 1,
+"elements": [
+{
+"t": "🍰",
+"x": 50,
+"y": 50,
+"size": 34,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "break the ice",
+"alts": [],
+"hint": "start a conversation",
+"level": 1,
+"elements": [
+{
+"t": "🔨",
+"x": 35,
+"y": 50,
+"size": 24,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🧊",
+"x": 65,
+"y": 50,
+"size": 24,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "couch potato",
+"alts": [],
+"hint": "lazy on the sofa",
+"level": 1,
+"elements": [
+{
+"t": "🛋️",
+"x": 38,
+"y": 50,
+"size": 24,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🥔",
+"x": 66,
+"y": 50,
+"size": 24,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "elephant in the room",
+"alts": [
+"the elephant in the room"
+],
+"hint": "the obvious problem nobody mentions",
+"level": 2,
+"elements": [
+{
+"t": "",
+"x": 50,
+"y": 55,
+"size": 0,
+"color": "#2b2622",
+"rotate": 0,
+"style": "box"
+},
+{
+"t": "🐘",
+"x": 50,
+"y": 55,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "ROOM",
+"x": 50,
+"y": 14,
+"size": 12,
+"color": "#2b2622",
+"rotate": 0,
+"style": "bold"
+}
+],
+"lang": "en"
+},
+{
+"answer": "cold feet",
+"alts": [],
+"hint": "nervous before a big step",
+"level": 2,
+"elements": [
+{
+"t": "🥶",
+"x": 50,
+"y": 30,
+"size": 20,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🦶🦶",
+"x": 50,
+"y": 66,
+"size": 20,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "time is money",
+"alts": [],
+"hint": "don't waste it",
+"level": 1,
+"elements": [
+{
+"t": "⏰",
+"x": 30,
+"y": 50,
+"size": 24,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "=",
+"x": 50,
+"y": 50,
+"size": 20,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "💰",
+"x": 70,
+"y": 50,
+"size": 24,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "apple of my eye",
+"alts": [
+"the apple of my eye",
+"apple of your eye"
+],
+"hint": "someone you love most",
+"level": 2,
+"elements": [
+{
+"t": "🍎",
+"x": 35,
+"y": 50,
+"size": 24,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "👁️",
+"x": 66,
+"y": 50,
+"size": 24,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "kill two birds with one stone",
+"alts": [
+"two birds one stone",
+"two birds with one stone"
+],
+"hint": "do two things at once",
+"level": 2,
+"elements": [
+{
+"t": "🐦🐦",
+"x": 38,
+"y": 42,
+"size": 20,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🪨",
+"x": 70,
+"y": 60,
+"size": 20,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "once in a blue moon",
+"alts": [],
+"hint": "very rarely",
+"level": 3,
+"elements": [
+{
+"t": "ONCE",
+"x": 50,
+"y": 26,
+"size": 14,
+"color": "#2b2622",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🌕",
+"x": 50,
+"y": 62,
+"size": 30,
+"color": "#2f6fb0",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "spill the beans",
+"alts": [],
+"hint": "tell the secret",
+"level": 2,
+"elements": [
+{
+"t": "🫘",
+"x": 45,
+"y": 50,
+"size": 22,
+"color": "#2b2622",
+"rotate": 30,
+"style": ""
+},
+{
+"t": "BEANS",
+"x": 58,
+"y": 70,
+"size": 10,
+"color": "#2b2622",
+"rotate": 25,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "don't judge a book by its cover",
+"alts": [
+"dont judge a book by its cover"
+],
+"hint": "looks can deceive",
+"level": 3,
+"elements": [
+{
+"t": "📖",
+"x": 50,
+"y": 44,
+"size": 30,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "COVER",
+"x": 50,
+"y": 78,
+"size": 10,
+"color": "#2b2622",
+"rotate": 0,
+"style": "strike"
+}
+],
+"lang": "en"
+},
+{
+"answer": "moonwalk",
+"alts": [
+"moon walk"
+],
+"hint": "Michael Jackson",
+"level": 2,
+"elements": [
+{
+"t": "🌙",
+"x": 30,
+"y": 50,
+"size": 24,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🚶",
+"x": 60,
+"y": 50,
+"size": 24,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "be there",
+"alts": [
+"bee there"
+],
+"hint": "come on time",
+"level": 3,
+"elements": [
+{
+"t": "🐝",
+"x": 35,
+"y": 50,
+"size": 24,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "📍",
+"x": 66,
+"y": 50,
+"size": 24,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "brainstorm",
+"alts": [
+"brain storm"
+],
+"hint": "ideas session",
+"level": 1,
+"elements": [
+{
+"t": "🧠",
+"x": 35,
+"y": 50,
+"size": 22,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "⛈️",
+"x": 66,
+"y": 50,
+"size": 22,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "starfish",
+"alts": [
+"star fish"
+],
+"hint": "sea animal",
+"level": 1,
+"elements": [
+{
+"t": "⭐",
+"x": 30,
+"y": 50,
+"size": 22,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🐟",
+"x": 64,
+"y": 50,
+"size": 24,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "firefly",
+"alts": [
+"fire fly"
+],
+"hint": "glowing insect",
+"level": 1,
+"elements": [
+{
+"t": "🔥",
+"x": 30,
+"y": 50,
+"size": 22,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🪰",
+"x": 64,
+"y": 50,
+"size": 22,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "rainbow fish",
+"alts": [],
+"hint": "a colourful fish",
+"level": 2,
+"elements": [
+{
+"t": "🌈",
+"x": 50,
+"y": 36,
+"size": 28,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🐟",
+"x": 50,
+"y": 72,
+"size": 20,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "honeymoon",
+"alts": [
+"honey moon"
+],
+"hint": "after the wedding",
+"level": 1,
+"elements": [
+{
+"t": "🍯",
+"x": 34,
+"y": 50,
+"size": 22,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🌙",
+"x": 66,
+"y": 50,
+"size": 22,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "en"
+},
+{
+"answer": "matahari",
+"alts": [],
+"hint": "terbit di timur",
+"level": 1,
+"elements": [
+{
+"t": "👁️",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "📅",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "rumah sakit",
+"alts": [],
+"hint": "tempat dokter",
+"level": 1,
+"elements": [
+{
+"t": "🏠",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🤒",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "kereta api",
+"alts": [],
+"hint": "naik dari stasiun",
+"level": 1,
+"elements": [
+{
+"t": "🚃",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🔥",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "air mata",
+"alts": [],
+"hint": "keluar saat sedih",
+"level": 1,
+"elements": [
+{
+"t": "💧",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "👁️",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "mata air",
+"alts": [],
+"hint": "sumber air",
+"level": 2,
+"elements": [
+{
+"t": "👁️",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "💧",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "buah hati",
+"alts": [],
+"hint": "anak tersayang",
+"level": 2,
+"elements": [
+{
+"t": "🍎",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "❤️",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "tangan kanan",
+"alts": [],
+"hint": "orang kepercayaan",
+"level": 2,
+"elements": [
+{
+"t": "✋",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "➡️",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "kambing hitam",
+"alts": [],
+"hint": "yang disalahkan",
+"level": 2,
+"elements": [
+{
+"t": "🐐",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "⬛",
+"x": 68,
+"y": 50,
+"size": 22,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "kutu buku",
+"alts": [],
+"hint": "suka membaca",
+"level": 1,
+"elements": [
+{
+"t": "KUTU",
+"x": 32,
+"y": 50,
+"size": 14,
+"color": "#2b2622",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "📚",
+"x": 70,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "cuci mata",
+"alts": [],
+"hint": "jalan-jalan lihat yang indah",
+"level": 2,
+"elements": [
+{
+"t": "🧼",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "👁️",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "rumah makan",
+"alts": [],
+"hint": "tempat makan",
+"level": 1,
+"elements": [
+{
+"t": "🏠",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🍽️",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "sapu tangan",
+"alts": [],
+"hint": "untuk lap keringat",
+"level": 2,
+"elements": [
+{
+"t": "🧹",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "✋",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "tanah air",
+"alts": [],
+"hint": "negeri sendiri",
+"level": 2,
+"elements": [
+{
+"t": "🟫",
+"x": 32,
+"y": 50,
+"size": 22,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "💧",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "naik darah",
+"alts": [],
+"hint": "marah",
+"level": 2,
+"elements": [
+{
+"t": "⬆️",
+"x": 32,
+"y": 50,
+"size": 24,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🩸",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "jam tangan",
+"alts": [],
+"hint": "dipakai di pergelangan",
+"level": 1,
+"elements": [
+{
+"t": "⏰",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "✋",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "bola mata",
+"alts": [],
+"hint": "bagian mata",
+"level": 1,
+"elements": [
+{
+"t": "⚽",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "👁️",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "meja hijau",
+"alts": [],
+"hint": "pengadilan",
+"level": 3,
+"elements": [
+{
+"t": "MEJA",
+"x": 50,
+"y": 50,
+"size": 26,
+"color": "#3f8a4f",
+"rotate": 0,
+"style": "bold"
+}
+],
+"lang": "id"
+},
+{
+"answer": "anak emas",
+"alts": [],
+"hint": "yang paling disayang",
+"level": 2,
+"elements": [
+{
+"t": "👶",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🥇",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "kepala batu",
+"alts": [],
+"hint": "keras kepala",
+"level": 2,
+"elements": [
+{
+"t": "KEPALA",
+"x": 36,
+"y": 50,
+"size": 13,
+"color": "#2b2622",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🪨",
+"x": 74,
+"y": 50,
+"size": 24,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "otak udang",
+"alts": [],
+"hint": "kurang pintar",
+"level": 2,
+"elements": [
+{
+"t": "🦐",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🧠",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "bunga desa",
+"alts": [],
+"hint": "gadis tercantik di kampung",
+"level": 3,
+"elements": [
+{
+"t": "🌸",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🏘️",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "jam karet",
+"alts": [],
+"hint": "suka telat",
+"level": 2,
+"elements": [
+{
+"t": "⏰",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "KARET",
+"x": 70,
+"y": 50,
+"size": 13,
+"color": "#2b2622",
+"rotate": 0,
+"style": "bold"
+}
+],
+"lang": "id"
+},
+{
+"answer": "naik daun",
+"alts": [],
+"hint": "sedang terkenal",
+"level": 2,
+"elements": [
+{
+"t": "⬆️",
+"x": 32,
+"y": 50,
+"size": 24,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🍃",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "panjang tangan",
+"alts": [],
+"hint": "suka mencuri",
+"level": 3,
+"elements": [
+{
+"t": "TANGAN",
+"x": 50,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": "big"
+}
+],
+"lang": "id"
+},
+{
+"answer": "air mata buaya",
+"alts": [],
+"hint": "pura-pura sedih",
+"level": 2,
+"elements": [
+{
+"t": "🐊",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "😢",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "rumah tangga",
+"alts": [],
+"hint": "keluarga",
+"level": 2,
+"elements": [
+{
+"t": "🏠",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🪜",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "ular tangga",
+"alts": [],
+"hint": "permainan dadu",
+"level": 1,
+"elements": [
+{
+"t": "🐍",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🪜",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "kopi susu",
+"alts": [],
+"hint": "minuman",
+"level": 1,
+"elements": [
+{
+"t": "☕",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🥛",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "nasi goreng",
+"alts": [],
+"hint": "makanan favorit",
+"level": 1,
+"elements": [
+{
+"t": "🍚",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🍳",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "ikan asin",
+"alts": [],
+"hint": "lauk kering",
+"level": 1,
+"elements": [
+{
+"t": "🐟",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🧂",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "pisang goreng",
+"alts": [],
+"hint": "gorengan manis",
+"level": 1,
+"elements": [
+{
+"t": "🍌",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🍳",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "ayam goreng",
+"alts": [],
+"hint": "lauk renyah",
+"level": 1,
+"elements": [
+{
+"t": "🐔",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🍳",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "bulan madu",
+"alts": [],
+"hint": "setelah menikah",
+"level": 2,
+"elements": [
+{
+"t": "🌙",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🍯",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "kunci jawaban",
+"alts": [
+"kunci tulisan"
+],
+"hint": "contekan",
+"level": 3,
+"elements": [
+{
+"t": "🔑",
+"x": 32,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "✍️",
+"x": 68,
+"y": 50,
+"size": 26,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "lampu terang",
+"alts": [],
+"hint": "tidak gelap",
+"level": 1,
+"elements": [
+{
+"t": "💡",
+"x": 50,
+"y": 50,
+"size": 34,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "TERANG",
+"x": 50,
+"y": 82,
+"size": 10,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+},
+{
+"answer": "ringan tangan",
+"alts": [],
+"hint": "suka membantu",
+"level": 3,
+"elements": [
+{
+"t": "TANGAN",
+"x": 50,
+"y": 50,
+"size": 10,
+"color": "#2b2622",
+"rotate": 0,
+"style": "small"
+},
+{
+"t": "🪶",
+"x": 78,
+"y": 50,
+"size": 18,
+"color": "#2b2622",
+"rotate": 0,
+"style": ""
+}
+],
+"lang": "id"
+}
+]
