@@ -237,8 +237,23 @@ async def generate_trivia(topic: str, lang: str, levels: list[int], per_level: i
         return kept
 
 
-async def trivia_questions(topics: list[str], lang: str, plan: list[int], rng: random.Random) -> list[dict]:
-    """plan: the level of each question in order. Returns ready-to-play questions."""
+_background: set[asyncio.Task] = set()
+
+
+def keep(task: asyncio.Task) -> asyncio.Task:
+    """Keep a reference to background work so it finishes even if nobody waits for it."""
+    _background.add(task)
+    task.add_done_callback(_background.discard)
+    return task
+
+
+async def trivia_questions(topics: list[str], lang: str, plan: list[int], rng: random.Random,
+                           budget: float = 6.0) -> list[dict]:
+    """plan: the level of each question in order. Returns ready-to-play questions.
+
+    Never waits more than `budget` seconds for the AI: slots the bank can't fill yet get a stand-in
+    question (marked "fallback" with the wanted topic/level). Generation keeps running in the
+    background, and the game swaps the stand-ins for real ones before they're shown (see trivia_fill)."""
     topics = [t for t in topics if t in TOPICS] or ["general"]
     order = [topics[i % len(topics)] for i in range(len(plan))]
     rng.shuffle(order)
@@ -258,7 +273,9 @@ async def trivia_questions(topics: list[str], lang: str, plan: list[int], rng: r
         for lv in lvls:
             pools[(t, lv)] = await pick_from_bank(t, lv, lang, need[(t, lv)])
 
-    await asyncio.gather(*(top_up(t) for t in missing_topics))
+    tasks = [keep(asyncio.create_task(top_up(t))) for t in missing_topics]
+    if tasks:
+        await asyncio.wait(tasks, timeout=budget)
     out = []
     used_ids = set()
     for t, lv in zip(order, plan):
@@ -280,10 +297,14 @@ async def trivia_questions(topics: list[str], lang: str, plan: list[int], rng: r
                         pool = extra
                         break
         if not pool:
-            qd = data_question("capitals", lv, lang, rng)
+            # Stand-in until the AI catches up: a data question at the same level.
+            qd = data_question(rng.choice(["capitals", "flags"]), lv, lang, rng)
+            qd.update({"fallback": True, "want": {"topic": t, "level": lv}})
         else:
             rec = pool.pop(0)
             qd = {"qid": rec["id"], "topic": t, "level": rec["level"], **rec["q"], "source": "ai"}
+            if rec["level"] != lv:
+                qd.update({"fallback": True, "want": {"topic": t, "level": lv}})
         used_ids.add(qd["qid"])
         out.append(qd)
     # Mark as used.
@@ -293,6 +314,44 @@ async def trivia_questions(topics: list[str], lang: str, plan: list[int], rng: r
                 await pb.update("bg_questions", qd["qid"], {"used+": 1, "last_used": util.pb_now()})
             except PBError:
                 pass
+    return out
+
+
+async def trivia_fill(slots: list[dict], lang: str, exclude: list[str], wait: bool = True) -> dict[int, dict]:
+    """Real questions for stand-in slots, once the background generation is done.
+    slots: [{i, topic, level}] → {i: question}. wait=False: only what the bank has right now."""
+    for t in ({sl["topic"] for sl in slots} if wait else ()):
+        lock = _gen_locks.setdefault((t, lang), asyncio.Lock())
+        try:  # wait for a running generation of this topic (bounded)
+            await asyncio.wait_for(lock.acquire(), timeout=90)
+            lock.release()
+        except asyncio.TimeoutError:
+            pass
+    used = set(exclude)
+    out: dict[int, dict] = {}
+    missing: list[dict] = []
+    for sl in slots:
+        got = await pick_from_bank(sl["topic"], sl["level"], lang, 1, exclude=used)
+        if got:
+            rec = got[0]
+            used.add(rec["id"])
+            out[sl["i"]] = {"qid": rec["id"], "topic": sl["topic"], "level": rec["level"], **rec["q"], "source": "ai"}
+        else:
+            missing.append(sl)
+    if missing and wait:  # one more try: generate exactly what's still missing
+        for t in {sl["topic"] for sl in missing}:
+            lvls = sorted({sl["level"] for sl in missing if sl["topic"] == t})
+            await generate_trivia(t, lang, lvls, per_level=3)
+        for sl in missing:
+            got = await pick_from_bank(sl["topic"], sl["level"], lang, 1, exclude=used)
+            if got:
+                used.add(got[0]["id"])
+                out[sl["i"]] = {"qid": got[0]["id"], "topic": sl["topic"], "level": got[0]["level"], **got[0]["q"], "source": "ai"}
+    for qd in out.values():
+        try:
+            await pb.update("bg_questions", qd["qid"], {"used+": 1, "last_used": util.pb_now()})
+        except PBError:
+            pass
     return out
 
 
@@ -372,9 +431,9 @@ async def draw_words(lang: str, level: int, n: int, theme: str, rng: random.Rand
               + (f"Personal theme from the players (use it for about half of the words): {theme[:300]}." if theme else ""))
     words: list[str] = []
     try:
-        data = await ai.generate([prompt], schema=WORDS_SCHEMA)
+        data = await asyncio.wait_for(ai.generate([prompt], schema=WORDS_SCHEMA), timeout=10)
         words = [w.strip() for w in data.get("words", []) if 1 <= len(w.strip()) <= 30]
-    except ai.AIUnavailable as e:
+    except (ai.AIUnavailable, asyncio.TimeoutError) as e:
         log.info("draw words fallback: %s", e)
     seen, out = set(), []
     for w in words:
@@ -462,7 +521,8 @@ async def rebus_puzzles(lang: str, n: int, use_ai: bool, rng: random.Random) -> 
         bank = await pb.all("bg_questions", filter=f"kind = 'rebus' && lang = {q(lang)} && status = 'ok'",
                             sort="used,@random")
         if len(bank) < n:
-            await generate_rebus(lang, max(6, n))
+            # New AI puzzles for next time; wait a little, the built-in bank fills the rest now.
+            await asyncio.wait([keep(asyncio.create_task(generate_rebus(lang, max(6, n))))], timeout=8)
             bank = await pb.all("bg_questions", filter=f"kind = 'rebus' && lang = {q(lang)} && status = 'ok'",
                                 sort="used,@random")
         for rec in bank[: n // 2]:

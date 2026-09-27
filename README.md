@@ -25,6 +25,12 @@ Arena Ular (snake with computer snakes). Rules summaries: `web/js/i18n.js` (RULE
   double-checked by a second call (smart model), time-sensitive facts banned, reports quarantine questions and
   feed "lessons" into later prompts, background filler (max 30 batches/day); rebus puzzles (built-in + AI with
   solve-check); drawing words (levels + personal theme); AI judge ranks drawings (PNG rendered with Pillow).
+- **AI never blocks a game:** content is prepared while players are still in the lobby (restarted when the host
+  changes options); pressing Start waits at most ~6–8 s for the AI (plus the 3-2-1). Slots the AI hasn't filled
+  yet get stand-in questions (data questions / nearest level); generation continues in the background and the
+  room swaps stand-ins for real questions before they are shown (`ai_need` → `fulfil` → `provide`). Rebus uses the
+  built-in bank while new AI puzzles generate; drawing words fall back to built-in lists after 10 s; the AI judge
+  gives up after 45 s (equal points).
 - **Web** (`web/`): plain ES modules, one module per game in `web/js/games/`, synthesized sounds (`sound.js`),
   ID/EN (`i18n.js`), light/dark, service worker + push.
 

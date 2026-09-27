@@ -211,7 +211,7 @@ export async function renderRoom(root, code) {
     if (r.status === "starting") {
       overlay.append(el("div", { class: "overlay" }, el("div", { class: "box" }, el("div", { class: "big-msg", text: "🎲" }),
         el("h2", { text: L("Menyiapkan permainan…", "Getting the game ready…") }),
-        el("p", { class: "muted", text: L("Soal & kata disiapkan (bisa ±20 detik untuk soal baru dari AI).", "Preparing questions and words (new AI questions can take ~20 s).") }))))
+        el("p", { class: "muted", text: L("Soal & kata disiapkan — maksimal ±10 detik. Soal AI yang belum siap akan menyusul di tengah permainan.", "Preparing questions and words — 10 s at most. AI questions that aren’t ready yet slip in during the game.") }))))
       return
     }
     if (r.status === "paused" && r.countdown > 0) {

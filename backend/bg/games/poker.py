@@ -21,6 +21,7 @@ class Poker(Game):
     key, name_id, name_en, icon = "poker", "Poker", "Poker", "♠️"
     min_players, max_players = 2, 6
     santai_ok = False
+    prefetch = False  # wallets must be read at the moment the game starts
     default_timer = 45
     options = []
 

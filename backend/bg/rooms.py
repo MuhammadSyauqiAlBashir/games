@@ -68,6 +68,8 @@ class Room:
         self.task: asyncio.Task | None = None
         self.pending_needs: set[str] = set()
         self.frame_no = 0
+        self.prefetch_task: asyncio.Task | None = None
+        self.prefetch_key = ""
 
     # ---- clock ----------------------------------------------------------------------
     def clock(self) -> float:
@@ -173,6 +175,7 @@ class Room:
                 self.assign_teams()
             self.gone_since.pop(uid, None)
             self.dirty = True
+            self.schedule_prefetch()
         await self.send(ws, {"t": "hello", "you": uid, "chat": list(self.chat)})
         await self.broadcast_room()
         if self.game:
@@ -240,6 +243,7 @@ class Room:
             await self.broadcast_room()
         elif t == "options" and uid == self.host and self.status == "lobby":
             self.set_options(msg.get("options") or {})
+            self.schedule_prefetch()
             await self.broadcast_room()
         elif t == "mode" and uid == self.host and self.status == "lobby":
             self.mode = "santai" if msg.get("mode") == "santai" and self.cls.santai_ok else "live"
@@ -322,6 +326,48 @@ class Room:
                 self.options[k] = v
         self.dirty = True
 
+    # ---- preparing content while players are still in the lobby -----------------------------------
+    def content_key(self) -> str:
+        # Most content depends only on the options; Tebak Gambar also needs words for every drawer.
+        seats = len(self.seats) if getattr(self.cls, "content_per_player", False) else 0
+        return json.dumps([self.full_options(), seats], sort_keys=True, default=str)
+
+    def schedule_prefetch(self):
+        """Start generating questions/words in the background so pressing Start is instant."""
+        if self.status != "lobby" or not getattr(self.cls, "prepare", None) or not getattr(self.cls, "prefetch", True):
+            return
+        key = self.content_key()
+        if key == self.prefetch_key:
+            return
+        self.prefetch_key = key
+        seats, opts = [dict(s) for s in self.seats], self.full_options()
+        seed = self.rng.random()
+
+        async def run():
+            await asyncio.sleep(1.5)  # settle: options often change several times in a row
+            return await self.cls.prepare(seats, opts, random.Random(seed))
+
+        self.prefetch_task = asyncio.create_task(run())
+        self.prefetch_task.add_done_callback(lambda t: t.cancelled() or t.exception())
+
+    async def prepared_content(self, opts: dict):
+        prep = getattr(self.cls, "prepare", None)
+        if not prep:
+            return None
+        task = self.prefetch_task
+        result = None
+        if task and self.prefetch_key == self.content_key():
+            try:
+                result = await asyncio.wait_for(asyncio.shield(task), timeout=15)  # bounded: prepare caps its own AI wait
+            except Exception as e:  # noqa: BLE001 - fall back to preparing now
+                log.warning("prefetch not usable: %s", e)
+        if result is None:
+            result = await prep([dict(s) for s in self.seats], opts, self.rng)
+        refresh = getattr(self.cls, "refresh", None)
+        if refresh:
+            result = await refresh(result, opts)
+        return result
+
     def full_options(self) -> dict:
         out = {o["key"]: o["default"] for o in self.cls.options}
         out.update({k: v for k, v in self.options.items()})
@@ -345,10 +391,11 @@ class Room:
         self.status = "starting"
         await self.broadcast_room()
         try:
-            prep = getattr(self.cls, "prepare", None)
             opts = self.full_options()
-            if prep:
-                opts["__content"] = await prep([dict(s) for s in self.seats], opts, self.rng)
+            content_ = await self.prepared_content(opts)
+            if content_ is not None:
+                opts["__content"] = content_
+            self.prefetch_task, self.prefetch_key = None, ""
         except Exception as e:  # noqa: BLE001
             log.exception("prepare failed")
             self.status = "lobby"
@@ -358,6 +405,7 @@ class Room:
         players = [{"id": s["id"], "name": s["name"], "team": s["team"], "avatar": s["avatar"], "color": s["color"]}
                    for s in self.seats]
         self.clock_base, self.run_since = 0.0, None
+        self.pending_needs = set()
         state = self.cls.setup(players, opts, self.rng, 0.0)
         self.game = self.cls(state, self.rng)
         self.started_at = time.time()
@@ -513,6 +561,7 @@ class Room:
         asyncio.create_task(self._fulfil(need))
 
     async def _fulfil(self, need):
+        log.info("room %s: working on %s in the background", self.code, need.get("kind"))
         try:
             result = await self.cls.fulfil(need, self.full_options())
         except Exception as e:  # noqa: BLE001
@@ -521,6 +570,7 @@ class Room:
         async with self.lock:
             if self.game and (self.game.s.get("ai_need") or {}).get("id") == need["id"]:
                 events = self.game.provide(need, result, self.clock())
+                log.info("room %s: %s done (%s)", self.code, need.get("kind"), events)
                 await self.after_move(events)
 
     # ---- realtime frames ---------------------------------------------------------------------
@@ -578,6 +628,7 @@ class Room:
 
     def back_to_lobby(self):
         self.status = "lobby"
+        self.prefetch_key = ""
         self.game = None
         self.end_info = None
         self.rematch = set()
@@ -678,6 +729,7 @@ class Rooms:
             room = Room(code, game_key, mode, host, {})
             room.set_options(options)
             self.start(room)
+            room.schedule_prefetch()
             await room.save()
             return room
 

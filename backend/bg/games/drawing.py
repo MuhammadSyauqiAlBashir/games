@@ -14,6 +14,7 @@ Coordinates are 0..1000 on a square canvas."""
 
 from __future__ import annotations
 
+import asyncio
 import io
 import logging
 
@@ -62,6 +63,7 @@ THEME_OPT = opt("theme", "Tema pribadi (opsional)", "Personal theme (optional)",
 class DrawGuess(Game):
     key, name_id, name_en, icon = "drawguess", "Tebak Gambar", "Draw & Guess", "🎨"
     kind = "timed"
+    content_per_player = True
     min_players, max_players = 2, 6
     options = [
         opt("rounds", "Putaran", "Rounds", "select", 2, [ch(n, str(n)) for n in (1, 2, 3)]),
@@ -314,7 +316,7 @@ class DrawJudge(Game):
                   f"Score each drawing 0-100 for how clearly it shows \"{word}\" (recognisability matters more than art "
                   f"skill). For each: a one-sentence comment in {language} and what it looks like (looks_like, same "
                   f"language). Labels: {', '.join(k for k in labels if need['canvas'][labels[k]])}.")
-        data = await ai.generate([prompt] + parts, schema=JUDGE_SCHEMA, smart=True)
+        data = await asyncio.wait_for(ai.generate([prompt] + parts, schema=JUDGE_SCHEMA, smart=True), timeout=45)
         out = []
         for r in data.get("ranking", []):
             pid = labels.get(str(r.get("label", "")).strip().upper()[:1])

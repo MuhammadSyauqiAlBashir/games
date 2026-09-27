@@ -198,7 +198,39 @@ class Trivia(QuizBase):
 
     @classmethod
     def setup(cls, players, options, rng, now):
-        return cls.base_state(players, options, (options.get("__content") or {}).get("qs", []))
+        s = cls.base_state(players, options, (options.get("__content") or {}).get("qs", []))
+        slots = [{"i": i, **q["want"]} for i, q in enumerate(s["qs"]) if q.get("fallback")]
+        if slots:  # the AI was slow: ask for the real questions in the background
+            s["ai_need"] = {"id": "fill-1", "kind": "trivia_fill", "slots": slots, "lang": s["lang"],
+                            "have": [q.get("qid", "") for q in s["qs"]]}
+        return s
+
+    @classmethod
+    async def fulfil(cls, need, options):
+        return await content.trivia_fill(need["slots"], need["lang"], need.get("have", []))
+
+    @classmethod
+    async def refresh(cls, prepared, options):
+        """Prepared in the lobby with stand-ins? Use whatever real questions arrived since then."""
+        qs = prepared.get("qs", [])
+        slots = [{"i": i, **q["want"]} for i, q in enumerate(qs) if q.get("fallback")]
+        if slots:
+            got = await content.trivia_fill(slots, options.get("lang", "id"), [q.get("qid", "") for q in qs], wait=False)
+            for i, q in got.items():
+                qs[i] = q
+        return prepared
+
+    def provide(self, need, result, now):
+        """Swap stand-ins for the real questions — only those not shown yet."""
+        s = self.s
+        s["ai_need"] = None
+        swapped = 0
+        for i, q in (result or {}).items():
+            i = int(i)
+            if i > s["i"] or (i == s["i"] and s["phase"] == "intro"):
+                s["qs"][i] = q
+                swapped += 1
+        return [{"e": "filled", "n": swapped}] if swapped else []
 
     def public_question(self, cur, reveal):
         d = {"q": cur["q"], "choices": cur["choices"], "flag": cur.get("flag"), "topic": cur.get("topic"),
