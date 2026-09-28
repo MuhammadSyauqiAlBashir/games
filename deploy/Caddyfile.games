@@ -1,0 +1,30 @@
+# BashGames: static app + /api and /ws (WebSocket) -> 127.0.0.1:8300
+games.bashir.my.id {
+	import security
+	encode zstd gzip
+
+	header {
+		Content-Security-Policy "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' wss://games.bashir.my.id; manifest-src 'self'; worker-src 'self'; media-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"
+		Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+		Cross-Origin-Resource-Policy "same-origin"
+		X-Robots-Tag "noindex, nofollow"
+	}
+
+	handle /api/* {
+		request_body {
+			max_size 1MB
+		}
+		reverse_proxy 127.0.0.1:8300
+	}
+	handle /ws/* {
+		reverse_proxy 127.0.0.1:8300
+	}
+	handle {
+		root * /srv/bashgames
+		@static path /icons/* /fonts/* /flags/*
+		@other not path /icons/* /fonts/* /flags/*
+		header @static Cache-Control "public, max-age=604800"
+		header @other Cache-Control "no-cache"
+		file_server
+	}
+}
