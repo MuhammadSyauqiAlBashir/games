@@ -527,3 +527,15 @@ dialog::backdrop { background: rgba(30, 20, 10, .45); }
 .fl-pad { display: grid; grid-template-columns: repeat(3, 66px); grid-template-rows: repeat(2, 58px); gap: 6px; justify-content: center; margin-top: 10px; }
 .fl-pad .mp-btn { min-height: 0; padding: 0; }
 .fl-u { grid-column: 2; grid-row: 1; } .fl-l { grid-column: 1; grid-row: 2; } .fl-d { grid-column: 2; grid-row: 2; } .fl-r { grid-column: 3; grid-row: 2; }
+@media (max-height: 720px) {
+  .mp { max-width: min(100%, 640px, calc((100dvh - 330px) * 1.1)); }
+  .mp-q { font-size: 14.5px; padding: 6px 10px; margin-top: 6px; }
+  .mp-q small { font-size: 11px; }
+  .mp-btn { min-height: 48px; padding: 8px 6px; }
+  .mp-btn.huge { min-height: 60px; font-size: 22px; }
+  .mp-btn .em { font-size: 24px; }
+  .mp-joy { width: 100px; height: 100px; }
+  .mp-joy.x { width: 180px; height: 66px; }
+  .mp-hud { margin-bottom: 4px; }
+  .mp-stand { margin-top: 6px; }
+}
