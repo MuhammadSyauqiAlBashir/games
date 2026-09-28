@@ -48,7 +48,12 @@ export async function route() {
       el("button", { class: "btn primary", onclick: route, text: L("Coba lagi", "Try again") }))))
   }
 }
-window.addEventListener("hashchange", route)
+window.addEventListener("hashchange", () => { const a = $("#app"); if (a) a.scrollTop = 0; route() })
+
+// No pinch / double-tap zoom anywhere (iOS ignores user-scalable=no in some cases).
+for (const t of ["gesturestart", "gesturechange", "gestureend"]) document.addEventListener(t, (e) => e.preventDefault(), { passive: false })
+document.addEventListener("touchmove", (e) => { if (e.touches.length > 1 || (e.scale !== undefined && e.scale !== 1)) e.preventDefault() }, { passive: false })
+
 export const go = (h) => { if (location.hash === `#${h}`) route(); else location.hash = h }
 
 // ---------------------------------------------------------------------------------------------------------

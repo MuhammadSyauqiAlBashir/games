@@ -73,7 +73,7 @@ export function mount(stage, ctx) {
   function fit() {
     const isV = window.innerHeight > window.innerWidth * 1.15
     const top = wrap.getBoundingClientRect().top
-    const avail = Math.max(190, window.innerHeight - Math.max(0, top) - 70)
+    const avail = Math.max(190, window.innerHeight - Math.max(0, top) - 92)
     const width = stage.clientWidth || window.innerWidth
     if (isV) {
       const h = Math.min(avail, width * 100 / 42 * 0.98)

@@ -5,7 +5,7 @@ import { pcard } from "./common.js?v=__VERSION__"
 
 export function mount(stage, ctx) {
   const st = el("div", { class: "status-line" })
-  const table = el("div", { class: "felt", style: { position: "relative", width: "min(100%, calc(56vh * 1.25))", maxWidth: "760px", margin: "0 auto", aspectRatio: "1.25", borderRadius: "48%/42%", border: "10px solid #7a4a2a" } })
+  const table = el("div", { class: "felt", style: { position: "relative", width: "min(100%, calc(50dvh * 1.25))", maxWidth: "760px", margin: "0 auto", aspectRatio: "1.25", borderRadius: "48%/42%", border: "10px solid #7a4a2a" } })
   const meRow = el("div", { class: "row", style: { justifyContent: "center", gap: "12px", marginTop: "10px" } })
   const actions = el("div", { class: "action-bar" })
   const raiseBox = el("div", { class: "card", hidden: true, style: { maxWidth: "520px", margin: "0 auto" } })

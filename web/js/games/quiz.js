@@ -4,7 +4,7 @@ import { avatar, el, svg } from "../lib.js?v=__VERSION__"
 const LEVEL = { 1: ["Mudah", "Easy", "×1"], 2: ["Sedang", "Medium", "×2"], 3: ["Sulit", "Hard", "×3"], 4: ["Ahli", "Expert", "×5"] }
 
 export function rebusSvg(elements) {
-  const g = svg("svg", { viewBox: "0 0 100 100", style: "width:100%;max-width:320px;height:auto;display:block;margin:0 auto" })
+  const g = svg("svg", { viewBox: "0 0 100 100", style: "width:100%;max-width:min(320px, 36dvh);height:auto;display:block;margin:0 auto" })
   g.append(svg("rect", { x: 1, y: 1, width: 98, height: 98, rx: 8, fill: "#fffdf8", stroke: "#e5d9c8" }))
   for (const e of elements || []) {
     const style = e.style || ""

@@ -3,7 +3,7 @@ import { el } from "../lib.js?v=__VERSION__"
 
 export function mount(stage, ctx) {
   const info = el("div", { class: "row between small", style: { padding: "0 4px 6px", fontWeight: 800 } })
-  const wrap = el("div", { style: { position: "relative", width: "100%", maxWidth: "760px", margin: "0 auto", aspectRatio: "1", maxHeight: "calc(100vh - 210px)", borderRadius: "22px", overflow: "hidden", boxShadow: "var(--shadow-lg)", touchAction: "none", background: "#1f2b25" } })
+  const wrap = el("div", { style: { position: "relative", width: "100%", maxWidth: "760px", margin: "0 auto", aspectRatio: "1", maxHeight: "calc(100dvh - 210px)", borderRadius: "22px", overflow: "hidden", boxShadow: "var(--shadow-lg)", touchAction: "none", background: "#1f2b25" } })
   const cv = el("canvas", { style: { width: "100%", height: "100%", display: "block", touchAction: "none" } })
   const boost = el("button", { type: "button", style: { position: "absolute", right: "14px", bottom: "14px", width: "70px", height: "70px", borderRadius: "50%", border: 0, fontSize: "30px", background: "rgba(255,255,255,.85)", boxShadow: "var(--shadow)" }, text: "🚀" })
   const board = el("div", { style: { position: "absolute", left: "10px", top: "10px", background: "rgba(0,0,0,.35)", color: "#fff", borderRadius: "12px", padding: "6px 10px", fontSize: "12px", fontWeight: 800 } })
