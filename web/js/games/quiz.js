@@ -31,7 +31,31 @@ export function mountQuiz(stage, ctx, kind) {
   const others = el("div", { class: "row wrap", style: { justifyContent: "center", margin: "10px 0" } })
   const foot = el("div", { class: "row between", style: { marginTop: "8px" } })
   stage.append(card, answers, others, foot)
-  let lastI = -1, input = null, V = null, hintTimer = null
+  let lastI = -1, V = null, hintTimer = null, cardKey = null
+  const typed = {
+    input: el("input", { type: "text", autocomplete: "off", autocapitalize: "off", autocorrect: "off", spellcheck: "false", enterkeyhint: "send", maxlength: 80 }),
+    tries: el("div", { class: "center small muted", style: { marginTop: "6px" } }),
+    hints: el("div", { class: "center", style: { marginTop: "8px", fontWeight: 800 } }),
+    result: el("div", { class: "center big-msg" }),
+  }
+  const submit = () => { const t = typed.input.value.trim(); if (!t || typed.row.classList.contains("waiting")) return; ctx.send({ text: t }); typed.input.value = ""; typed.input.focus() }
+  typed.input.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); submit() } })
+  // pointerdown + preventDefault keeps the keyboard open while tapping OK
+  const okBtn = el("button", { class: "btn primary big", type: "button", text: "OK", onclick: submit })
+  okBtn.addEventListener("pointerdown", (e) => { if (document.activeElement === typed.input) e.preventDefault() })
+  typed.row = el("div", { class: "answer-row" }, typed.input, okBtn)
+
+  function showHints(v) {
+    const h = []
+    if (kind === "rebus" && v.hints && v.phase === "question" && !(v.mine || {}).final) {
+      const now = ctx.now()
+      if (now >= v.hints.at[0] && v.hints.hint) h.push(`💡 ${v.hints.hint}`)
+      if (now >= v.hints.at[1]) h.push(`🔤 ${v.hints.letters}`)
+    }
+    const text = h.join("  ·  ")
+    if (typed.hints.textContent !== text) typed.hints.textContent = text
+    typed.hints.hidden = !text
+  }
 
   function report(i) {
     const reason = prompt(ctx.L("Apa yang salah? (opsional)", "What's wrong? (optional)"), "") ?? null
@@ -48,7 +72,9 @@ export function mountQuiz(stage, ctx, kind) {
       card.replaceChildren(el("div", { class: "q-card", style: { padding: "40px 18px" } },
         el("div", { class: `q-level lv${v.level}`, text: `${ctx.L("Fase", "Phase")}: ${lv[lang === "en" ? 1 : 0]} ${lv[2]}` }),
         el("div", { class: "big-msg", text: v.i < 0 ? ctx.L("Siap-siap!", "Get ready!") : ctx.L("Makin sulit, makin banyak poin!", "Harder — more points!") })))
-      answers.replaceChildren(); others.replaceChildren(); foot.replaceChildren()
+      if (kind === "trivia") answers.replaceChildren()
+      else { typed.result.hidden = typed.tries.hidden = typed.hints.hidden = true; typed.row.classList.add("waiting"); typed.input.placeholder = ctx.L("Siap-siap…", "Get ready…") }
+      others.replaceChildren(); foot.replaceChildren(); cardKey = null
       return
     }
     if (!q) return
@@ -68,38 +94,37 @@ export function mountQuiz(stage, ctx, kind) {
       if (q.explain) body.push(el("div", { class: "small muted", text: q.explain }))
       if (voided) body.push(el("div", { class: "pill warn", text: ctx.L("Dilaporkan — tidak dihitung", "Reported — doesn't count") }))
     }
-    card.replaceChildren(el("div", { class: "q-card" }, head, body))
+    const key = JSON.stringify([v.i, v.phase, voided, ctx.L("id", "en")])
+    if (key !== cardKey) { cardKey = key; card.replaceChildren(el("div", { class: "q-card" }, head, body)) }
 
     const mine = v.mine || {}
-    answers.replaceChildren()
+    // The typed-answer row is created once and never detached: removing a focused input closes the phone keyboard.
     if (kind === "trivia") {
-      answers.append(el("div", { class: "choices" }, q.choices.map((c, k) => {
+      answers.replaceChildren(el("div", { class: "choices" }, q.choices.map((c, k) => {
         let cls = `choice c${k}`
         if (v.phase === "reveal") cls += k === q.answer ? " right" : mine.c === k ? " wrong picked" : " wrong"
         else if (mine.c === k) cls += " picked"
         return el("button", { class: cls, type: "button", disabled: v.phase !== "question" || mine.final,
           onclick: () => { ctx.sfx.click(); ctx.send({ c: k }) } }, el("span", { class: "k", text: "ABCD"[k] }), el("span", { text: c }))
       })))
-    } else if (v.phase === "question" && !mine.final) {
-      if (!input || lastI !== v.i) {
-        input = el("input", { inputmode: kind === "math" && !/hari|day/i.test(q.q) ? "decimal" : "text", autocomplete: "off", autocapitalize: "off", spellcheck: "false",
-          placeholder: kind === "math" ? ctx.L("Jawaban…", "Answer…") : ctx.L("Tebakanmu…", "Your guess…"), maxlength: 80 })
-        input.addEventListener("keydown", (e) => { if (e.key === "Enter") submit() })
+    } else {
+      if (!answers.contains(typed.row)) answers.replaceChildren(typed.result, typed.row, typed.tries, typed.hints)
+      // The row stays on screen between questions so a phone keyboard that is open stays open.
+      const asking = v.phase === "question" && !mine.final
+      typed.row.hidden = false
+      typed.row.classList.toggle("waiting", !asking)
+      typed.input.inputMode = kind === "math" && !/hari|day/i.test(q.q) ? "decimal" : "text"
+      typed.input.placeholder = asking ? (kind === "math" ? ctx.L("Jawaban…", "Answer…") : ctx.L("Tebakanmu…", "Your guess…"))
+        : ctx.L("Tunggu soal berikutnya…", "Wait for the next question…")
+      if (lastI !== v.i && v.phase === "question") { typed.input.value = ""; if (!matchMedia("(pointer: coarse)").matches || document.activeElement === typed.input) setTimeout(() => typed.input.focus(), 50) }
+      typed.tries.hidden = !(asking && mine.tries)
+      typed.tries.textContent = kind === "math" ? ctx.L(`Salah — sisa ${3 - mine.tries} kesempatan`, `Wrong — ${3 - mine.tries} tries left`) : ctx.L("Belum tepat, coba lagi!", "Not yet — try again!")
+      showHints(v)
+      typed.result.hidden = !mine.final
+      if (mine.final) {
+        typed.result.style.color = mine.ok ? "var(--ok)" : "var(--bad)"
+        typed.result.textContent = mine.ok ? `✓ +${mine.pts}` : ctx.L("✗ Tidak tepat", "✗ Not this time")
       }
-      const submit = () => { const t = input.value.trim(); if (!t) return; ctx.send({ text: t }); input.value = "" }
-      answers.append(el("div", { class: "answer-row" }, input, el("button", { class: "btn primary big", type: "button", text: "OK", onclick: submit })),
-        mine.tries ? el("div", { class: "center small muted", style: { marginTop: "6px" }, text: kind === "math" ? ctx.L(`Salah — sisa ${3 - mine.tries} kesempatan`, `Wrong — ${3 - mine.tries} tries left`) : ctx.L("Belum tepat, coba lagi!", "Not yet — try again!") }) : null)
-      if (kind === "rebus" && v.hints) {
-        const now = ctx.now()
-        const h = []
-        if (now >= v.hints.at[0] && v.hints.hint) h.push(`💡 ${v.hints.hint}`)
-        if (now >= v.hints.at[1]) h.push(`🔤 ${v.hints.letters}`)
-        if (h.length) answers.append(el("div", { class: "center", style: { marginTop: "8px", fontWeight: 800 }, text: h.join("  ·  ") }))
-      }
-      if (lastI !== v.i) setTimeout(() => input && input.focus(), 50)
-    } else if (mine.final) {
-      answers.append(el("div", { class: "center big-msg", style: { color: mine.ok ? "var(--ok)" : "var(--bad)" },
-        text: mine.ok ? `✓ +${mine.pts}` : ctx.L("✗ Tidak tepat", "✗ Not this time") }))
     }
     lastI = v.i
     others.replaceChildren(...ctx.seats().map((p) => {
@@ -111,7 +136,7 @@ export function mountQuiz(stage, ctx, kind) {
     void events
   }
 
-  hintTimer = setInterval(() => { if (V && kind === "rebus" && V.phase === "question") draw(V, []) }, 1000)
+  hintTimer = setInterval(() => { if (V && kind === "rebus" && V.phase === "question") showHints(V) }, 1000)
   return {
     destroy() { clearInterval(hintTimer) },
     update(v, events) {
@@ -122,10 +147,6 @@ export function mountQuiz(stage, ctx, kind) {
         if (e.e === "question") ctx.sfx.pop()
         if (e.e === "level") ctx.sfx.turn()
         if (e.e === "report" && e.who !== ctx.me.id) ctx.toast(ctx.L(`${ctx.name(e.who)} melaporkan soal ini`, `${ctx.name(e.who)} reported this question`))
-      }
-      if (kind === "rebus" && V && V.i === v.i && v.phase === "question" && JSON.stringify(V.mine) === JSON.stringify(v.mine) && JSON.stringify(V.answered) === JSON.stringify(v.answered)) {
-        V = v
-        return
       }
       V = v
       draw(v, events)

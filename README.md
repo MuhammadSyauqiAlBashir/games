@@ -17,7 +17,7 @@ Arena Ular (snake with computer snakes). Rules summaries: `web/js/i18n.js` (RULE
 - **Rooms** (`backend/bg/rooms.py`): WebSocket `/ws/<CODE>`; seats, ready, host options; Live mode pauses for
   everyone when a player drops (grace 3–5 s), resumes after everyone taps Ready + 3-2-1; Santai mode (turn games)
   never pauses and pushes "your turn". Turn timer per room (general default from Profile), safe auto-move on
-  timeout. Rooms are saved to PocketBase (`bg_rooms`) and restored after a restart. Chat, emoji reactions,
+  timeout (an engine can add time while clients replay a slow animation: `anim_seconds`, used by Congklak). Rooms are saved to PocketBase (`bg_rooms`) and restored after a restart. Chat, emoji reactions,
   private events (`to`), realtime frames for Snake, stroke relay for drawing.
 - **End of game** (`awards.py`): podium, awards from game stats, a kind roast for last place, optional loser dare
   (`bg_dares`, tab in `bg_dare_log`), match history (`bg_matches`) → leaderboards, head-to-head, monthly titles.

@@ -73,5 +73,13 @@ export const sfx = {
   capture: () => { tone(200, .15, { type: "square", vol: .12, slide: -80 }); noise(.1, { vol: .15, delay: .05 }) },
   ladder: () => [523, 587, 659, 698, 784].forEach((f, i) => tone(f, .08, { vol: .15, delay: i * .05 })),
   snake: () => tone(700, .5, { type: "sawtooth", vol: .08, slide: -550 }),
+  whistle: () => { tone(2300, .12, { vol: .12 }); tone(2250, .28, { vol: .12, delay: .15, slide: -80 }) },
+  kick: () => { tone(140, .12, { type: "sine", vol: .45, slide: -70 }); noise(.05, { vol: .2, hp: 1200 }) },
+  net: () => { noise(.45, { vol: .22, hp: 2500 }); noise(.3, { vol: .12, hp: 600, delay: .05 }) },
+  glove: () => { tone(110, .1, { type: "triangle", vol: .4, slide: -30 }); noise(.08, { vol: .25, hp: 900 }) },
+  cheer: () => { for (let i = 0; i < 4; i++) noise(.9, { vol: .1, hp: 400 + i * 350, delay: i * .15 }) },
+  groan: () => { tone(220, .6, { type: "sawtooth", vol: .05, slide: -90 }); noise(.7, { vol: .06, hp: 300 }) },
+  seed: (i = 0) => tone(1500 + (i % 5) * 90, .05, { type: "triangle", vol: .16, slide: -500 }),
+  scoop: () => { noise(.12, { vol: .12, hp: 1800 }); tone(420, .09, { type: "triangle", vol: .12, slide: 200 }) },
   cash: () => { tone(1568, .06, { type: "square", vol: .06 }); tone(2093, .2, { type: "square", vol: .06, delay: .07 }) },
 }

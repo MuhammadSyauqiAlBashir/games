@@ -7,7 +7,7 @@ from __future__ import annotations
 from .base import Game, IllegalMove, ch, opt
 
 CHOOSE = 6.0
-RESULT = 3.5
+RESULT = 4.4
 SIDES = ("L", "M", "R")
 
 
@@ -30,7 +30,7 @@ class Penalty(Game):
         mine = s["pick"].get(pid) if pid else None
         return {**self.base_view(), "phase": s["phase"], "deadline": s["deadline"], "shooter": s["shooter"],
                 "keeper": s["keeper"], "history": s["history"], "scores": s["scores"], "kicks": s["kicks"],
-                "mine": mine, "picked": list(s["pick"]), "last": s["last"] if s["phase"] == "result" else None,
+                "mine": mine, "picked": list(s["pick"]), "limit": s["limit"] if s["phase"] == "choose" else (RESULT if s["phase"] == "result" else 2.0), "last": s["last"] if s["phase"] == "result" else None,
                 "sudden": s["sudden"]}
 
     def act(self, pid, a, now):

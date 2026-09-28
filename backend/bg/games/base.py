@@ -82,6 +82,10 @@ class Game:
         """Changes whenever a new decision is expected (resets the turn timer)."""
         return int(self.s.get("turn_no", 0))
 
+    def anim_seconds(self, events: list[dict]) -> float:
+        """Extra turn-timer seconds while the clients replay these events (slow animations)."""
+        return 0.0
+
     def on_timeout(self, now: float) -> list[dict]:
         """The turn timer ran out: make a safe automatic move for the waiting player."""
         return []

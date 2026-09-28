@@ -113,6 +113,19 @@ class Congklak(Game):
         self.next_turn(nxt)
         return ev
 
+    def anim_seconds(self, events):
+        # Matches the slow seed-by-seed replay in web/js/games/congklak.js (a little generous).
+        t = 0.0
+        for ev in events:
+            if ev.get("e") != "sow":
+                continue
+            drops = [d for d in ev["drops"] if d != -1]
+            t += 1.3 + len(ev["pickups"]) * 0.8
+            t += sum(0.46 if k < 20 else max(0.27, 0.46 - (k - 20) * 0.011) for k in range(len(drops)))
+            t += 2.0 if ev.get("capture") else 0.0
+            t += 0.8 if ev.get("again") else 0.0
+        return min(t, 60.0)
+
     def on_timeout(self, now):
         pid = self.s["turn"]
         side = self.s["side"][pid]

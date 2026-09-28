@@ -449,7 +449,11 @@ class Room:
         if self.game.over:
             await self.finish(events)
             return
-        self.update_turn_timer()
+        try:
+            extra = float(self.game.anim_seconds(events))
+        except Exception:  # noqa: BLE001
+            extra = 0.0
+        self.update_turn_timer(extra)
         await self.broadcast_state(events)
         await self.maybe_push_turn()
 
@@ -467,13 +471,13 @@ class Room:
             log.exception("report failed")
 
     # ---- the loop -------------------------------------------------------------------------
-    def update_turn_timer(self):
+    def update_turn_timer(self, extra: float = 0.0):
         if not self.game:
             return
         marker = (self.game.turn_no(), tuple(self.game.turn()))
         if marker != self.turn_marker:
             self.turn_marker = marker
-            self.turn_deadline = self.clock() + self.timer if (self.timer and self.game.turn()) else None
+            self.turn_deadline = self.clock() + self.timer + extra if (self.timer and self.game.turn()) else None
 
     async def maybe_push_turn(self):
         if self.mode != "santai" or not self.game:

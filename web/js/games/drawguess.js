@@ -10,9 +10,14 @@ export function mount(stage, ctx) {
   const guessRow = el("div", { class: "answer-row" })
   stage.append(top, canvasBox, tools, guessRow, feed)
   let cv = null, drawer = null, turnKey = null, lastHints = 0
-  const input = el("input", { placeholder: "…", maxlength: 60, autocomplete: "off", autocapitalize: "off", spellcheck: "false" })
-  const send = () => { const t = input.value.trim(); if (t) { ctx.send({ do: "guess", text: t }); input.value = "" } }
-  input.addEventListener("keydown", (e) => { if (e.key === "Enter") send() })
+  // The guess row is built once and only shown/hidden: detaching a focused input closes the phone keyboard.
+  const input = el("input", { type: "text", placeholder: "…", maxlength: 60, autocomplete: "off", autocapitalize: "off", autocorrect: "off", spellcheck: "false", enterkeyhint: "send" })
+  const send = () => { const t = input.value.trim(); if (t) { ctx.send({ do: "guess", text: t }); input.value = "" } input.focus() }
+  input.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); send() } })
+  const okBtn = el("button", { class: "btn primary big", type: "button", text: "OK", onclick: send })
+  okBtn.addEventListener("pointerdown", (e) => { if (document.activeElement === input) e.preventDefault() })
+  guessRow.append(input, okBtn)
+  guessRow.hidden = true
 
   function feedLine(node) { feed.prepend(node); while (feed.children.length > 30) feed.lastChild.remove() }
 
@@ -65,11 +70,10 @@ export function mount(stage, ctx) {
       } else if (v.phase === "reveal") {
         top.replaceChildren(el("div", { class: "small muted", text: ctx.L("Katanya adalah", "The word was") }), el("div", { class: "big-msg", text: v.word }))
       } else top.replaceChildren()
-      guessRow.replaceChildren()
-      if (v.phase === "draw" && !isDrawer) {
-        input.placeholder = guessed ? ctx.L("Kamu sudah benar! Ngobrol aja…", "You got it! Chat…") : ctx.L("Tebak di sini…", "Guess here…")
-        guessRow.append(input, el("button", { class: "btn primary big", type: "button", text: "OK", onclick: send }))
-      }
+      const showGuess = v.phase === "draw" && !isDrawer
+      if (!showGuess && document.activeElement === input) input.blur()
+      guessRow.hidden = !showGuess
+      input.placeholder = guessed ? ctx.L("Kamu sudah benar! Ngobrol aja…", "You got it! Chat…") : ctx.L("Tebak di sini…", "Guess here…")
     },
   }
 }
