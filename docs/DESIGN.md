@@ -29,3 +29,16 @@
 - **Draw games:** words from Gemini with level + personal theme (fallback lists); AI judge compares all drawings anonymously.
 - **Penalty:** left/middle/right for shooter and keeper; 5 kicks then sudden death.
 - **Snake:** last human alive; shrinking arena; computer snakes (count + skill adjustable); boost.
+
+## Mario minigames + Pesta mode (2026-09-28)
+Owner's picks from the Super Mario Party Jamboree list (first batch of 10) + a party mode. Decisions:
+- Names stay the original Mario names in both languages (UI text is still Indonesian/English). Personal use.
+- Look: bright Jamboree style — bold italic outlined titles, START!/FINISH! banners, chunky 3D buttons, SVG
+  characters drawn in-house.
+- Adapted for 2–4 phones: Fast Fishing is everyone at once (first to N catches); Lost and Pound rotates the hider
+  (dodge +3, hit +1 per striker); Tricky Turntable gives each player a side of the cog (2 buttons each with 2
+  players); Knock-Knock Match is competitive pairs; Talking Flower Says uses 3 hearts; Sled to the Edge is
+  best-of-rounds with ice types.
+- Pesta: 4/6/8/10 minigames (host picks which), coins 10/6/3/0 (3 players 10/5/0, 2 players 10/0), bonus stars
+  (Minigame Star = most wins, So-Close Star = most 2nd places, Steady Star = best average place), +15 each.
+- The dev server no longer runs the trivia filler (it shares the free Gemini quota with production).

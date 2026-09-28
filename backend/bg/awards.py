@@ -45,6 +45,19 @@ AWARDS = {
     "removed": ("✂️", "Si Penghapus", "The Eraser", True),
     "rounds_won": ("🏅", "Juara Ronde", "Round Winner", True),
     "correct": ("✅", "Paling Banyak Benar", "Most Correct", True),
+    "mini_wins": ("🏆", "Raja Minigame", "Minigame Champ", True),
+    "first": ("👀", "Mata Elang", "Eagle Eye", True),
+    "buzz": ("🔔", "Tercepat Pencet Bel", "Fastest Buzzer", True),
+    "boomed": ("💥", "Langganan Meledak", "Bob-omb Magnet", True),
+    "bombs": ("💣", "Dapat Bom Terus", "Bomb Collector", True),
+    "pounds": ("🔨", "Palu Jitu", "Hammer Time", True),
+    "dodges": ("🫥", "Ahli Sembunyi", "Hide-and-Seek Pro", True),
+    "closest": ("🛷", "Rem Paling Pas", "Perfect Stop", True),
+    "splash": ("💦", "Nyebur Terus", "Splash Zone", True),
+    "reaction": ("⚡", "Refleks Kilat", "Lightning Reflexes", False),
+    "snapped": ("🥫", "Dapat Kaleng", "Tin-Can Catcher", True),
+    "oops": ("🌺", "Salah Gerak", "Wrong Move", True),
+    "pairs": ("🚪", "Ingatan Gajah", "Elephant Memory", True),
 }
 
 ROASTS_ID = [
@@ -87,6 +100,8 @@ def fmt_stat(key: str, v) -> str:
         return "Rp" + f"{int(v):,}".replace(",", ".")
     if key == "fastest":
         return f"{v:.1f} s"
+    if key == "reaction":
+        return f"{int(v * 1000)} ms"
     return str(v)
 
 

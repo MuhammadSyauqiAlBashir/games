@@ -3,13 +3,27 @@
 Private multiplayer games for the owner, his wife and close friends — live on everyone's phone.
 https://games.bashir.my.id · same accounts and approval as lyrsync / finance · installable PWA.
 
-## Games (20)
+## Games (31)
 Board & dice: Ludo (4-colour board for 2–4, 6-colour board for 5–6), Ular Tangga, Monopoli (world cities,
 Rupiah, official rules or fast mode), Congklak, Dam (international 10×10), Connect 4, SOS, Tic-tac-toe (any size).
 Cards: UNO (official + house-rule switches), Sequence (teams at 4), Poker (Texas Hold'em, Rp1.000.000 per day),
 Gaple (domino, nyangkul). Quiz & party: Trivia (AI question bank, difficulty phases, ⚑ report), Matematika,
 Tebak Gambar Kata (rebus), Anagrams (English), Tebak Gambar (draw & guess), Gambar & Juri AI. Action: Adu Penalti,
 Arena Ular (snake with computer snakes). Rules summaries: `web/js/i18n.js` (RULES).
+
+**Mario minigames** (Super Mario Party Jamboree style, Mario names in both languages, 2–4 players):
+Thwomp the Difference, Big-Top Quiz, Wario's Buzzer Beater, Sleight of Shell, Tricky Turntable, Lost and Pound,
+Sled to the Edge, Fast Fishing, Talking Flower Says, Knock-Knock Match — each playable alone, or in
+**Pesta Minigame** (`mp_pesta`): minigame roulette → how-to card with everyone tapping SIAP → the minigame →
+coins by placing (10/6/3/0) → … → bonus stars (+15) → most coins wins.
+- Engines: `backend/bg/games/mario.py` (shared `Mini` base: phases with deadlines, START!/FINISH!, 5/3/2/1 points),
+  `mp_watch.py`, `mp_luck.py`, `mp_reflex.py`, `pesta.py` (runs the minigame inside its own state, merges stats).
+  All are `timed` with `loop_dt = 0.05` (the room ticks every 50 ms while playing). Animations are scripted by the
+  server (peek times, shuffles, keyframes) and replayed by every phone from the shared game clock, so everyone
+  sees the same thing. Reaction games trust the phone's own reaction time (Fast Fishing) or release time (Sled).
+- Front end: `web/js/games/mp.js` (HUD, banners, SVG characters: Thwomp, Bob-omb, Toad, Talking Flower, Cooligan,
+  Cheep Cheep, Wario, chests, hammer), one module per minigame (`mp_*.js`), `mp_pesta.js` mounts the minigame
+  module inside the party screens. Tests: `tests/test_mario.py` (every minigame with 2/3/4 players + full Pesta runs).
 
 ## How it works
 - **Server is the referee** (`backend/bg/games/*.py`): every engine keeps its whole state as JSON, rolls dice /

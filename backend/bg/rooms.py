@@ -491,7 +491,8 @@ class Room:
     async def loop(self):
         while True:
             try:
-                await asyncio.sleep(1 / self.cls.tick_hz if self.cls.tick_hz and self.status == "playing" else LOOP_DT)
+                await asyncio.sleep(1 / self.cls.tick_hz if self.cls.tick_hz and self.status == "playing"
+                                    else getattr(self.cls, "loop_dt", LOOP_DT) if self.status == "playing" else LOOP_DT)
                 await self.loop_once()
             except asyncio.CancelledError:
                 raise

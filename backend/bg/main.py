@@ -37,7 +37,9 @@ COLORS = ["#e0655a", "#f0a04b", "#e9c46a", "#7cb87a", "#4fa89b", "#5b9bd5", "#7d
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await ROOMS.restore()
-    tasks = [asyncio.create_task(ROOMS.sweep()), asyncio.create_task(content.filler())]
+    tasks = [asyncio.create_task(ROOMS.sweep())]
+    if not config.DEV:  # the question-bank filler spends the (shared) free Gemini quota: production only
+        tasks.append(asyncio.create_task(content.filler()))
     yield
     for t in tasks:
         t.cancel()
