@@ -3,7 +3,7 @@
 Private multiplayer games for the owner, his wife and close friends — live on everyone's phone.
 https://games.bashir.my.id · same accounts and approval as lyrsync / finance · installable PWA.
 
-## Games (31)
+## Games (57)
 Board & dice: Ludo (4-colour board for 2–4, 6-colour board for 5–6), Ular Tangga, Monopoli (world cities,
 Rupiah, official rules or fast mode), Congklak, Dam (international 10×10), Connect 4, SOS, Tic-tac-toe (any size).
 Cards: UNO (official + house-rule switches), Sequence (teams at 4), Poker (Texas Hold'em, Rp1.000.000 per day),
@@ -24,6 +24,20 @@ coins by placing (10/6/3/0) → … → bonus stars (+15) → most coins wins.
 - Front end: `web/js/games/mp.js` (HUD, banners, SVG characters: Thwomp, Bob-omb, Toad, Talking Flower, Cooligan,
   Cheep Cheep, Wario, chests, hammer), one module per minigame (`mp_*.js`), `mp_pesta.js` mounts the minigame
   module inside the party screens. Tests: `tests/test_mario.py` (every minigame with 2/3/4 players + full Pesta runs).
+
+**More Mario minigames (26, "Minigame Mario lainnya"):** puzzles — Boss Sumo Bro Blitzers (circuit), Hot Cross Blocks,
+Shadow Play, Coin Conveyor; finger — Toad-ally Electric Escape, Bowser Filter, Camera-Ready; timing — Gold 'n Brown,
+Noggin Knock, Lane Change, Slappy-Go-Round, Stone-Eye Bowling, Hammer It Home; live arenas — The Floor Is Falling,
+Hot-Hot Hop, Stamp Out!, Snag the Flags, Sunset Standoff; teams — Robo Arm Wrestle, Rocky Rope Race; rhythm — Rhythm
+Kitchen, DK's Konga Line; sensors — Tilt-a-Golf (tilt), Pickax Dash (shake), Bowser Chicken & Speak Up, Junior! (mic).
+- `mp_solo.py`: **solo races** — everyone plays their own copy (same seed) on the phone, which reports its score
+  ≤4×/s; the server caps the gain rate and ranks the round. Friends-only, so the phone is trusted within limits.
+- `mp_arena.py`: server-refereed puzzles, **live arenas** (`Live` = timed game that steps 20×/s and emits a frame
+  event so the room pushes fresh views), team tapping (teams: 1v1, 1 vs 2 with the solo player ×2, 2v2) and
+  Slappy-Go-Round. Jumps are back-dated to the phone's tap time (≤150 ms) to hide latency.
+- Sensors/mic: iOS asks for motion permission after a tap; the microphone needs `microphone=(self)` in the site's
+  Permissions-Policy (`deploy/Caddyfile.games`). Every sensor game has an on-screen fallback (joystick, tap, hold).
+  Sensor/mic games are off by default in Pesta (tick them in the options).
 
 ## How it works
 - **Server is the referee** (`backend/bg/games/*.py`): every engine keeps its whole state as JSON, rolls dice /

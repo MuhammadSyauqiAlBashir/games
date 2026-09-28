@@ -42,3 +42,10 @@ Owner's picks from the Super Mario Party Jamboree list (first batch of 10) + a p
 - Pesta: 4/6/8/10 minigames (host picks which), coins 10/6/3/0 (3 players 10/5/0, 2 players 10/0), bonus stars
   (Minigame Star = most wins, So-Close Star = most 2nd places, Steady Star = best average place), +15 each.
 - The dev server no longer runs the trivia filler (it shares the free Gemini quota with production).
+
+## Second batch (the 🟡 list, 2026-09-28)
+26 more minigames, all Mario names. Adaptations: solo-race games run on each phone from a shared seed (the phone
+reports its score); arenas are server-simulated at 20 fps; 1-vs-3 games rotate the solo role so it's fair in
+free-for-all; team games use 1v1 / 1v2 (solo counts double) / 2v2; the Kaboom-style co-op rhythm games are
+competitive (best score wins). Sensor and microphone games always have a touch fallback, and are off by default
+in Pesta. Night Lights and Unfriendly Flying Object were left out (duplicates of Pickax Dash / Sunset Standoff).

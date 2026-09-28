@@ -73,7 +73,7 @@ export function optionsForm(g, values = {}, { withMeta = true } = {}) {
           draw()
         } })))
       draw()
-      node.append(el("div", { class: "field" }, el("span", { text: lbl(o) }), box))
+      node.append(el("div", { class: "field" }, el("span", { text: lbl(o) }), box, o.help_id ? el("small", { class: "hint", text: getLang() === "en" ? o.help_en : o.help_id }) : null))
     } else if (o.type === "bool") {
       const cb = el("input", { type: "checkbox", checked: !!vals[o.key], onchange: (e) => { vals[o.key] = e.target.checked } })
       node.append(el("label", { class: "switch", style: { margin: "6px 0 10px" } }, cb, el("span", { text: lbl(o) })))
