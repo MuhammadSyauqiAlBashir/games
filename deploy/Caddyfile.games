@@ -5,7 +5,7 @@ games.bashir.my.id {
 
 	header {
 		Content-Security-Policy "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' wss://games.bashir.my.id; manifest-src 'self'; worker-src 'self'; media-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"
-		Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+		Permissions-Policy "camera=(), microphone=(self), accelerometer=(self), gyroscope=(self), magnetometer=(), geolocation=(), payment=(), usb=()"
 		Cross-Origin-Resource-Policy "same-origin"
 		X-Robots-Tag "noindex, nofollow"
 	}

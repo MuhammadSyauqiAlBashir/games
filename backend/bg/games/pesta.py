@@ -8,13 +8,24 @@ from __future__ import annotations
 
 from .base import IllegalMove, ch, opt, rank_by_score
 from .mario import Mini
+from .mp_arena import (FloorIsFalling, HotCrossBlocks, HotHotHop, RoboArmWrestle, RockyRopeRace, ShadowPlay,
+                       SlappyGoRound, SnagTheFlags, StampOut, SumoCircuit, SunsetStandoff)
+from .mp_solo import (BowserChicken, BowserFilter, CameraReady, CoinConveyor, ElectricEscape, GoldNBrown, HammerItHome,
+                      KongaLine, LaneChange, NogginKnock, PickaxDash, RhythmKitchen, SpeakUpJunior, StoneEyeBowling,
+                      TiltAGolf)
 from .mp_luck import LostAndPound, SleightOfShell, TrickyTurntable
 from .mp_reflex import FastFishing, KnockKnockMatch, SledToTheEdge, TalkingFlowerSays
 from .mp_watch import BigTopQuiz, BuzzerBeater, ThwompDiff
 
 MINIS: list[type[Mini]] = [ThwompDiff, BigTopQuiz, BuzzerBeater, SleightOfShell, TrickyTurntable, LostAndPound,
                            SledToTheEdge, FastFishing, TalkingFlowerSays, KnockKnockMatch]
-BY_KEY = {m.key: m for m in MINIS}
+MINIS2: list[type[Mini]] = [SumoCircuit, HotCrossBlocks, ShadowPlay, CoinConveyor, ElectricEscape, BowserFilter,
+                            CameraReady, GoldNBrown, NogginKnock, LaneChange, SlappyGoRound, StoneEyeBowling,
+                            FloorIsFalling, HotHotHop, StampOut, SnagTheFlags, SunsetStandoff, RoboArmWrestle,
+                            RockyRopeRace, RhythmKitchen, KongaLine, TiltAGolf, PickaxDash, HammerItHome,
+                            BowserChicken, SpeakUpJunior]
+ALL = MINIS + MINIS2
+BY_KEY = {m.key: m for m in ALL}
 COINS = {2: [10, 0], 3: [10, 5, 0], 4: [10, 6, 3, 0]}
 ROULETTE, INTRO, RESULT, BONUS = 4.2, 25.0, 5.5, 9.0
 
@@ -22,13 +33,16 @@ ROULETTE, INTRO, RESULT, BONUS = 4.2, 25.0, 5.5, 9.0
 class Pesta(Mini):
     key, name_id, name_en, icon = "mp_pesta", "Pesta Minigame", "Minigame Party", "🎉"
     options = [opt("count", "Jumlah minigame", "Minigames", "select", 6, [ch(n, str(n)) for n in (4, 6, 8, 10)]),
-               opt("games", "Minigame yang ikut", "Minigames included", "multi", [m.key for m in MINIS],
-                   [ch(m.key, m.name_en) for m in MINIS]),
+               opt("games", "Minigame yang ikut", "Minigames included", "multi",
+                   [m.key for m in ALL if getattr(m, "party_default", True)], [ch(m.key, m.name_en) for m in ALL],
+                   help_id="Game sensor/mikrofon (Tilt-a-Golf, Pickax Dash, Bowser Chicken, Speak Up) tidak ikut kecuali dipilih.",
+                   help_en="Sensor/microphone games (Tilt-a-Golf, Pickax Dash, Bowser Chicken, Speak Up) are off unless chosen."),
                opt("bonus", "Bintang bonus di akhir", "Bonus stars at the end", "bool", True)]
 
     @classmethod
     def setup(cls, players, options, rng, now):
         keys = [k for k in (options.get("games") or []) if k in BY_KEY] or [m.key for m in MINIS]
+        keys = [k for k in keys if BY_KEY[k].min_players <= len(players) <= BY_KEY[k].max_players] or [m.key for m in MINIS]
         n = int(options.get("count", 6))
         order, bag = [], []
         while len(order) < n:
@@ -150,7 +164,7 @@ class Pesta(Mini):
         cur = s["order"][s["idx"]] if 0 <= s["idx"] < len(s["order"]) else None
         return {"phase": s["phase"], "idx": s["idx"], "count": len(s["order"]), "order": s["order"], "key": cur,
                 "coins": s["coins"], "places": s["places"], "ready": s["ready"], "last": s["last"], "bonus": s["bonus"],
-                "deadline": s["deadline"], "t0": s["t0"], "limit": s["limit"], "all": [m.key for m in MINIS]}
+                "deadline": s["deadline"], "t0": s["t0"], "limit": s["limit"], "all": sorted(set(s["order"]))}
 
     def view(self, pid):
         s = self.s

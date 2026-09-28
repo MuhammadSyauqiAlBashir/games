@@ -168,3 +168,150 @@ export function wario() {
 export function emojiText(t, size, extra = {}) {
   return svg("text", { "text-anchor": "middle", "dominant-baseline": "central", "font-size": size, ...extra, text: t })
 }
+
+// ---- helpers for the second batch ----------------------------------------------------------------------------
+export function rng(seed) {
+  let a = seed >>> 0
+  return () => { a = (a + 0x6d2b79f5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296 }
+}
+
+// Sends {v, done} for solo races, at most 4× a second (immediately when done).
+export function reporter(ctx) {
+  let last = 0, sent = -1, timer = 0, pend = null, finished = false
+  const flush = () => { timer = 0; if (!pend) return; ctx.send(pend); sent = pend.v; last = performance.now(); pend = null }
+  return {
+    set(v, done = false, x = undefined) {
+      if (finished) return
+      if (done) finished = true
+      if (v === sent && !done && x === undefined) return
+      pend = { do: "score", v, ...(done ? { done: true } : {}), ...(x !== undefined ? { x } : {}) }
+      if (done || performance.now() - last > 250) flush()
+      else if (!timer) timer = setTimeout(flush, 250)
+    },
+    reset() { finished = false; sent = -1; pend = null },
+  }
+}
+
+// Live standings strip for solo races: everyone's score/progress.
+export function standings(ctx, v, { fmt = (x) => Math.round(x), max = null } = {}) {
+  const seats = [...ctx.seats()].sort((a, b) => (v.prog[b.id] || 0) - (v.prog[a.id] || 0))
+  return el("div", { class: "mp-stand" }, seats.map((p) => {
+    const val = v.prog[p.id] || 0
+    const done = v.done && v.done[p.id] !== undefined
+    return el("div", { class: `mp-st${p.id === ctx.me.id ? " me" : ""}`, style: { "--c": p.color } },
+      el("span", { class: "av", text: p.avatar }),
+      max ? el("div", { class: "bar" }, el("i", { style: { width: `${Math.min(100, (val / max) * 100)}%` } })) : null,
+      el("b", { text: done ? `🏁 ${v.done[p.id].toFixed(1)}s` : fmt(val) }))
+  }))
+}
+
+// On-screen joystick: calls onMove(angle, active) at most 12× a second.
+export function joystick(host, onMove, { axis = "xy" } = {}) {
+  const pad = el("div", { class: `mp-joy ${axis}` }, el("i"))
+  const knob = pad.firstChild
+  host.append(pad)
+  let id = null, last = 0, cur = null
+  const emit = (a, m) => { const now = performance.now(); if (m && now - last < 80 && cur && Math.abs(cur[0] - a) < 0.2) return; last = now; cur = [a, m]; onMove(a, m) }
+  const at = (e) => {
+    const r = pad.getBoundingClientRect()
+    let dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2)
+    if (axis === "x") dy = 0
+    const d = Math.hypot(dx, dy), R = r.width / 2 - 18
+    if (d > R) { dx *= R / d; dy *= R / d }
+    knob.style.transform = `translate(${dx}px, ${dy}px)`
+    if (d > 8) emit(Math.atan2(dy, dx), 1); else emit(0, 0)
+  }
+  pad.addEventListener("pointerdown", (e) => { id = e.pointerId; pad.setPointerCapture(id); at(e) })
+  pad.addEventListener("pointermove", (e) => { if (e.pointerId === id) at(e) })
+  const end = (e) => { if (e.pointerId !== id) return; id = null; knob.style.transform = ""; emit(0, 0) }
+  pad.addEventListener("pointerup", end)
+  pad.addEventListener("pointercancel", end)
+  // keyboard (desktop)
+  const keys = new Set()
+  const kd = (e) => {
+    const k = { ArrowLeft: "l", ArrowRight: "r", ArrowUp: "u", ArrowDown: "d", a: "l", d: "r", w: "u", s: "d" }[e.key]
+    if (!k) return
+    if (e.type === "keydown") keys.add(k); else keys.delete(k)
+    const dx = (keys.has("r") ? 1 : 0) - (keys.has("l") ? 1 : 0), dy = axis === "x" ? 0 : (keys.has("d") ? 1 : 0) - (keys.has("u") ? 1 : 0)
+    if (dx || dy) emit(Math.atan2(dy, dx), 1); else emit(0, 0)
+  }
+  document.addEventListener("keydown", kd); document.addEventListener("keyup", kd)
+  return { el: pad, destroy() { document.removeEventListener("keydown", kd); document.removeEventListener("keyup", kd) } }
+}
+
+// Motion sensors (iOS asks once, after a tap).
+export async function motionOK() {
+  try {
+    const D = window.DeviceMotionEvent
+    if (D && typeof D.requestPermission === "function") return (await D.requestPermission()) === "granted"
+    return !!D
+  } catch (_) { return false }
+}
+export function onShake(cb, threshold = 14) {
+  let lastT = 0
+  const f = (e) => {
+    const a = e.accelerationIncludingGravity || e.acceleration
+    if (!a) return
+    const g = Math.hypot(a.x || 0, a.y || 0, a.z || 0)
+    const now = performance.now()
+    if (Math.abs(g - 9.8) > threshold - 9.8 && now - lastT > 110) { lastT = now; cb(Math.min(3, Math.abs(g - 9.8) / 8)) }
+  }
+  window.addEventListener("devicemotion", f)
+  return () => window.removeEventListener("devicemotion", f)
+}
+export function onTilt(cb) {
+  const f = (e) => { if (e.gamma !== null) cb(e.gamma || 0, e.beta || 0) }
+  window.addEventListener("deviceorientation", f)
+  return () => window.removeEventListener("deviceorientation", f)
+}
+
+// Microphone loudness 0..1.
+export async function micLevel() {
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } })
+  const C = window.AudioContext || window.webkitAudioContext
+  const ac = new C()
+  const src = ac.createMediaStreamSource(stream)
+  const an = ac.createAnalyser()
+  an.fftSize = 512
+  src.connect(an)
+  const buf = new Float32Array(an.fftSize)
+  return {
+    level() { an.getFloatTimeDomainData(buf); let s = 0; for (const x of buf) s += x * x; return Math.min(1, Math.sqrt(s / buf.length) * 6) },
+    stop() { stream.getTracks().forEach((t) => t.stop()); ac.close() },
+  }
+}
+
+// The common frame for solo races: HUD + scene box + prompt + standings + controls.
+export function soloFrame(stage, ctx, { bg = "", scoreLabel = "", max = null, fmt } = {}) {
+  const K = kit(stage, ctx, { scoreLabel })
+  const box = el("div", { class: "mp", style: bg ? { background: bg } : {} })
+  const q = el("div", { class: "mp-q" })
+  const ctrl = el("div", { class: "mp-ctrl" })
+  const stand = el("div")
+  stage.append(box, q, ctrl, stand)
+  return {
+    K, box, q, ctrl, stand,
+    update(v, events) {
+      K.update(v, events, box)
+      stand.replaceChildren(v.prog ? standings(ctx, v, { max: v.race ? v.max : max, fmt }) : "")
+      for (const e of events) {
+        if (e.e === "result") {
+          const g = (e.got || {})[ctx.me.id]
+          if (v.rounds > 1 || v.race) { if (g === 5) { ctx.sfx.fanfare(); banner(box, ctx.L("JUARA RONDE!", "ROUND WIN!"), { kind: "good", ms: 1400 }) } else if (g) ctx.sfx.ding() }
+        }
+        if (e.e === "done" && e.who !== ctx.me.id) popText(box, `${ctx.player(e.who).avatar} 🏁`, 50, 20)
+      }
+    },
+  }
+}
+
+// Eases displayed positions toward the latest server positions (server updates arrive 20× a second).
+export function smoother(k = 0.35) {
+  const cur = new Map()
+  return (id, x, y) => {
+    const c = cur.get(id)
+    if (!c || Math.hypot(c[0] - x, c[1] - y) > 30) { cur.set(id, [x, y]); return [x, y] }
+    c[0] += (x - c[0]) * k; c[1] += (y - c[1]) * k
+    return c
+  }
+}
