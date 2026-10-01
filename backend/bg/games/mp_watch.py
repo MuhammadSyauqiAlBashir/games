@@ -93,8 +93,10 @@ class ThwompDiff(Mini):
 
 
 # ---------------------------------------------------------------------------------------------------
-# Big-Top Quiz: Toads roll around on balls; pictures flash; answer a question about what you saw.
-IMGS = ["🍄", "⭐", "🐢", "👻", "💣", "🌸", "🦖", "🔥"]
+# Big-Top Quiz: every Toad carries ONE picture for the whole round. You see them, the balls turn so the pictures
+# are hidden, the Toads shuffle around (some wave, some jump, a ball flashes now and then) — then a question.
+IMGS = ["🍄", "⭐", "🐢", "👻", "💣", "🌸", "🦖", "🔥", "🍌", "👑"]
+PEEK = 2.4  # seconds the pictures are shown before they turn away
 
 
 class BigTopQuiz(Mini):
@@ -108,102 +110,132 @@ class BigTopQuiz(Mini):
                         picks={}, order=[], got={}, asked=[])
 
     def _motion(self, style, n, show):
-        """Keyframes per toad: [[t, x, y], ...] (x, y in 0..100)."""
+        """Keyframes per toad [[t, x, y], ...] and, for swaps, how often each toad changed place."""
         r = self.rng
-        home = [[20 + i * (60 / (n - 1)), 62] for i in range(n)]
+        home = [[14 + i * (72 / (n - 1)), 62] for i in range(n)]
         keys = [[[0.0, *home[i]]] for i in range(n)]
+        moves = [0] * n
+        start = PEEK + 0.6
         if style == "swap":
-            slots = list(range(n))  # slot of toad i
-            t = 1.0
-            while t < show - 1.2:
+            slots = list(range(n))
+            t = start
+            while t < show - 1.0:
                 a, b = r.sample(range(n), 2)
                 ia, ib = slots.index(a), slots.index(b)
-                d = r.uniform(0.55, 0.8)
-                keys[ia].append([round(t, 2), *home[a]])
-                keys[ib].append([round(t, 2), *home[b]])
-                keys[ia].append([round(t + d, 2), *home[b]])
-                keys[ib].append([round(t + d, 2), *home[a]])
+                d = r.uniform(0.45, 0.75)
+                keys[ia] += [[round(t, 2), *home[a]], [round(t + d, 2), *home[b]]]
+                keys[ib] += [[round(t, 2), *home[b]], [round(t + d, 2), *home[a]]]
                 slots[ia], slots[ib] = b, a
-                t += d + r.uniform(0.15, 0.5)
+                moves[ia] += 1
+                moves[ib] += 1
+                t += d + r.uniform(0.1, 0.4)
         elif style == "circle":
-            turns = r.choice((1.25, 1.5, 1.75)) * r.choice((1, -1))
-            steps = int(show / 0.2)
-            for k in range(1, steps + 1):
+            turns = r.choice((1.25, 1.5, 1.75, 2.25)) * r.choice((1, -1))
+            for k in range(1, int(show / 0.2) + 1):
                 t = k * 0.2
-                if t < 0.8 or t > show - 0.8:
+                if t < start or t > show - 0.6:
                     continue
-                p = (t - 0.8) / (show - 1.6)
+                p = (t - start) / (show - 0.6 - start)
                 ease = p * p * (3 - 2 * p)
                 for i in range(n):
                     ang = math.pi / 2 + 2 * math.pi * (i / n + turns * ease)
-                    keys[i].append([round(t, 2), round(50 + math.cos(ang) * 30, 1), round(58 + math.sin(ang) * 16, 1)])
-        else:  # wander
-            t = 0.8
-            while t < show - 1.0:
+                    keys[i].append([round(t, 2), round(50 + math.cos(ang) * 32, 1), round(58 + math.sin(ang) * 15, 1)])
+            # end in a neat row so left/right questions are fair
+            final = sorted(range(n), key=lambda i: keys[i][-1][1])
+            for rank, i in enumerate(final):
+                keys[i].append([round(show - 0.15, 2), *home[rank]])
+        else:  # wander, then line up
+            t = start
+            while t < show - 1.3:
                 for i in range(n):
-                    keys[i].append([round(t, 2), round(r.uniform(12, 88), 1), round(r.uniform(42, 76), 1)])
-                t += r.uniform(0.75, 1.05)
-        return keys
+                    keys[i].append([round(t, 2), round(r.uniform(10, 90), 1), round(r.uniform(44, 76), 1)])
+                t += r.uniform(0.6, 0.9)
+            order = list(range(n))
+            r.shuffle(order)
+            for rank, i in enumerate(order):
+                keys[i].append([round(show - 0.2, 2), *home[rank]])
+        return keys, moves
 
     def begin(self, now):
         s, r = self.s, self.rng
         s["round"] += 1
         k = s["round"]
-        n = 3 if k < 3 else 4
+        n = 3 if k == 1 else 4 if k < 4 else 5
         style = ["swap", "circle", "wander"][(k - 1) % 3]
-        show = 8.5 + min(k, 4) * 0.5
-        kinds = ["more", "fewer"] if k == 1 else ["wave", "missing", "more3", "where", "fewer"]
-        qtype = r.choice([q for q in kinds if q not in s["asked"]] or kinds)
+        show = PEEK + 5.5 + min(k, 4) * 0.6
+        imgs = r.sample(IMGS, n)  # toad i carries imgs[i] for the whole round
+        keys, moves = self._motion(style, n, show)
+        start = PEEK + 0.6
+        events = []  # [t, toad, kind]  kind: wave | jump | flash
+        for _ in range(r.randint(1, 2) + (k > 1)):
+            events.append([round(r.uniform(start + 0.3, show - 1.0), 2), r.randrange(n), "wave"])
+        jumps = [0] * n
+        for _ in range(r.randint(2, 4) + k):
+            i = r.randrange(n)
+            jumps[i] += 1
+            events.append([round(r.uniform(start + 0.2, show - 0.8), 2), i, "jump"])
+        for _ in range(r.randint(0, 2)):
+            events.append([round(r.uniform(start + 1.0, show - 1.0), 2), r.randrange(n), "flash"])
+        events.sort()
+        final_x = {i: keys[i][-1][1] for i in range(n)}
+        left_to_right = sorted(range(n), key=lambda i: final_x[i])
+        kinds = ["where", "edge", "neighbor", "wave", "jumps"] + (["swaps"] if style == "swap" else [])
+        if k == 1:
+            kinds = ["where", "edge"]
+        qtype = r.choice([x for x in kinds if x not in s["asked"]] or kinds)
         s["asked"].append(qtype)
-        pool = r.sample(IMGS, 4)
-        use = pool[:2] if qtype in ("more", "fewer") else pool[:3]
-        keys = self._motion(style, n, show)
-        # Flashes: [t, toad, image]
-        flashes, t = [], 0.9
-        while t < show - 0.7:
-            flashes.append([round(t, 2), r.randrange(n), r.choice(use)])
-            t += r.uniform(0.55, 0.95) - min(k, 4) * 0.04
-        counts = {im: sum(1 for f in flashes if f[2] == im) for im in use}
-        # make "more/fewer" answerable (unique extreme)
-        if qtype in ("more", "fewer", "more3"):
-            for _ in range(20):
-                vals = sorted(counts.values(), reverse=qtype != "fewer")
-                if vals[0] != vals[1]:
-                    break
-                f = r.choice(flashes)
-                f[2] = r.choice(use)
-                counts = {im: sum(1 for x in flashes if x[2] == im) for im in use}
-        wave = None
-        if qtype == "wave":
-            f = r.choice(flashes[len(flashes) // 3:])
-            wave = [f[0], f[1]]
-        if qtype == "more" or qtype == "more3":
-            ans_img = max(counts, key=counts.get)
-            choices, q = use, {"id": "Gambar mana yang muncul paling BANYAK?", "en": "Which picture showed up MOST?"}
-        elif qtype == "fewer":
-            ans_img = min(counts, key=counts.get)
-            choices, q = use, {"id": "Gambar mana yang muncul paling SEDIKIT?", "en": "Which picture showed up LEAST?"}
+        q: dict = {"type": qtype}
+        ans = 0
+        if qtype == "where":
+            i = r.randrange(n)
+            q.update(id=f"Di mana Toad pembawa {imgs[i]} sekarang? Ketuk Toad-nya!", en=f"Where is the Toad carrying {imgs[i]} now? Tap it!")
+            ans = i
+        elif qtype == "edge":
+            which = r.choice(["left", "right"] + (["middle"] if n % 2 else []))
+            i = left_to_right[0] if which == "left" else left_to_right[-1] if which == "right" else left_to_right[n // 2]
+            q.update(id={"left": "Gambar apa yang sekarang paling KIRI?", "right": "Gambar apa yang sekarang paling KANAN?", "middle": "Gambar apa yang sekarang di TENGAH?"}[which],
+                     en={"left": "Which picture is now on the far LEFT?", "right": "Which picture is now on the far RIGHT?", "middle": "Which picture is now in the MIDDLE?"}[which])
+            ans = i
+        elif qtype == "neighbor":
+            pos = r.randrange(n - 1)
+            a_, b_ = left_to_right[pos], left_to_right[pos + 1]
+            if r.random() < 0.5:
+                q.update(id=f"Gambar apa yang tepat di sebelah KANAN {imgs[a_]}?", en=f"Which picture is right of {imgs[a_]}?")
+                ans = b_
+            else:
+                q.update(id=f"Gambar apa yang tepat di sebelah KIRI {imgs[b_]}?", en=f"Which picture is left of {imgs[b_]}?")
+                ans = a_
         elif qtype == "wave":
-            ans_img = next(f[2] for f in flashes if f[0] == wave[0] and f[1] == wave[1])
-            choices = sorted(set(use)) if ans_img in use else use
-            q = {"id": "Toad yang melambai tadi naik bola bergambar apa?", "en": "Which picture was on the waving Toad's ball?"}
-        elif qtype == "missing":
-            ans_img = pool[3]
-            choices = r.sample(pool, 4)
-            q = {"id": "Gambar mana yang TIDAK muncul?", "en": "Which picture did NOT appear?"}
-        else:  # where
-            target = flashes[-1][2]
-            last_toad = flashes[-1][1]
-            s["q"] = {"type": "where", "id": f"Bola mana yang TERAKHIR menunjukkan {target}? Ketuk Toad-nya!",
-                      "en": f"Which ball showed {target} LAST? Tap the Toad!", "img": target}
-            s["answer"] = last_toad
-            choices = None
-        if qtype != "where":
-            choices = list(choices)
+            w = [e for e in events if e[2] == "wave"]
+            last = w[-1]
+            q.update(id="Toad yang TERAKHIR melambai membawa gambar apa?" if len(w) > 1 else "Toad yang melambai membawa gambar apa?",
+                     en="What did the LAST Toad to wave carry?" if len(w) > 1 else "What did the waving Toad carry?")
+            ans = last[1]
+        elif qtype == "jumps":
+            top = max(jumps)
+            if jumps.count(top) > 1:
+                i = jumps.index(top)
+                jumps[i] += 1
+                events.append([round(show - 0.9, 2), i, "jump"])
+                events.sort()
+            ans = jumps.index(max(jumps))
+            q.update(id="Toad pembawa gambar apa yang PALING SERING melompat?", en="Which picture's Toad jumped the MOST?")
+        if qtype == "swaps":
+            i = r.randrange(n)
+            c = moves[i]
+            opts_ = sorted({c, *[max(0, c + d) for d in r.sample([-2, -1, 1, 2], 3)]})[:4]
+            while len(opts_) < 4:
+                opts_.append(opts_[-1] + 1)
+            q.update(id=f"Berapa kali Toad pembawa {imgs[i]} pindah tempat?", en=f"How many times did the {imgs[i]} Toad change places?",
+                     choices=[str(x) for x in opts_])
+            ans = opts_.index(c)
+        elif qtype != "where":
+            choices = list(range(n))
             r.shuffle(choices)
-            s["answer"] = choices.index(ans_img)
-            s["q"] = {"type": qtype, **q, "choices": choices}
-        s["script"] = {"n": n, "style": style, "keys": keys, "flashes": flashes, "wave": wave, "show": show}
+            q["choices"] = [imgs[i] for i in choices]
+            ans = choices.index(ans)
+        s["q"], s["answer"] = q, ans
+        s["script"] = {"n": n, "style": style, "keys": keys, "imgs": imgs, "events": events, "show": show, "peek": PEEK}
         s["picks"], s["order"], s["got"] = {}, [], {}
         self.go("show", now, show)
         return [{"e": "round", "n": k}]
@@ -217,7 +249,7 @@ class BigTopQuiz(Mini):
                           got=s["got"] if reveal else None)
 
     def on_show(self, now):
-        self.go("ask", now, 9.0)
+        self.go("ask", now, 10.0)
         return [{"e": "ask"}]
 
     def act(self, pid, a, now):
@@ -240,7 +272,7 @@ class BigTopQuiz(Mini):
     def on_ask(self, now):
         s = self.s
         s["got"] = self.award_order(s["order"])
-        self.go("reveal", now, 3.6)
+        self.go("reveal", now, 4.0)
         return [{"e": "reveal", "got": s["got"]}]
 
     def on_reveal(self, now):

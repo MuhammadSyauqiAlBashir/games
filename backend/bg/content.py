@@ -411,47 +411,121 @@ async def filler():
 # Drawing words
 # ---------------------------------------------------------------------------------------------
 
-WORDS_SCHEMA = obj({"words": {"type": "array", "items": S}})
 
 
-def builtin_words(lang: str, level: int) -> list[str]:
-    with open(os.path.join(DATA, "draw_words.json")) as f:
-        d = json.load(f)
-    return list(d[lang][str(level)])
+def draw_bank() -> dict:
+    with open(os.path.join(DATA, "draw_bank.json")) as f:
+        return json.load(f)
 
 
-async def draw_words(lang: str, level: int, n: int, theme: str, rng: random.Random) -> list[str]:
-    language = "Bahasa Indonesia" if lang == "id" else "English"
-    guide = {1: "very easy everyday objects/animals a child can draw",
-             2: "common things, actions and places",
-             3: "harder: compound ideas, activities, professions, famous landmarks",
-             4: "tricky: idioms, abstract-but-drawable ideas, movie or song titles"}[level]
-    prompt = (f"Give {n + 6} different words or short phrases (max 3 words) in {language} for a Pictionary drawing game. "
-              f"Difficulty: {guide}. Everything must be drawable and guessable. No offensive words. "
-              + (f"Personal theme from the players (use it for about half of the words): {theme[:300]}." if theme else ""))
-    words: list[str] = []
+DRAW_CATS = draw_bank()["cats"]
+EXPERT_CATS = ("ungkapan", "judul")
+RECENT_KEEP = 320  # remembered words per language (≈ the last 10–15 games) — those are skipped while others are left
+DRAW_ITEMS = obj({"items": {"type": "array", "items": obj({"w": S, "c": S})}})
+
+
+def cat_label(key: str) -> dict | None:
+    c = DRAW_CATS.get(key)
+    return {"key": key, **c} if c else ({"key": "tema", "id": "Tema kalian", "en": "Your theme", "icon": "💖"} if key == "tema" else None)
+
+
+def bank_candidates(lang: str, level: int, category: str) -> list[tuple[str, str, int]]:
+    """(word, category, distance from the wanted level) for every word in the bank that fits the category."""
+    bank = draw_bank()[lang]
+    if category in bank:
+        cats = [category]
+    else:
+        cats = [k for k in bank if k not in EXPERT_CATS or level >= 4]
+    out = []
+    for c in cats:
+        for lv, words in bank[c].items():
+            lv = int(lv)
+            dist = 0 if c in EXPERT_CATS and category == c else abs(lv - level) if level < 4 else (0 if lv >= 3 else 4 - lv)
+            out += [(w, c, dist) for w in words]
+    return out
+
+
+async def recent_draw_words(lang: str) -> list[str]:
     try:
-        data = await asyncio.wait_for(ai.generate([prompt], schema=WORDS_SCHEMA), timeout=10)
-        words = [w.strip() for w in data.get("words", []) if 1 <= len(w.strip()) <= 30]
+        return list(await pb.kv_get(f"draw_recent:{lang}", []) or [])
+    except Exception as e:  # noqa: BLE001 — no memory is fine, words just may repeat
+        log.info("draw recent: %s", e)
+        return []
+
+
+async def remember_draw_words(lang: str, words: list[str]):
+    """Called when a drawing game really starts, so the words aren't picked again for a while."""
+    try:
+        old = await recent_draw_words(lang)
+        new = [util.norm(w) for w in words if util.norm(w)]
+        keep = [w for w in old if w not in set(new)] + new
+        await pb.kv_set(f"draw_recent:{lang}", keep[-RECENT_KEEP:])
+    except Exception as e:  # noqa: BLE001
+        log.info("draw remember: %s", e)
+
+
+async def draw_words(lang: str, level: int, n: int, theme: str, rng: random.Random, category: str = "mix") -> list[dict]:
+    """n words as {"w": word, "c": category key}. Words used in recent games are avoided (least recently used first),
+    consecutive words come from different categories, and the AI adds fresh words for the same categories."""
+    recent = await recent_draw_words(lang)
+    age = {w: i for i, w in enumerate(recent)}  # higher = used more recently
+    cand = bank_candidates(lang, level, category)
+    cats = sorted({c for _, c, _ in cand})
+    # --- fresh words from the AI (about a third, or half with a personal theme) ---
+    language = "Bahasa Indonesia" if lang == "id" else "English"
+    guide = {1: "very easy things a child can draw", 2: "common things, actions and places",
+             3: "harder: little scenes, activities, situations everyone knows",
+             4: "tricky: idioms/sayings drawn literally, famous film, song or cartoon titles"}[level]
+    cat_desc = "; ".join(f"{c} = {DRAW_CATS[c][lang]}" for c in cats)
+    avoid = ", ".join(recent[-120:])
+    want = max(4, n // 2 if theme else n // 3)
+    prompt = (f"Pictionary words in {language} for an Indonesian family party game. Give {want + 4} words or short phrases "
+              f"(max 4 words). Difficulty: {guide}. Each item has a category key c from: {cat_desc}"
+              + (f", or 'tema' for words from the players' personal theme: {theme[:300]} (use it for about half)" if theme else "")
+              + ". Every word must be drawable, clearly belong to its category and be guessable from a drawing. "
+              f"Surprise us: not the most obvious words. No offensive words. Do NOT use any of these (already played): {avoid or '-'}.")
+    ai_items: list[dict] = []
+    try:
+        data = await asyncio.wait_for(ai.generate([prompt], schema=DRAW_ITEMS), timeout=10)
+        for it in data.get("items", []):
+            w, c = str(it.get("w", "")).strip(), str(it.get("c", "")).strip()
+            if 1 <= len(w) <= 34 and (c in cats or (theme and c == "tema")):
+                ai_items.append({"w": w, "c": c})
     except (ai.AIUnavailable, asyncio.TimeoutError) as e:
-        log.info("draw words fallback: %s", e)
-    seen, out = set(), []
-    for w in words:
+        log.info("draw words: AI not used (%s)", e)
+    # --- the bank: unused words at the right level first, then the ones played longest ago ---
+    rng.shuffle(cand)
+    cand.sort(key=lambda x: (x[2] > 0, age.get(util.norm(x[0]), -1), x[2]))
+    seen: set[str] = set()
+    picked: list[dict] = []
+
+    def add(w: str, c: str) -> bool:
         k = util.norm(w)
-        if k and k not in seen:
-            seen.add(k)
-            out.append(w)
-    if len(out) < n:
-        extra = builtin_words(lang, level)
-        rng.shuffle(extra)
-        for w in extra:
-            if util.norm(w) not in seen:
-                out.append(w)
-                seen.add(util.norm(w))
-            if len(out) >= n:
-                break
-    rng.shuffle(out)
-    return out[:n]
+        if not k or k in seen:
+            return False
+        seen.add(k)
+        picked.append({"w": w, "c": c})
+        return True
+
+    for it in ai_items[:want]:
+        if util.norm(it["w"]) not in age:
+            add(it["w"], it["c"])
+    for w, c, _ in cand:
+        if len(picked) >= n + len(cats):
+            break
+        add(w, c)
+    # --- deal round-robin over the categories so neighbours (a drawer's 3 choices) differ ---
+    by: dict[str, list[dict]] = {}
+    for it in picked:
+        by.setdefault(it["c"], []).append(it)
+    order = list(by)
+    rng.shuffle(order)
+    out: list[dict] = []
+    while len(out) < n and any(by.values()):
+        for c in order:
+            if by[c] and len(out) < n:
+                out.append(by[c].pop(0))
+    return out
 
 
 # ---------------------------------------------------------------------------------------------

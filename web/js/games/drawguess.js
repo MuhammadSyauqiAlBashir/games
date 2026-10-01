@@ -3,6 +3,7 @@ import { avatar, el } from "../lib.js?v=__VERSION__"
 import { createCanvas, toolbar } from "./canvas.js?v=__VERSION__"
 
 export function mount(stage, ctx) {
+  const catChip = (c) => (c ? el("div", { class: "cat-chip", text: `${c.icon} ${ctx.L(c.id, c.en)}` }) : null)
   const top = el("div", { class: "center" })
   const canvasBox = el("div")
   const tools = el("div")
@@ -57,18 +58,19 @@ export function mount(stage, ctx) {
       if (v.phase === "pick") {
         top.replaceChildren(el("div", { class: "small muted", text: ctx.L(`Giliran ${v.turn}/${v.turns}`, `Turn ${v.turn}/${v.turns}`) }),
           isDrawer ? el("div", {}, el("div", { class: "big-msg", text: ctx.L("Pilih kata untuk digambar", "Choose a word to draw") }),
-            el("div", { class: "row wrap", style: { justifyContent: "center" } }, v.choices.map((w, i) => el("button", { class: "btn primary", type: "button", text: w, onclick: () => ctx.send({ do: "pick", i }) }))))
+            el("div", { class: "row wrap", style: { justifyContent: "center" } }, v.choices.map((w, i) => el("button", { class: "btn primary dg-choice", type: "button", onclick: () => ctx.send({ do: "pick", i }) },
+              el("span", { text: w.w ?? w }), w.cat ? el("small", { text: `${w.cat.icon} ${ctx.L(w.cat.id, w.cat.en)}` }) : null))))
             : el("div", { class: "big-msg" }, avatar(ctx.player(drawer)), " ", ctx.L(`${ctx.name(drawer)} memilih kata…`, `${ctx.name(drawer)} is choosing…`)))
       } else if (v.phase === "draw") {
         if (!isDrawer) {
           const hints = (v.hint_times || []).filter((t) => ctx.now() >= t).length
           if (hints !== lastHints) { lastHints = hints; if (hints) ctx.sfx.pop() }
         }
-        top.replaceChildren(isDrawer ? el("div", {}, el("div", { class: "small muted", text: ctx.L("Gambarkan:", "Draw:") }), el("div", { class: "big-msg", text: v.word }))
+        top.replaceChildren(isDrawer ? el("div", {}, el("div", { class: "small muted", text: ctx.L("Gambarkan:", "Draw:") }), el("div", { class: "big-msg", text: v.word }), catChip(v.cat))
           : el("div", {}, el("div", { class: "small muted", text: ctx.L(`${ctx.name(drawer)} menggambar · ${v.letters} huruf`, `${ctx.name(drawer)} is drawing · ${v.letters} letters`) }),
-            el("div", { class: "word-mask", text: guessed ? v.word : v.mask })))
+            el("div", { class: "word-mask", text: guessed ? v.word : v.mask }), catChip(v.cat)))
       } else if (v.phase === "reveal") {
-        top.replaceChildren(el("div", { class: "small muted", text: ctx.L("Katanya adalah", "The word was") }), el("div", { class: "big-msg", text: v.word }))
+        top.replaceChildren(el("div", { class: "small muted", text: ctx.L("Katanya adalah", "The word was") }), el("div", { class: "big-msg", text: v.word }), catChip(v.cat))
       } else top.replaceChildren()
       const showGuess = v.phase === "draw" && !isDrawer
       if (!showGuess && document.activeElement === input) input.blur()

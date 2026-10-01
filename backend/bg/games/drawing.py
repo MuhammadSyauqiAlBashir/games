@@ -54,6 +54,9 @@ def add_stroke(strokes: list, d: dict) -> dict | None:
 
 LEVEL_OPT = opt("level", "Tingkat kata", "Word level", "select", 2,
                 [ch(1, "Mudah", "Easy"), ch(2, "Sedang", "Medium"), ch(3, "Sulit", "Hard"), ch(4, "Ahli (idiom & judul)", "Expert (idioms & titles)")])
+CAT_OPT = opt("category", "Kategori kata", "Word category", "select", "mix",
+              [ch("mix", "🎲 Campur semua", "🎲 Mix of everything")]
+              + [ch(k, f"{c['icon']} {c['id']}", f"{c['icon']} {c['en']}") for k, c in content.DRAW_CATS.items()])
 LANG_OPT = opt("lang", "Bahasa kata", "Word language", "select", "id", [ch("id", "Indonesia"), ch("en", "English")])
 THEME_OPT = opt("theme", "Tema pribadi (opsional)", "Personal theme (optional)", "text", "",
                 help_id="Mis. nama kucing kami, makanan Bandung, kenangan liburan — AI akan menyelipkan kata dari sini.",
@@ -68,14 +71,19 @@ class DrawGuess(Game):
     options = [
         opt("rounds", "Putaran", "Rounds", "select", 2, [ch(n, str(n)) for n in (1, 2, 3)]),
         opt("seconds", "Waktu menggambar", "Drawing time", "select", 80, [ch(n, f"{n} dtk", f"{n} s") for n in (60, 80, 100, 120)]),
-        LANG_OPT, LEVEL_OPT, THEME_OPT,
+        CAT_OPT, LANG_OPT, LEVEL_OPT, THEME_OPT,
     ]
 
     @classmethod
     async def prepare(cls, seats, options, rng):
         n = int(options.get("rounds", 2)) * len(seats) * 3
         return {"words": await content.draw_words(options.get("lang", "id"), int(options.get("level", 2)), n,
-                                                  str(options.get("theme", "")), rng)}
+                                                  str(options.get("theme", "")), rng, str(options.get("category", "mix")))}
+
+    @classmethod
+    async def refresh(cls, prepared, options):
+        await content.remember_draw_words(options.get("lang", "id"), [w["w"] for w in (prepared or {}).get("words", [])])
+        return prepared
 
     @classmethod
     def setup(cls, players, options, rng, now):
@@ -83,7 +91,7 @@ class DrawGuess(Game):
         order = ids * int(options.get("rounds", 2))
         return {"players": players, "order": order, "k": -1, "words": (options.get("__content") or {}).get("words", []),
                 "phase": "next", "deadline": 1.5, "limit": int(options.get("seconds", 80)), "choices": [],
-                "word": "", "strokes": [], "guessed": {}, "scores": {p: 0 for p in ids}, "turn_no": 0, "drawer": None,
+                "word": "", "cat": "", "strokes": [], "guessed": {}, "scores": {p: 0 for p in ids}, "turn_no": 0, "drawer": None,
                 "started": 0.0, "reveal": []}
 
     def drawer(self):
@@ -104,11 +112,12 @@ class DrawGuess(Game):
         is_drawer = pid == s["drawer"]
         done = pid in s["guessed"]
         return {**self.base_view(), "phase": s["phase"], "deadline": s["deadline"], "drawer": s["drawer"],
-                "choices": s["choices"] if is_drawer and s["phase"] == "pick" else [],
+                "choices": [{"w": c["w"], "cat": content.cat_label(c.get("c", ""))} for c in s["choices"]] if is_drawer and s["phase"] == "pick" else [],
                 "word": s["word"] if (is_drawer or done or s["phase"] == "reveal") else None,
                 "mask": self.mask(now) if s["phase"] == "draw" else "", "hint_times": [s["started"] + s["limit"] * f for f in (0.5, 0.75, 0.9)],
                 "strokes": s["strokes"], "guessed": s["guessed"], "scores": s["scores"],
-                "turn": s["k"] + 1, "turns": len(s["order"]), "limit": s["limit"], "letters": len(s["word"])}
+                "turn": s["k"] + 1, "turns": len(s["order"]), "limit": s["limit"], "letters": len(s["word"]),
+                "cat": content.cat_label(s["cat"]) if s["phase"] in ("draw", "reveal") else None}
 
     def tick(self, now):
         s = self.s
@@ -128,7 +137,7 @@ class DrawGuess(Game):
                 return [{"e": "end"}]
             s["k"] += 1
             s["drawer"] = s["order"][s["k"]]
-            s["choices"] = [s["words"].pop() for _ in range(3) if s["words"]] or ["kucing", "rumah", "matahari"]
+            s["choices"] = [s["words"].pop(0) for _ in range(3) if s["words"]] or [{"w": w, "c": "rumah"} for w in ("kursi", "lampu", "payung")]
             s["phase"], s["deadline"] = "pick", now + 12
             s["word"], s["strokes"], s["guessed"] = "", [], {}
             s["turn_no"] += 1
@@ -139,9 +148,10 @@ class DrawGuess(Game):
             return self._reveal(now)
         return []
 
-    def _start_draw(self, word, now):
+    def _start_draw(self, choice, now):
         s = self.s
-        s["word"] = word
+        word = choice["w"] if isinstance(choice, dict) else str(choice)
+        s["word"], s["cat"] = word, choice.get("c", "") if isinstance(choice, dict) else ""
         s["phase"], s["started"], s["deadline"] = "draw", now, now + s["limit"]
         s["_hints"] = 0
         letters = [i for i, c in enumerate(word) if c.isalpha()]
@@ -227,6 +237,31 @@ JUDGE_SCHEMA = {"type": "object", "properties": {"ranking": {"type": "array", "i
     "required": ["ranking"], "propertyOrdering": ["ranking"]}
 
 
+BUSY = ("Juri AI lagi sibuk (sudah dicoba ±30 dtk) — semua dapat poin sama.",
+        "The AI judge is busy (we kept trying for ~30 s) — everyone gets the same points.")
+JUDGE_BUDGET = 30.0           # seconds the players are willing to wait for the judge in total
+JUDGE_WAITS = (0, 4, 8, 12)   # pause before each try (free Gemini is often "busy" for a few seconds)
+
+
+async def judge_with_retry(parts: list, budget: float = JUDGE_BUDGET, waits=JUDGE_WAITS):
+    """Ask Gemini, and if every model is busy/out of quota, wait and ask again — up to `budget` seconds."""
+    loop = asyncio.get_running_loop()
+    end = loop.time() + budget
+    for k, wait in enumerate(waits):
+        if wait:
+            if loop.time() + wait + 3 > end:
+                break
+            await asyncio.sleep(wait)
+        left = end - loop.time()
+        if left < 3:
+            break
+        try:
+            return await asyncio.wait_for(ai.generate(parts, schema=JUDGE_SCHEMA, smart=True), timeout=left)
+        except (ai.AIUnavailable, asyncio.TimeoutError) as e:
+            log.warning("judge try %d failed: %s", k + 1, e)
+    return None
+
+
 class DrawJudge(Game):
     key, name_id, name_en, icon = "drawjudge", "Draw & AI Judge", "Draw & AI Judge", "🤖"
     kind = "timed"
@@ -234,18 +269,25 @@ class DrawJudge(Game):
     options = [
         opt("rounds", "Ronde", "Rounds", "select", 3, [ch(n, str(n)) for n in (1, 2, 3, 5)]),
         opt("seconds", "Waktu menggambar", "Drawing time", "select", 60, [ch(n, f"{n} dtk", f"{n} s") for n in (30, 45, 60, 90)]),
-        LANG_OPT, LEVEL_OPT, THEME_OPT,
+        CAT_OPT, LANG_OPT, LEVEL_OPT, THEME_OPT,
     ]
 
     @classmethod
     async def prepare(cls, seats, options, rng):
         return {"words": await content.draw_words(options.get("lang", "id"), int(options.get("level", 2)),
-                                                  int(options.get("rounds", 3)) + 2, str(options.get("theme", "")), rng)}
+                                                  int(options.get("rounds", 3)) + 2, str(options.get("theme", "")), rng,
+                                                  str(options.get("category", "mix")))}
+
+    @classmethod
+    async def refresh(cls, prepared, options):
+        rounds = int(options.get("rounds", 3))
+        await content.remember_draw_words(options.get("lang", "id"), [w["w"] for w in (prepared or {}).get("words", [])[:rounds]])
+        return prepared
 
     @classmethod
     def setup(cls, players, options, rng, now):
-        words = (options.get("__content") or {}).get("words", []) or ["kucing", "rumah", "sepeda"]
-        return {"players": players, "words": words, "r": -1, "rounds": int(options.get("rounds", 3)), "word": "",
+        words = (options.get("__content") or {}).get("words", []) or [{"w": w, "c": "rumah"} for w in ("kursi", "lampu", "payung")]
+        return {"players": players, "words": words, "r": -1, "rounds": int(options.get("rounds", 3)), "word": "", "cat": "",
                 "phase": "next", "deadline": 2.0, "limit": int(options.get("seconds", 60)),
                 "canvas": {p["id"]: [] for p in players}, "result": None, "scores": {p["id"]: 0 for p in players},
                 "lang": options.get("lang", "id"), "turn_no": 0, "ai_need": None, "done": []}
@@ -256,7 +298,8 @@ class DrawJudge(Game):
         return {**self.base_view(), "phase": s["phase"], "deadline": s["deadline"], "word": s["word"],
                 "round": s["r"] + 1, "rounds": s["rounds"], "scores": s["scores"], "limit": s["limit"],
                 "mine": s["canvas"].get(pid, []) if pid else [], "canvas": s["canvas"] if show_all else {},
-                "result": s["result"] if show_all else None, "done": s["done"]}
+                "result": s["result"] if show_all else None, "done": s["done"], "judge_t0": s.get("judge_t0"),
+                "cat": content.cat_label(s.get("cat", ""))}
 
     def tick(self, now):
         s = self.s
@@ -267,15 +310,16 @@ class DrawJudge(Game):
                 self.finish(rank_by_score(self.ids(), s["scores"]))
                 return [{"e": "end"}]
             s["r"] += 1
-            s["word"] = s["words"][s["r"] % len(s["words"])]
+            pick = s["words"][s["r"] % len(s["words"])]
+            s["word"], s["cat"] = (pick["w"], pick["c"]) if isinstance(pick, dict) else (str(pick), "")
             s["canvas"] = {p: [] for p in self.ids()}
             s["result"], s["done"] = None, []
             s["phase"], s["deadline"] = "draw", now + s["limit"]
             s["turn_no"] += 1
             return [{"e": "draw", "word": s["word"]}]
         if s["phase"] == "draw":
-            s["phase"], s["deadline"] = "judging", None
-            s["ai_need"] = {"id": f"judge-{s['r']}", "kind": "judge", "word": s["word"], "lang": s["lang"],
+            s["phase"], s["deadline"], s["judge_t0"] = "judging", None, now
+            s["ai_need"] = {"id": f"judge-{s['r']}", "kind": "judge", "word": s["word"], "lang": s["lang"], "cat": s.get("cat", ""),
                          "canvas": s["canvas"]}
             s["turn_no"] += 1
             return [{"e": "judging"}]
@@ -312,11 +356,15 @@ class DrawJudge(Game):
         if not parts:
             return {"ranking": []}
         language = "Bahasa Indonesia (santai, lucu, sopan)" if lang == "id" else "English (playful, kind)"
-        prompt = (f"You are the fun, fair judge of a family drawing game. The word to draw was: \"{word}\". "
+        cat = content.cat_label(need.get("cat", ""))
+        prompt = (f"You are the fun, fair judge of a family drawing game. The word to draw was: \"{word}\""
+                  + (f" (category: {cat['en']})" if cat else "") + ". "
                   f"Score each drawing 0-100 for how clearly it shows \"{word}\" (recognisability matters more than art "
                   f"skill). For each: a one-sentence comment in {language} and what it looks like (looks_like, same "
                   f"language). Labels: {', '.join(k for k in labels if need['canvas'][labels[k]])}.")
-        data = await asyncio.wait_for(ai.generate([prompt] + parts, schema=JUDGE_SCHEMA, smart=True), timeout=45)
+        data = await judge_with_retry([prompt] + parts)
+        if data is None:
+            return None  # every try failed → provide() gives everyone the same points
         out = []
         for r in data.get("ranking", []):
             pid = labels.get(str(r.get("label", "")).strip().upper()[:1])
@@ -343,7 +391,7 @@ class DrawJudge(Game):
             if rank == 1 and result:
                 self.bump("ai_wins", pid)
             res.append({"id": pid, "rank": rank, "pts": pts, "score": r.get("score"),
-                        "comment": r.get("comment") or ("AI juri lagi sibuk — semua dapat poin sama." if not result else ""),
+                        "comment": r.get("comment") or (BUSY[s["lang"] == "en"] if not result else ""),
                         "looks_like": r.get("looks_like", "")})
         s["result"] = res
         s["phase"], s["deadline"] = "result", now + 12

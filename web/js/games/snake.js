@@ -133,11 +133,11 @@ export function mount(stage, ctx) {
   ro.observe(wrap)
   fit()
 
-  function steer(e) {
-    const r = cv.getBoundingClientRect()
-    angle = Math.atan2(e.clientY - (r.top + r.height / 2), e.clientX - (r.left + r.width / 2))
-    sendInput()
-  }
+  // ---- controls: floating analog stick (touch anywhere), boost button, arrow keys ----
+  const stick = el("div", { class: "sn-stick", hidden: true }, el("i"))
+  const knob = stick.firstChild
+  wrap.append(stick)
+  let stickId = null, sx = 0, sy = 0
   function sendInput(force = false) {
     const now = performance.now()
     if (!force && now - sentAt < 60 && sentAngle !== null && Math.abs(angle - sentAngle) < .05) return
@@ -145,15 +145,80 @@ export function mount(stage, ctx) {
     sentAngle = angle
     ctx.raw({ t: "input", d: { a: angle, b: boosting } })
   }
-  cv.addEventListener("pointerdown", (e) => { cv.setPointerCapture(e.pointerId); steer(e) })
-  cv.addEventListener("pointermove", (e) => { if (e.pointerType === "mouse" || e.buttons) steer(e) })
+  const R = 46
+  wrap.addEventListener("pointerdown", (e) => {
+    if (e.target === boost || e.target.closest(".sn-btn")) return
+    if (e.pointerType === "mouse") { const r = cv.getBoundingClientRect(); angle = Math.atan2(e.clientY - (r.top + r.height / 2), e.clientX - (r.left + r.width / 2)); sendInput(true); return }
+    e.preventDefault()
+    stickId = e.pointerId
+    wrap.setPointerCapture(e.pointerId)
+    const r = wrap.getBoundingClientRect()
+    sx = e.clientX - r.left; sy = e.clientY - r.top
+    stick.style.left = `${sx}px`; stick.style.top = `${sy}px`
+    knob.style.transform = ""
+    stick.hidden = false
+  })
+  wrap.addEventListener("pointermove", (e) => {
+    if (e.pointerType === "mouse" && e.buttons) { const r = cv.getBoundingClientRect(); angle = Math.atan2(e.clientY - (r.top + r.height / 2), e.clientX - (r.left + r.width / 2)); sendInput(); return }
+    if (e.pointerId !== stickId) return
+    const r = wrap.getBoundingClientRect()
+    let dx = e.clientX - r.left - sx, dy = e.clientY - r.top - sy
+    const d = Math.hypot(dx, dy)
+    if (d > R) { dx *= R / d; dy *= R / d }
+    knob.style.transform = `translate(${dx}px, ${dy}px)`
+    if (d > 8) { angle = Math.atan2(dy, dx); sendInput() }
+  })
+  const endStick = (e) => { if (e.pointerId === stickId) { stickId = null; stick.hidden = true } }
+  wrap.addEventListener("pointerup", endStick)
+  wrap.addEventListener("pointercancel", endStick)
   const setBoost = (b) => { boosting = b; boost.style.transform = b ? "scale(.9)" : ""; sendInput(true) }
-  boost.addEventListener("pointerdown", (e) => { e.preventDefault(); setBoost(true) })
+  boost.addEventListener("pointerdown", (e) => { e.preventDefault(); e.stopPropagation(); setBoost(true) })
   boost.addEventListener("pointerup", () => setBoost(false))
   boost.addEventListener("pointerleave", () => boosting && setBoost(false))
-  const key = (e) => { if (e.code === "Space") { e.preventDefault(); setBoost(e.type === "keydown") } }
+  const keys = new Set()
+  const key = (e) => {
+    if (e.code === "Space") { e.preventDefault(); setBoost(e.type === "keydown"); return }
+    const k = { ArrowLeft: "l", ArrowRight: "r", ArrowUp: "u", ArrowDown: "d", a: "l", d: "r", w: "u", s: "d" }[e.key]
+    if (!k) return
+    e.preventDefault()
+    if (e.type === "keydown") keys.add(k); else keys.delete(k)
+    const dx = (keys.has("r") ? 1 : 0) - (keys.has("l") ? 1 : 0), dy = (keys.has("d") ? 1 : 0) - (keys.has("u") ? 1 : 0)
+    if (dx || dy) { angle = Math.atan2(dy, dx); sendInput() }
+  }
   document.addEventListener("keydown", key)
   document.addEventListener("keyup", key)
+
+  // ---- fullscreen / landscape game mode ----
+  const fsBtn = el("button", { class: "sn-btn sn-fs", type: "button", "aria-label": "Fullscreen", text: "⛶" })
+  const rotateHint = el("div", { class: "sn-rotate", hidden: true, text: ctx.L("🔄 Putar HP ke samping untuk arena lebih lebar", "🔄 Turn your phone sideways for a wider arena") })
+  const fsInfo = el("div", { class: "sn-fsinfo", hidden: true })
+  wrap.append(fsBtn, rotateHint, fsInfo)
+  let fs = false
+  const portrait = () => window.innerHeight > window.innerWidth
+  function updateHint() { rotateHint.hidden = !(fs && portrait() && !document.fullscreenElement) }
+  async function enterFs() {
+    fs = true
+    wrap.classList.add("sn-full")
+    fsBtn.textContent = "✕"
+    fsInfo.hidden = false
+    try { if (wrap.requestFullscreen && !document.fullscreenElement) await wrap.requestFullscreen({ navigationUI: "hide" }) } catch (_) {}
+    try { if (screen.orientation && screen.orientation.lock) await screen.orientation.lock("landscape") } catch (_) {}
+    updateHint(); setTimeout(fit, 300)
+  }
+  async function exitFs() {
+    fs = false
+    wrap.classList.remove("sn-full")
+    fsBtn.textContent = "⛶"
+    fsInfo.hidden = true
+    try { if (screen.orientation && screen.orientation.unlock) screen.orientation.unlock() } catch (_) {}
+    try { if (document.fullscreenElement) await document.exitFullscreen() } catch (_) {}
+    updateHint(); setTimeout(fit, 300)
+  }
+  fsBtn.addEventListener("pointerdown", (e) => e.stopPropagation())
+  fsBtn.addEventListener("click", () => (fs ? exitFs() : enterFs()))
+  const onFsChange = () => { if (!document.fullscreenElement && fs && wrap.requestFullscreen) exitFs() }
+  document.addEventListener("fullscreenchange", onFsChange)
+  window.addEventListener("resize", updateHint)
 
   function onSnap(s) {
     S.snakes = {}
@@ -254,11 +319,16 @@ export function mount(stage, ctx) {
 
   return {
     onSnap, onFrame,
-    destroy() { running = false; ro.disconnect(); document.removeEventListener("keydown", key); document.removeEventListener("keyup", key) },
+    destroy() {
+      running = false; ro.disconnect(); document.removeEventListener("keydown", key); document.removeEventListener("keyup", key)
+      document.removeEventListener("fullscreenchange", onFsChange); window.removeEventListener("resize", updateHint)
+      if (fs) exitFs()
+    },
     update(v) {
       V = v
       const alive = Object.entries(v.alive).filter(([, a]) => a).length
       const left = Math.max(0, v.shrink - (ctx.now() || 0))
+      fsInfo.textContent = `🐍 ${alive} · ${left > 0 ? `${Math.floor(left / 60)}:${String(Math.floor(left % 60)).padStart(2, "0")}` : "⚠️"}`
       info.replaceChildren(el("span", { text: `🐍 ${alive} ${ctx.L("pemain hidup", "players alive")}` }),
         el("span", { text: left > 0 ? `${ctx.L("Arena menyempit", "Arena shrinks")} · ${Math.floor(left / 60)}:${String(Math.floor(left % 60)).padStart(2, "0")}` : ctx.L("Arena terkecil!", "Smallest arena!") }))
     },
