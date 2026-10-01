@@ -7,6 +7,12 @@ export const L = (id, en) => (lang === "en" ? en : id)
 export const gname = (g) => (g ? (lang === "en" ? g.name_en : g.name_id) : "")
 
 export const RULES = {
+  karaoke: ["Dengarkan potongan lagu 10 detik, lalu bergiliran menyanyikannya. HP mengukur nada suaramu dan membandingkannya dengan melodi asli — nada dasar boleh beda, yang penting naik-turunnya pas!",
+    "Listen to a 10-second clip, then take turns singing it. Your phone tracks your pitch and compares it with the real melody — any key is fine, the ups and downs must match!"],
+  nyanyihits: ["DJ ronde ini memilih lagu hits: pilih file lagu (potongan reff) atau rekam dari speaker, atau cukup tulis judulnya. Semua dengar aslinya, lalu bergiliran menyanyi. Juri AI membandingkan tiap penyanyi dengan lagu aslinya!",
+    "This round's DJ brings a hit song: pick a music file (the chorus) or record it from a speaker, or just type the title. Everyone hears the original, then takes turns singing. The AI judge compares each singer with the original!"],
+  tirusuara: ["Tirukan suara yang diminta (5 detik) bergiliran: ayam bertelur, motor mogok, bayi menangis… Semua rekaman diputar, lalu Juri AI memilih yang paling mirip dan lucu. Juri sibuk? Kalian yang memilih!",
+    "Take turns imitating the sound (5 s): a hen laying an egg, a stalling motorbike, a crying baby… All recordings play back, then the AI judge picks the most convincing and funny. Judge busy? You vote!"],
   bomkata: ["Bom ada di tanganmu? Ketik kata asli yang mengandung huruf di bom, lalu bom pindah ke pemain berikutnya. Sumbunya rahasia dan makin pendek! Meledak = nyawa berkurang. Pakai semua huruf bonus = nyawa tambahan. Terakhir bertahan menang.",
     "Holding the bomb? Type a real word containing the letters on it and the bomb moves on. The fuse is secret and gets shorter! Explode = lose a life. Use every bonus letter for an extra life. Last one standing wins."],
   survei: ["Survei membuktikan! Tebak jawaban terpopuler dari 100 orang. Semua mengetik bersamaan — yang pertama menemukan jawaban dapat poinnya. 3× salah = tunggu ronde berikutnya. Ronde terakhir poin ganda!",
@@ -141,6 +147,7 @@ export const TINT = {
   gaple: "#8d6e63", congklak: "#c9a227", checkers: "#5f6b7a", connect4: "#e3a93b", sos: "#8e6c9e", tictactoe: "#d9667e",
   trivia: "#4f8fcb", math: "#3d8b7a", rebus: "#e3a93b", anagrams: "#8e6c9e", drawguess: "#e07a5f", drawjudge: "#5f7a8c",
   penalty: "#3b8c5a", snake: "#7cb87a", lontong: "#1d2340",
+  karaoke: "#20263d", nyanyihits: "#c2185b", tirusuara: "#f0a030",
   bomkata: "#3a2f4a", survei: "#2b4fa8", kembar: "#e07a5f", refleks: "#22b455", ketik: "#5b6b8a", fotohunt: "#d9667e", ekspresi: "#f0a030",
   mp_pesta: "#e02e3c", mp_thwomp: "#6b7a99", mp_bigtop: "#d92f3a", mp_buzzer: "#6b3fb5", mp_shell: "#b86b2b", mp_turntable: "#2b64e0",
   mp_pound: "#f0a030", mp_sled: "#3aa0e0", mp_fish: "#1f6fc2", mp_flower: "#ff5a5f", mp_memory: "#5b3a8c",

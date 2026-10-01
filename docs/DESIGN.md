@@ -38,6 +38,14 @@
   accepted unchecked / equal points). Same for Draw & AI Judge. Cloudflare use is capped at BG_CF_DAILY_NEURONS
   (2000/day, ~40 per judging) in `bg_kv cf_neurons:<date>` so the shop's free FLUX allowance is left alone. Judging is about the acting only, never looks. Free-tier Gemini: Google may use the photos to improve
   its products — the screen says the photos go to Gemini.
+- **Voice games (2026-10-01, `sing.py`):** Karaoke Klasik = synthesized 8–13 s clips of public-domain/folk melodies
+  (`data/songs.json`; no copyrighted songs are stored), the phone tracks pitch (YIN, 50 ms frames) and `pitch.py`
+  scores note by note (any key, octaves ignored, ±0.6 s timing, median distance per note; tested: right song 100,
+  wrong song ~45, random ~20). Nyanyi Lagu Hits = the round's DJ brings the real song (music file slice or a 10 s
+  recording from a speaker, made into 16 kHz WAV on the phone) or just a title; Gemini compares every singer with
+  the original (lyrics of the clip transcribed for display). Tiru Suara = 5 s sound imitations judged by Gemini.
+  Recordings: `POST /api/rooms/{code}/audio` (WAV ≤15 s), memory only. Gemini only (Cloudflare can't judge audio):
+  if it doesn't answer in ~30 s the players vote.
 - **Draw games:** words from a categorised bank (`data/draw_bank.json`, 14 categories × levels, ~440 words per language) plus fresh
   Gemini words for the same categories; the category option ("Mix" or one category) is shown to everyone while drawing.
   Words played recently are remembered in `bg_kv` `draw_recent:<lang>` (last 320) and skipped until the bank runs low.
