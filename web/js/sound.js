@@ -58,6 +58,7 @@ export const sfx = {
   pop: () => tone(660, .09, { type: "sine", vol: .25, slide: 300 }),
   place: () => { tone(320, .08, { type: "triangle", vol: .3 }); tone(480, .06, { type: "sine", vol: .15, delay: .04 }) },
   dice: () => { for (let i = 0; i < 6; i++) noise(.05, { vol: .25, delay: i * .07, hp: 1500 }) },
+  dieHit: (k = 1) => { noise(.035, { vol: .1 + .3 * k, hp: 700 }); tone(150 + 60 * k, .05, { type: "triangle", vol: .08 + .25 * k }) },  // a die knocking the table
   card: () => noise(.12, { vol: .18, hp: 2500 }),
   coin: () => { tone(988, .08, { type: "square", vol: .08 }); tone(1319, .25, { type: "square", vol: .08, delay: .08 }) },
   right: () => { tone(660, .1, { vol: .25 }); tone(880, .18, { vol: .25, delay: .1 }) },

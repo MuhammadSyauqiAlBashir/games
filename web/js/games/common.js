@@ -78,6 +78,89 @@ export function die(n, rolling = false) {
   return d.el
 }
 
+// ---- dice throw ----------------------------------------------------------------------------------------------------
+// Big 3D dice fly in from the side of the board, bounce, roll over and settle on the rolled values. Resolves once
+// they've landed (the pieces move after that); the dice then fade away. Drawn in a fixed layer on <body> so the
+// board's rounded/clipped corners can't flatten the 3D on iPhone.
+const BOUNCES = [0, 0.3, 0.52, 0.68, 0.8]   // where each bounce lands (fraction of the flight)
+const BOUNCE_H = [1, 0.42, 0.18, 0.07]      // bounce heights (× die size)
+export function throwDice(host, values, { onHit } = {}) {
+  return new Promise((resolve) => {
+    const r = host.getBoundingClientRect()
+    if (!r.width || document.hidden || !values.length) { resolve(); return }
+    const S = Math.round(Math.min(104, Math.max(60, Math.min(r.width, r.height) * 0.19)))
+    const layer = el("div", { class: "dice-throw", style: { left: `${r.left}px`, top: `${r.top}px`, width: `${r.width}px`, height: `${r.height}px` } })
+    document.body.append(layer)
+    const fromLeft = Math.random() < 0.5, dir = fromLeft ? 1 : -1
+    const n = values.length
+    const dice = values.map((val, k) => {
+      const shadow = el("span", { class: "dt-shadow", style: { width: `${S}px`, height: `${S * 0.3}px` } })
+      const node = cubeNode(S)
+      node.querySelector(".die-shadow").remove()
+      layer.append(shadow, node)
+      const [fx, fy] = FACE_ROT[val]
+      return {
+        node, shadow, cube: node.firstChild,
+        sx: fromLeft ? -S * 1.2 : r.width + S * 0.2, sy: r.height * (0.62 + Math.random() * 0.25) - k * S * 0.5,
+        ex: r.width / 2 + (k - (n - 1) / 2) * S * 1.45 + (Math.random() * 14 - 7), ey: r.height / 2 + (Math.random() * 18 - 9) + (k ? S * 0.25 : 0),
+        end: [fx - 14, fy + 18], yaw: Math.random() * 24 - 12,
+        spin: [360 * (2 + Math.floor(Math.random() * 2)) * (Math.random() < 0.5 ? 1 : -1), 360 * (3 + k) * dir],
+        delay: k * 90, seg: 0,
+      }
+    })
+    const DUR = 1250
+    const t0 = performance.now()
+    const frame = () => {
+      let done = true
+      for (const d of dice) {
+        const p = Math.max(0, Math.min(1, (performance.now() - t0 - d.delay) / DUR))
+        if (p < 1) done = false
+        const travel = 1 - (1 - p) ** 2.4               // slows down as it rolls to a stop
+        const turn = 1 - (1 - Math.min(1, p / 0.9)) ** 2.6 // rotation finishes a little before it stops sliding
+        let h = 0, seg = BOUNCES.length - 1
+        for (let i = 0; i < BOUNCES.length - 1; i++) {
+          if (p < BOUNCES[i + 1]) {
+            seg = i
+            const q = (p - BOUNCES[i]) / (BOUNCES[i + 1] - BOUNCES[i])
+            h = BOUNCE_H[i] * S * 1.3 * (i === 0 ? Math.cos(q * Math.PI / 2) : Math.sin(q * Math.PI))
+            break
+          }
+        }
+        if (seg !== d.seg) { d.seg = seg; onHit && onHit(BOUNCE_H[Math.max(0, seg - 1)] || 0.05) }
+        const rock = p > 0.86 ? Math.sin((p - 0.86) / 0.14 * Math.PI * 2) * 7 * (1 - p) / 0.14 : 0
+        const x = d.sx + (d.ex - d.sx) * travel, y = d.sy + (d.ey - d.sy) * travel
+        const rx = d.end[0] + d.spin[0] * (1 - turn) + rock, ry = d.end[1] + d.spin[1] * (1 - turn)
+        const yaw = d.yaw + (1 - turn) * 70 * dir
+        d.node.style.transform = `translate(${(x - S / 2).toFixed(1)}px, ${(y - S / 2 - h).toFixed(1)}px)`
+        d.cube.style.transform = `rotateZ(${yaw.toFixed(1)}deg) rotateX(${rx.toFixed(1)}deg) rotateY(${ry.toFixed(1)}deg)`
+        const lift = Math.min(1, h / (S * 1.3))
+        d.shadow.style.transform = `translate(${(x - S / 2).toFixed(1)}px, ${(y + S * 0.38).toFixed(1)}px) scale(${(1 - lift * 0.45).toFixed(2)})`
+        d.shadow.style.opacity = (0.55 - lift * 0.35).toFixed(2)
+      }
+      if (!done) { requestAnimationFrame(frame); return }
+      layer.classList.add("landed")
+      setTimeout(resolve, 380)
+      setTimeout(() => layer.classList.add("gone"), 900)
+      setTimeout(() => layer.remove(), 1250)
+    }
+    requestAnimationFrame(frame)
+  })
+}
+
+// Holds a game's screen updates while dice are in the air: update() may return a promise (a throw); updates that
+// arrive meanwhile are kept (events joined, latest view wins) and shown right after the dice land.
+export function gated(update) {
+  let busy = false, held = null
+  const run = (v, events) => {
+    const wait = update(v, events)
+    if (wait && wait.then) {
+      busy = true
+      wait.then(() => { busy = false; if (held) { const [hv, he] = held; held = null; run(hv, he) } })
+    }
+  }
+  return (v, events) => { if (busy) { held = held ? [v, held[1].concat(events)] : [v, events]; return } run(v, events) }
+}
+
 export const SUIT = { S: "♠", H: "♥", D: "♦", C: "♣" }
 export function pcard(code, w = 56, extra = {}) {
   if (!code) return el("div", { class: "pcard back", style: { "--cw": `${w}px` }, ...extra })
