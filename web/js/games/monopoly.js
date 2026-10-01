@@ -1,6 +1,6 @@
 // Monopoly: world-cities board (money in Rupiah), property cards, auctions, building, trading.
 import { el, rp, rpShort, sheet, svg } from "../lib.js?v=__VERSION__"
-import { die } from "./common.js?v=__VERSION__"
+import { makeDie } from "./common.js?v=__VERSION__"
 
 const GROUP = { brown: "#8b5a3c", lightblue: "#8fcfee", pink: "#d95aa5", orange: "#f39a3c", red: "#e5484d", yellow: "#f2cf3c",
   green: "#3fa66a", darkblue: "#2f5fb3", airport: "#5b6b7a", utility: "#9aa5b1" }
@@ -19,6 +19,7 @@ export function mount(stage, ctx) {
   const panel = el("div", { class: "card", style: { maxWidth: "620px", margin: "10px auto 0", width: "100%" } })
   stage.append(st, wrap, panel)
   let V = null, tradeOpen = false
+  const D1 = makeDie(52), D2 = makeDie(52)
 
   const name = (sq) => V.squares[sq].name.split(" / ")[ctx.L(0, 1)] || V.squares[sq].name
 
@@ -131,7 +132,7 @@ export function mount(stage, ctx) {
       g.append(cellG)
     }
     // Centre
-    g.append(svg("text", { x: 55, y: 44, "text-anchor": "middle", "font-size": 8, "font-weight": 800, fill: "#3d8b7a", "font-family": "Fraunces, serif", text: "MONOPOLI" }))
+    g.append(svg("text", { x: 55, y: 44, "text-anchor": "middle", "font-size": 8, "font-weight": 800, fill: "#3d8b7a", "font-family": "Fraunces, serif", text: "MONOPOLY" }))
     if (v.pot && v.parking_rule) g.append(svg("text", { x: 55, y: 52, "text-anchor": "middle", "font-size": 3, "font-weight": 800, fill: "#2e2722", text: `🅿️ Jackpot ${rpShort(v.pot)}` }))
     if (v.ends_at) {
       const left = Math.max(0, v.ends_at - ctx.now())
@@ -206,7 +207,8 @@ export function mount(stage, ctx) {
       row.append(el("button", { class: "btn small", type: "button", text: ctx.L("🏠 Properti", "🏠 Properties"), onclick: myProps }),
         el("button", { class: "btn small", type: "button", text: ctx.L("🤝 Tukar", "🤝 Trade"), onclick: tradeBuilder }))
     }
-    const dice = v.dice ? el("div", { class: "row" }, die(v.dice[0]), die(v.dice[1])) : null
+    if (v.dice) { D1.show(v.dice[0]); D2.show(v.dice[1]) }
+    const dice = v.dice ? el("div", { class: "row" }, D1.el, D2.el) : null
     panel.replaceChildren(...parts, dice ? el("div", { class: "row", style: { justifyContent: "center", margin: "8px 0" } }, dice) : null, row,
       el("div", { class: "small muted", style: { marginTop: "10px" } }, (v.log || []).slice(-4).reverse().map((l) => el("div", { text: `• ${ctx.L(l.id, l.en)}` }))))
     if (myProps.redraw) myProps.redraw()
@@ -219,7 +221,7 @@ export function mount(stage, ctx) {
     update(v, events) {
       V = v
       for (const e of events) {
-        if (e.e === "roll") ctx.sfx.dice()
+        if (e.e === "roll") { ctx.sfx.dice(); if (v.dice) { D1.show(v.dice[0], true); D2.show(v.dice[1], true) } }
         if (e.e === "buy" || e.e === "sold") ctx.sfx.cash()
         if (e.e === "rent") ctx.sfx.coin()
         if (e.e === "card") ctx.sfx.card()

@@ -1,0 +1,714 @@
+[
+{
+"q": "Apa yang ada di tengah-tengah laut?",
+"answer": "u",
+"traps": [
+"pulau",
+"ikan",
+"kapal"
+],
+"explain": "Di tengah kata L-A-U-T ada huruf U. MIKIR!",
+"level": 1,
+"alts": []
+},
+{
+"q": "Huruf apa yang paling dingin?",
+"answer": "b",
+"traps": [
+"es"
+],
+"explain": "B… ku. BEKU! MIKIR!",
+"level": 1,
+"alts": []
+},
+{
+"q": "Negara apa yang paling banyak bapak-bapaknya?",
+"answer": "pakistan",
+"traps": [
+"indonesia",
+"china",
+"india"
+],
+"explain": "PAK-PAK-istan. MIKIR!",
+"level": 1,
+"alts": []
+},
+{
+"q": "Ikan apa yang bisa terbang?",
+"answer": "lele",
+"traps": [
+"ikan terbang",
+"pari"
+],
+"explain": "Lele… lawar! (kelelawar) MIKIR!",
+"level": 2,
+"alts": []
+},
+{
+"q": "Kenapa Superman bajunya ada huruf S?",
+"answer": "kebesaran",
+"traps": [
+"superman",
+"super"
+],
+"explain": "Kalau ukuran L kebesaran. MIKIR!",
+"level": 2,
+"alts": []
+},
+{
+"q": "Pintu apa yang didorong-dorong tetap tidak bisa terbuka?",
+"answer": "tarik",
+"traps": [
+"terkunci",
+"macet",
+"rusak"
+],
+"explain": "Pintu yang ada tulisannya TARIK. MIKIR!",
+"level": 1,
+"alts": []
+},
+{
+"q": "Kenapa anjing menggonggong kalau kita lewat depan rumah orang?",
+"answer": "bicara",
+"traps": [
+"galak",
+"curiga"
+],
+"explain": "Karena anjing tidak bisa BICARA. MIKIR!",
+"level": 2,
+"alts": []
+},
+{
+"q": "Gunung apa yang paling tinggi di dunia sebelum Everest ditemukan?",
+"answer": "everest",
+"traps": [
+"kilimanjaro",
+"jayawijaya",
+"k2"
+],
+"explain": "Everest sudah paling tinggi walau belum ditemukan. MIKIR!",
+"level": 2,
+"alts": []
+},
+{
+"q": "Ayam jantan bertelur di atas genteng. Telurnya jatuh ke mana?",
+"answer": "tidak ada",
+"traps": [
+"bawah",
+"tanah",
+"kanan",
+"kiri"
+],
+"explain": "Ayam jantan tidak bertelur. MIKIR!",
+"level": 1,
+"alts": [
+"ga ada",
+"gak ada",
+"tidak bertelur"
+]
+},
+{
+"q": "Bulan apa yang paling pendek?",
+"answer": "mei",
+"traps": [
+"februari"
+],
+"explain": "Namanya cuma 3 huruf: M-E-I. MIKIR!",
+"level": 2,
+"alts": []
+},
+{
+"q": "Apa yang bisa naik tapi tidak pernah bisa turun?",
+"answer": "umur",
+"traps": [
+"harga",
+"tangga",
+"lift"
+],
+"explain": "Umur naik terus. MIKIR!",
+"level": 1,
+"alts": [
+"usia"
+]
+},
+{
+"q": "Apa yang punya kaki tapi tidak bisa jalan?",
+"answer": "meja",
+"traps": [
+"kursi"
+],
+"explain": "Kaki meja. MIKIR!",
+"level": 1,
+"alts": [
+"kursi"
+]
+},
+{
+"q": "Apa yang makin diisi malah makin ringan?",
+"answer": "balon",
+"traps": [
+"perut",
+"dompet"
+],
+"explain": "Balon diisi udara jadi terbang. MIKIR!",
+"level": 1,
+"alts": []
+},
+{
+"q": "Angka berapa yang kalau dibalik jadi lebih besar?",
+"answer": "enam",
+"traps": [
+"sembilan",
+"nol"
+],
+"explain": "6 dibalik jadi 9. MIKIR!",
+"level": 2,
+"alts": [
+"6"
+]
+},
+{
+"q": "Apa yang selalu datang tapi tidak pernah tiba?",
+"answer": "besok",
+"traps": [
+"jodoh",
+"gaji",
+"kereta"
+],
+"explain": "Besok selalu besok. MIKIR!",
+"level": 2,
+"alts": []
+},
+{
+"q": "Ada 3 apel, kamu ambil 2. Berapa apel yang kamu punya?",
+"answer": "dua",
+"traps": [
+"satu",
+"tiga"
+],
+"explain": "Yang kamu ambil ya punyamu: DUA. MIKIR!",
+"level": 1,
+"alts": [
+"2"
+]
+},
+{
+"q": "Lomba lari: kamu menyalip orang di posisi kedua. Sekarang kamu di posisi berapa?",
+"answer": "kedua",
+"traps": [
+"pertama",
+"satu"
+],
+"explain": "Kamu gantikan posisinya: KEDUA. MIKIR!",
+"level": 2,
+"alts": [
+"dua",
+"2"
+]
+},
+{
+"q": "Bapak Budi punya 4 anak: Ana, Ani, Anu, dan…?",
+"answer": "budi",
+"traps": [
+"ane",
+"ano",
+"ini"
+],
+"explain": "Anaknya ya Budi — namanya kan Bapak Budi. MIKIR!",
+"level": 2,
+"alts": []
+},
+{
+"q": "Apa yang punya leher tapi tidak punya kepala?",
+"answer": "botol",
+"traps": [
+"baju",
+"jerapah"
+],
+"explain": "Leher botol. MIKIR!",
+"level": 1,
+"alts": [
+"baju"
+]
+},
+{
+"q": "Apa yang punya gigi tapi tidak bisa menggigit?",
+"answer": "sisir",
+"traps": [
+"gergaji",
+"resleting"
+],
+"explain": "Gigi sisir. MIKIR!",
+"level": 1,
+"alts": [
+"gergaji",
+"resleting"
+]
+},
+{
+"q": "Apa yang punya mata tapi tidak bisa melihat?",
+"answer": "jarum",
+"traps": [
+"kentang",
+"badai"
+],
+"explain": "Mata jarum. MIKIR!",
+"level": 1,
+"alts": [
+"badai",
+"kaki"
+]
+},
+{
+"q": "Apa yang semakin dikeringkan malah semakin basah?",
+"answer": "handuk",
+"traps": [
+"baju",
+"jemuran"
+],
+"explain": "Handuk mengeringkan, dia yang basah. MIKIR!",
+"level": 1,
+"alts": []
+},
+{
+"q": "Kenapa gajah tidak bisa naik sepeda?",
+"answer": "jempol",
+"traps": [
+"berat",
+"besar",
+"gendut"
+],
+"explain": "Tidak punya jempol buat bunyikan bel. MIKIR!",
+"level": 3,
+"alts": []
+},
+{
+"q": "Kenapa matahari tidak terbit dari barat?",
+"answer": "terbenam",
+"traps": [
+"timur",
+"bumi berputar"
+],
+"explain": "Kalau dari barat namanya TERBENAM. MIKIR!",
+"level": 2,
+"alts": []
+},
+{
+"q": "Ayam apa yang paling besar?",
+"answer": "semesta",
+"traps": [
+"kalkun",
+"ayam jago",
+"unta"
+],
+"explain": "Ayam semesta (alam semesta). MIKIR!",
+"level": 2,
+"alts": []
+},
+{
+"q": "Di ruangan gelap ada lilin, lampu minyak, dan kayu bakar. Apa yang kamu nyalakan pertama?",
+"answer": "korek",
+"traps": [
+"lilin",
+"lampu",
+"kayu"
+],
+"explain": "Korek api dulu! MIKIR!",
+"level": 1,
+"alts": [
+"korek api"
+]
+},
+{
+"q": "Mana yang lebih berat: 1 kg kapas atau 1 kg besi?",
+"answer": "sama",
+"traps": [
+"besi",
+"kapas"
+],
+"explain": "Dua-duanya 1 kg. MIKIR!",
+"level": 1,
+"alts": []
+},
+{
+"q": "Berapa bulan dalam setahun yang punya 28 hari?",
+"answer": "semua",
+"traps": [
+"satu",
+"februari"
+],
+"explain": "Semua bulan punya tanggal 28. MIKIR!",
+"level": 1,
+"alts": [
+"12",
+"dua belas"
+]
+},
+{
+"q": "Dokter memberimu 3 pil, diminum tiap setengah jam. Berapa lama sampai habis?",
+"answer": "satu jam",
+"traps": [
+"satu setengah jam",
+"90 menit"
+],
+"explain": "Pil 1 sekarang, 2 di menit 30, 3 di menit 60. MIKIR!",
+"level": 3,
+"alts": [
+"60 menit",
+"1 jam"
+]
+},
+{
+"q": "Ibu Rani punya 3 anak perempuan, masing-masing punya 1 saudara laki-laki. Berapa anak Ibu Rani?",
+"answer": "empat",
+"traps": [
+"enam",
+"tiga"
+],
+"explain": "Saudara laki-lakinya cuma satu, bersama: 4. MIKIR!",
+"level": 2,
+"alts": [
+"4"
+]
+},
+{
+"q": "Apa yang harus dipecahkan dulu sebelum bisa dipakai?",
+"answer": "telur",
+"traps": [
+"piring",
+"gelas",
+"masalah"
+],
+"explain": "Telur! MIKIR!",
+"level": 1,
+"alts": []
+},
+{
+"q": "Apa yang bisa kamu tangkap tapi tidak bisa kamu lempar?",
+"answer": "pilek",
+"traps": [
+"bola",
+"ikan"
+],
+"explain": "Tangkap pilek, mau lempar ke siapa? MIKIR!",
+"level": 2,
+"alts": [
+"flu",
+"masuk angin"
+]
+},
+{
+"q": "Kata apa yang selalu salah diucapkan?",
+"answer": "salah",
+"traps": [
+"benar"
+],
+"explain": "Kata SALAH ya diucapkan 'salah'. MIKIR!",
+"level": 2,
+"alts": []
+},
+{
+"q": "Apa yang jalan terus tapi tidak pernah pindah tempat?",
+"answer": "jam",
+"traps": [
+"waktu",
+"kipas"
+],
+"explain": "Jam dinding jalan terus. MIKIR!",
+"level": 1,
+"alts": [
+"jam dinding"
+]
+},
+{
+"q": "Hewan apa yang kakinya paling banyak?",
+"answer": "kaki seribu",
+"traps": [
+"lipan",
+"kelabang",
+"gurita"
+],
+"explain": "Namanya saja sudah seribu. MIKIR!",
+"level": 1,
+"alts": []
+},
+{
+"q": "Kapan sepatu bisa menyanyi?",
+"answer": "sol",
+"traps": [
+"rusak",
+"baru"
+],
+"explain": "Kalau di-SOL: do re mi fa SOL. MIKIR!",
+"level": 3,
+"alts": []
+},
+{
+"q": "Sesuatu yang dicari-cari, tapi begitu ketemu malah dibuang.",
+"answer": "kutu",
+"traps": [
+"upil",
+"uang",
+"jodoh"
+],
+"explain": "Kutu rambut. MIKIR!",
+"level": 2,
+"alts": [
+"upil"
+]
+},
+{
+"q": "Penyakit yang banyak diderita pegawai di tanggal tua.",
+"answer": "kanker",
+"traps": [
+"pusing",
+"maag",
+"bokek"
+],
+"explain": "KANtong KERing. MIKIR!",
+"level": 2,
+"alts": []
+},
+{
+"q": "Bahan makanan yang paling sering bikin orang menangis.",
+"answer": "bawang",
+"traps": [
+"cabai",
+"sambal"
+],
+"explain": "Dikupas bikin mewek. MIKIR!",
+"level": 1,
+"alts": [
+"bawang merah",
+"bawang bombay"
+]
+},
+{
+"q": "Olahraga favorit orang malas.",
+"answer": "rebahan",
+"traps": [
+"catur",
+"tidur",
+"yoga"
+],
+"explain": "Olah raga paling santai sedunia. MIKIR!",
+"level": 2,
+"alts": []
+},
+{
+"q": "Kenapa ayam menyeberang jalan?",
+"answer": "seberang",
+"traps": [
+"takut",
+"dikejar"
+],
+"explain": "Mau ke SEBERANG. MIKIR!",
+"level": 1,
+"alts": []
+},
+{
+"q": "Kenapa air laut asin?",
+"answer": "keringetan",
+"traps": [
+"garam",
+"mineral"
+],
+"explain": "Ikannya keringetan. MIKIR!",
+"level": 2,
+"alts": [
+"keringat",
+"berkeringat"
+]
+},
+{
+"q": "Kenapa burung terbang ke selatan saat musim dingin?",
+"answer": "kejauhan",
+"traps": [
+"dingin",
+"hangat",
+"makan"
+],
+"explain": "Kalau jalan kaki kejauhan. MIKIR!",
+"level": 2,
+"alts": []
+},
+{
+"q": "Kenapa pohon kelapa di depan rumah harus ditebang?",
+"answer": "berat",
+"traps": [
+"bahaya",
+"roboh",
+"tinggi"
+],
+"explain": "Kalau dicabut BERAT. MIKIR!",
+"level": 2,
+"alts": []
+},
+{
+"q": "Kenapa Doraemon tidak punya telinga?",
+"answer": "tikus",
+"traps": [
+"robot",
+"lupa"
+],
+"explain": "Telinganya digigit tikus! MIKIR!",
+"level": 2,
+"alts": []
+},
+{
+"q": "Kenapa zebra bajunya belang-belang?",
+"answer": "kuda",
+"traps": [
+"kamuflase",
+"gaya"
+],
+"explain": "Kalau polos namanya KUDA. MIKIR!",
+"level": 2,
+"alts": []
+},
+{
+"q": "Kenapa naik motor harus pakai helm?",
+"answer": "panci",
+"traps": [
+"aman",
+"polisi",
+"aturan"
+],
+"explain": "Kalau pakai panci diketawain orang. MIKIR!",
+"level": 3,
+"alts": []
+},
+{
+"q": "Kenapa ikan bisa hidup di air?",
+"answer": "asin",
+"traps": [
+"insang"
+],
+"explain": "Kalau di darat namanya ikan ASIN. MIKIR!",
+"level": 2,
+"alts": []
+},
+{
+"q": "Kenapa kalau tidur mata kita merem?",
+"answer": "melek",
+"traps": [
+"ngantuk",
+"gelap"
+],
+"explain": "Kalau MELEK namanya bukan tidur. MIKIR!",
+"level": 2,
+"alts": []
+},
+{
+"q": "Benda yang kalau masih baru justru tidak bisa dipakai, harus dibuka dulu.",
+"answer": "kado",
+"traps": [
+"sepatu",
+"hp"
+],
+"explain": "Kado harus dibuka dulu. MIKIR!",
+"level": 3,
+"alts": [
+"hadiah"
+]
+},
+{
+"q": "Hewan apa yang bersaudara?",
+"answer": "katak",
+"traps": [
+"kucing",
+"monyet"
+],
+"explain": "KATAK beradik (kakak beradik). MIKIR!",
+"level": 2,
+"alts": []
+},
+{
+"q": "Tempat apa yang paling ramai di tanggal muda?",
+"answer": "mall",
+"traps": [
+"pasar",
+"bank"
+],
+"explain": "Gajian langsung ke mall. MIKIR!",
+"level": 2,
+"alts": [
+"mal"
+]
+},
+{
+"q": "Kenapa kucing tidak suka main kartu?",
+"answer": "cheetah",
+"traps": [
+"kalah",
+"bosan"
+],
+"explain": "Ada CHEETAH (cheater) di keluarganya. MIKIR!",
+"level": 4,
+"alts": []
+},
+{
+"q": "Apa yang dimiliki orang miskin, dibutuhkan orang kaya, dan kalau dimakan bisa mati?",
+"answer": "tidak ada",
+"traps": [
+"racun",
+"uang"
+],
+"explain": "Tidak ada! MIKIR!",
+"level": 3,
+"alts": [
+"nothing",
+"ga ada",
+"gak ada"
+]
+},
+{
+"q": "Makin banyak diambil, makin besar dia.",
+"answer": "lubang",
+"traps": [
+"utang",
+"pasir"
+],
+"explain": "Lubang digali makin besar. MIKIR!",
+"level": 2,
+"alts": []
+},
+{
+"q": "Benda apa yang punya banyak kunci tapi tidak bisa membuka pintu?",
+"answer": "piano",
+"traps": [
+"gembok",
+"lemari"
+],
+"explain": "Kunci nada piano. MIKIR!",
+"level": 2,
+"alts": [
+"keyboard",
+"gitar"
+]
+},
+{
+"q": "Sesuatu yang milikmu, tapi orang lain lebih sering memakainya.",
+"answer": "nama",
+"traps": [
+"hp",
+"motor",
+"uang"
+],
+"explain": "Namamu lebih sering dipanggil orang. MIKIR!",
+"level": 2,
+"alts": []
+},
+{
+"q": "Apa yang naik kalau hujan turun?",
+"answer": "payung",
+"traps": [
+"air",
+"banjir",
+"harga"
+],
+"explain": "Payungnya naik dibuka. MIKIR!",
+"level": 2,
+"alts": []
+}
+]

@@ -25,7 +25,7 @@ def pips(hand) -> int:
 
 
 class Gaple(Game):
-    key, name_id, name_en, icon = "gaple", "Gaple (Domino)", "Dominoes (Gaple)", "🁫"
+    key, name_id, name_en, icon = "gaple", "Dominoes (Gaple)", "Dominoes (Gaple)", "🁫"
     min_players, max_players = 2, 4
     santai_ok = True
     default_timer = 30
@@ -46,7 +46,7 @@ class Gaple(Game):
         self.rng.shuffle(tiles)
         ids = self.ids()
         hands = {p: [tiles.pop() for _ in range(7)] for p in ids}
-        s.update({"hands": hands, "bone": tiles, "line": [], "ends": None, "passes": 0, "round": s["round"] + 1,
+        s.update({"hands": hands, "bone": tiles, "line": [], "left_n": 0, "ends": None, "passes": 0, "round": s["round"] + 1,
                   "phase": "play", "round_over": None, "deadline": None, "must": None, "last": None})
         if s["last_winner"] in ids:
             starter, must = s["last_winner"], None
@@ -83,7 +83,7 @@ class Gaple(Game):
                 if pid == s["turn"] else {}, "counts": {p: len(h) for p, h in s["hands"].items()}, "line": s["line"],
                 "ends": s["ends"], "bone": len(s["bone"]), "scores": s["scores"], "target": s["target"],
                 "round": s["round"], "phase": s["phase"], "round_over": s["round_over"], "deadline": s["deadline"],
-                "last": s["last"]}
+                "last": s["last"], "origin": s.get("left_n", len(s["line"]) // 2)}
 
     def act(self, pid, a, now):
         s = self.s
@@ -125,6 +125,7 @@ class Gaple(Game):
             left = s["ends"][0]
             t = [a, b] if b == left else [b, a]  # the right half must match the left end
             s["line"].insert(0, {"t": t, "who": pid})
+            s["left_n"] = s.get("left_n", 0) + 1
             s["ends"][0] = t[0]
         else:
             right = s["ends"][1]

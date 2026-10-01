@@ -37,7 +37,16 @@ export function mountQuiz(stage, ctx, kind) {
     tries: el("div", { class: "center small muted", style: { marginTop: "6px" } }),
     hints: el("div", { class: "center", style: { marginTop: "8px", fontWeight: 800 } }),
     result: el("div", { class: "center big-msg" }),
+    tts: el("div", { class: "tts" }),
   }
+  let ttsWords = []
+  // TTS boxes (Cak Lontong): show the letter count and fill in as you type.
+  function drawTTS() {
+    const letters = typed.input.value.toUpperCase().replace(/[^A-Z0-9]/g, "")
+    let k = 0
+    typed.tts.replaceChildren(...ttsWords.map((n) => el("div", { class: "tts-word" }, Array.from({ length: n }, () => el("span", { class: "tts-box", text: letters[k++] || "" })))))
+  }
+  typed.input.addEventListener("input", () => { if (kind === "lontong") drawTTS() })
   const submit = () => { const t = typed.input.value.trim(); if (!t || typed.row.classList.contains("waiting")) return; ctx.send({ text: t }); typed.input.value = ""; typed.input.focus() }
   typed.input.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); submit() } })
   // pointerdown + preventDefault keeps the keyboard open while tapping OK
@@ -45,9 +54,87 @@ export function mountQuiz(stage, ctx, kind) {
   okBtn.addEventListener("pointerdown", (e) => { if (document.activeElement === typed.input) e.preventDefault() })
   typed.row = el("div", { class: "answer-row" }, typed.input, okBtn)
 
+  // Letter tiles for picture riddles (like the Tebak Gambar app): answer boxes + a pool of shuffled letters.
+  const tiles = (() => {
+    const boxes = el("div", { class: "tb-boxes" }), pool = el("div", { class: "tb-pool" })
+    const hintBtn = el("button", { class: "btn small", type: "button", onclick: () => { if (V && V.phase === "question") { ctx.sfx.click(); ctx.send({ do: "reveal" }) } } }, "💡 ", ctx.L("Buka huruf (−30%)", "Open a letter (−30%)"))
+    const backBtn = el("button", { class: "btn small", type: "button", text: "⌫", onclick: () => undo() })
+    const root = el("div", { class: "tb" }, boxes, pool, el("div", { class: "row", style: { justifyContent: "center", gap: "8px", marginTop: "8px" } }, hintBtn, backBtn))
+    let qi = -2, slots = [], used = new Set(), words = [], letters = "", locked = {}, sent = false, revMap = {}
+    const L = () => slots.length
+    function reset(v, q) {
+      qi = v.i; words = q.words; letters = q.pool || ""
+      slots = Array(words.reduce((a, b) => a + b, 0)).fill(null)
+      used = new Set(); locked = {}; sent = false
+    }
+    function applyRevealed(v) {
+      for (const [k, ch] of Object.entries(v.revealed || {})) {
+        const i = Number(k)
+        if (locked[i] !== undefined) continue
+        if (slots[i] !== null && slots[i] !== undefined) { used.delete(slots[i]); slots[i] = null }
+        let p = [...letters].findIndex((c, j) => c === ch && !used.has(j))
+        if (p < 0) p = -1 - i
+        locked[i] = p; slots[i] = p
+        if (p >= 0) used.add(p)
+      }
+    }
+    function text() {
+      const chars = slots.map((p, i) => (p === null ? "" : p < 0 ? revMap[String(i)] || "" : letters[p]))
+      let k = 0
+      return words.map((n) => chars.slice(k, (k += n)).join("")).join(" ")
+    }
+    function put(p) {
+      if (!V || V.phase !== "question" || (V.mine || {}).final || used.has(p)) return
+      const i = slots.findIndex((x) => x === null)
+      if (i < 0) return
+      slots[i] = p; used.add(p); ctx.sfx.click()
+      render()
+      if (slots.every((x) => x !== null) && !sent) { sent = true; ctx.send({ text: text() }) }
+    }
+    function take(i) {
+      if (locked[i] !== undefined || slots[i] === null) return
+      used.delete(slots[i]); slots[i] = null; sent = false; ctx.sfx.pop(); render()
+    }
+    function undo() { for (let i = L() - 1; i >= 0; i--) if (slots[i] !== null && locked[i] === undefined) { take(i); return } }
+    function wrong() {
+      boxes.classList.remove("mp-shake"); void boxes.offsetWidth; boxes.classList.add("mp-shake")
+      setTimeout(() => { for (let i = 0; i < L(); i++) if (locked[i] === undefined && slots[i] !== null) { used.delete(slots[i]); slots[i] = null } sent = false; render() }, 450)
+    }
+    function render() {
+      boxes.replaceChildren()
+      let k = 0
+      for (const n of words) {
+        const w = el("div", { class: "tb-word" })
+        for (let j = 0; j < n; j++, k++) {
+          const i = k, p = slots[i]
+          const ch = p === null ? "" : p < 0 ? revMap[String(i)] || "" : letters[p]
+          w.append(el("button", { class: `tb-box${p !== null ? " full" : ""}${locked[i] !== undefined ? " lock" : ""}`, type: "button", text: ch, onclick: () => take(i) }))
+        }
+        boxes.append(w)
+      }
+      pool.replaceChildren(...[...letters].map((c, j) => el("button", { class: `tb-tile${used.has(j) ? " used" : ""}`, type: "button", text: c, onclick: () => put(j) })))
+      const asking = V && V.phase === "question" && !(V.mine || {}).final
+      root.classList.toggle("waiting", !asking)
+      hintBtn.disabled = !asking
+    }
+    return {
+      root, wrong,
+      draw(v, q, mine) {
+        if (v.i !== qi) reset(v, q)
+        if (v.phase === "reveal" && q.answer) {
+          const flat = [...q.answer.toUpperCase().replace(/ /g, "")]
+          slots = flat.map((_, i) => -1 - i); locked = {}
+          revMap = Object.fromEntries(flat.map((c, i) => [String(i), c]))
+        } else { revMap = v.revealed || {}; applyRevealed(v) }
+        render()
+        void mine
+      },
+    }
+  })()
+
   function showHints(v) {
     const h = []
-    if (kind === "rebus" && v.hints && v.phase === "question" && !(v.mine || {}).final) {
+    if ((kind === "rebus" || kind === "lontong") && v.hints && v.phase === "question" && !(v.mine || {}).final) {
       const now = ctx.now()
       if (now >= v.hints.at[0] && v.hints.hint) h.push(`💡 ${v.hints.hint}`)
       if (now >= v.hints.at[1]) h.push(`🔤 ${v.hints.letters}`)
@@ -82,16 +169,18 @@ export function mountQuiz(stage, ctx, kind) {
     const head = el("div", { class: "row between" }, el("span", { class: `q-level lv${q.level}`, text: `${lv[lang === "en" ? 1 : 0]} ${lv[2]}` }),
       el("span", { class: "small muted", text: `${v.i + 1}/${v.n}` }))
     const body = []
-    if (kind === "rebus") body.push(rebusSvg(q.elements), el("div", { class: "small muted", style: { marginTop: "6px" }, text: `${q.words.length} ${ctx.L("kata", "word(s)")}: ${q.words.map((n) => "_".repeat(n)).join(" ")}` }))
+    if (kind === "rebus") body.push(rebusSvg(q.elements))
     else {
       if (q.flag && (q.topic === "flags")) body.push(el("img", { src: `/flags/${q.flag}.svg`, alt: "flag", style: { width: "70%", maxWidth: "260px", margin: "4px auto 10px", borderRadius: "8px", boxShadow: "var(--shadow)" } }))
+      if (kind === "lontong") body.push(el("div", { class: "lt-badge", text: "🥸 Cak Lontong Quiz" }))
       body.push(el("div", { class: "q", text: q.q }))
       if (q.unit) body.push(el("div", { class: "small muted", text: `(${q.unit})` }))
     }
     if (v.phase === "reveal") {
       const ans = kind === "trivia" ? q.choices[q.answer] : q.answer
       body.push(el("div", { style: { marginTop: "12px", fontWeight: 900, fontSize: "20px", color: "var(--ok)" }, text: `✓ ${ans}` }))
-      if (q.explain) body.push(el("div", { class: "small muted", text: q.explain }))
+      if (kind === "lontong") body.push(el("div", { class: "lt-mikir", text: "MIKIR! 🤔" }), el("div", { class: "lt-explain", text: q.explain || "" }))
+      else if (q.explain) body.push(el("div", { class: "small muted", text: q.explain }))
       if (voided) body.push(el("div", { class: "pill warn", text: ctx.L("Dilaporkan — tidak dihitung", "Reported — doesn't count") }))
     }
     const key = JSON.stringify([v.i, v.phase, voided, ctx.L("id", "en")])
@@ -107,8 +196,18 @@ export function mountQuiz(stage, ctx, kind) {
         return el("button", { class: cls, type: "button", disabled: v.phase !== "question" || mine.final,
           onclick: () => { ctx.sfx.click(); ctx.send({ c: k }) } }, el("span", { class: "k", text: "ABCD"[k] }), el("span", { text: c }))
       })))
+    } else if (kind === "rebus") {
+      tiles.draw(v, q, mine)
+      if (!answers.contains(tiles.root)) answers.replaceChildren(typed.result, tiles.root, typed.hints)
+      showHints(v)
+      typed.result.hidden = !mine.final
+      if (mine.final) {
+        typed.result.style.color = mine.ok ? "var(--ok)" : "var(--bad)"
+        typed.result.textContent = mine.ok ? `✓ +${mine.pts}` : ctx.L("✗ Tidak tepat", "✗ Not this time")
+      }
     } else {
-      if (!answers.contains(typed.row)) answers.replaceChildren(typed.result, typed.row, typed.tries, typed.hints)
+      if (!answers.contains(typed.row)) answers.replaceChildren(...(kind === "lontong" ? [typed.result, typed.tts] : [typed.result]), typed.row, typed.tries, typed.hints)
+      if (kind === "lontong") { ttsWords = q.words || []; drawTTS() }
       // The row stays on screen between questions so a phone keyboard that is open stays open.
       const asking = v.phase === "question" && !mine.final
       typed.row.hidden = false
@@ -136,13 +235,15 @@ export function mountQuiz(stage, ctx, kind) {
     void events
   }
 
-  hintTimer = setInterval(() => { if (V && kind === "rebus" && V.phase === "question") showHints(V) }, 1000)
+  hintTimer = setInterval(() => { if (V && (kind === "rebus" || kind === "lontong") && V.phase === "question") showHints(V) }, 1000)
   return {
     destroy() { clearInterval(hintTimer) },
     update(v, events) {
       for (const e of events) {
         if (e.e === "right" && e.who === ctx.me.id) ctx.sfx.right()
-        if (e.e === "wrong") { ctx.sfx.wrong(); card.classList.remove("shake"); void card.offsetWidth; card.classList.add("shake") }
+        if (e.e === "wrong") { ctx.sfx.wrong(); card.classList.remove("shake"); void card.offsetWidth; card.classList.add("shake"); if (kind === "rebus") tiles.wrong() }
+        if (e.e === "revealed") ctx.sfx.pop()
+        if (e.e === "trap") { ctx.sfx.buzz(); ctx.toast(ctx.L(`“${e.text}”? Itu jawaban orang normal! 🤓 MIKIR!`, `“${e.text}”? That's what a normal person says! 🤓 THINK!`)); typed.input.value = ""; drawTTS() }
         if (e.e === "right" && e.who !== ctx.me.id) ctx.sfx.blip()
         if (e.e === "question") ctx.sfx.pop()
         if (e.e === "level") ctx.sfx.turn()

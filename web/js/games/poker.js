@@ -1,25 +1,22 @@
 // Texas Hold'em table: seats around an oval felt, community cards in the middle, your cards and actions below.
 import { el } from "../lib.js?v=__VERSION__"
 import { rp, rpShort } from "../lib.js?v=__VERSION__"
-import { pcard } from "./common.js?v=__VERSION__"
+import { chipStack, fly, pcard, rectOf } from "./common.js?v=__VERSION__"
 
 export function mount(stage, ctx) {
   const st = el("div", { class: "status-line" })
-  const table = el("div", { class: "felt", style: { position: "relative", width: "min(100%, calc(50dvh * 1.25))", maxWidth: "760px", margin: "0 auto", aspectRatio: "1.25", borderRadius: "48%/42%", border: "10px solid #7a4a2a" } })
+  const table = el("div", { class: "felt", style: { position: "relative", width: "min(100%, calc(54dvh * 1.08))", maxWidth: "760px", margin: "0 auto", aspectRatio: "1.08", borderRadius: "48%/42%", border: "10px solid #7a4a2a" } })
   const meRow = el("div", { class: "row", style: { justifyContent: "center", gap: "12px", marginTop: "10px" } })
   const actions = el("div", { class: "action-bar" })
   const raiseBox = el("div", { class: "card", hidden: true, style: { maxWidth: "520px", margin: "0 auto" } })
   const log = el("div", { class: "center small muted", style: { minHeight: "20px" } })
   stage.append(st, table, meRow, actions, raiseBox, log)
-  let raiseTo = 0
+  let raiseTo = 0, seatEls = {}, potEl = null, prevBoard = 0
 
   return {
     update(v, events) {
       for (const e of events) {
-        if (e.e === "bet") { if (e.do === "fold") ctx.sfx.card(); else if (e.do === "check") ctx.sfx.click(); else ctx.sfx.cash() }
-        if (e.e === "street") ctx.sfx.card()
-        if (e.e === "showdown" || e.e === "win") ctx.sfx.coin()
-        if (e.e === "newhand") ctx.sfx.whoosh()
+        if (e.e === "bet" && e.do === "check") ctx.sfx.click()
       }
       const me = ctx.me.id
       const order = v.order
@@ -28,9 +25,10 @@ export function mount(stage, ctx) {
       const myIdx = Math.max(0, all.indexOf(me))
       const rot = [...all.slice(myIdx), ...all.slice(0, myIdx)]
       table.replaceChildren()
+      seatEls = {}
       rot.forEach((pid, k) => {
         const a = Math.PI / 2 + (k / rot.length) * Math.PI * 2
-        const x = 50 + Math.cos(a) * 36, y = 50 + Math.sin(a) * 38
+        const x = 50 + Math.cos(a) * 34, y = 50 + Math.sin(a) * 41
         const inHand = order.includes(pid)
         const folded = v.folded.includes(pid)
         const busted = v.busted.includes(pid) || v.left.includes(pid)
@@ -50,11 +48,12 @@ export function mount(stage, ctx) {
             tags.length ? el("span", { class: "pill", style: { fontSize: "10px" }, text: tags.join(" ") }) : null),
           bet ? el("div", { class: "pill gold", style: { background: "#f2c94c", color: "#3a2a10", fontSize: "11px" }, text: `🪙 ${rpShort(bet)}` }) : null,
           v.allin.includes(pid) ? el("div", { class: "pill bad", style: { fontSize: "10px" }, text: "ALL-IN" }) : null)
+        seatEls[pid] = box
         table.append(box)
       })
-      const center = el("div", { style: { position: "absolute", left: "50%", top: "46%", transform: "translate(-50%,-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" } },
-        el("div", { style: { display: "flex", gap: "4px" } }, [0, 1, 2, 3, 4].map((i) => v.board[i] ? pcard(v.board[i], 40) : el("div", { style: { width: "40px", aspectRatio: "5/7", borderRadius: "8px", border: "2px dashed rgba(255,255,255,.25)" } }))),
-        el("div", { style: { color: "#fff", fontWeight: 900 } }, `Pot ${rp(v.pot)}`),
+      const center = el("div", { style: { position: "absolute", left: "50%", top: "50%", transform: "translate(-50%,-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" } },
+        el("div", { style: { display: "flex", gap: "4px", perspective: "400px" } }, [0, 1, 2, 3, 4].map((i) => v.board[i] ? (() => { const c = pcard(v.board[i], 38); if (i >= prevBoard && v.board.length > prevBoard) { c.classList.add("flip-in"); c.style.animationDelay = `${(i - prevBoard) * 0.18}s` } return c })() : el("div", { style: { width: "38px", aspectRatio: "5/7", borderRadius: "8px", border: "2px dashed rgba(255,255,255,.25)" } }))),
+        potEl = el("div", { class: "pk-pot" }, chipStack(4), el("b", { text: `Pot ${rp(v.pot)}` })),
         el("div", { style: { color: "rgba(255,255,255,.75)", fontSize: "12px", fontWeight: 700 } }, `Blind ${rpShort(v.blinds[0])}/${rpShort(v.blinds[1])} · ${ctx.L("level", "level")} ${v.level + 1}`))
       table.append(center)
       if (v.phase === "showdown" && v.result) {
@@ -87,6 +86,38 @@ export function mount(stage, ctx) {
       }
       if (!v.over && !v.left.includes(me) && !v.busted.includes(me)) actions.append(el("button", { class: "btn ghost small", type: "button", text: ctx.L("Keluar meja", "Leave table"),
         onclick: () => { if (confirm(ctx.L("Keluar dari meja? Chip-mu disimpan ke dompet.", "Leave the table? Your chips go back to your wallet."))) ctx.send({ do: "leave" }) } }))
+      // ---- animations ----
+      const potR = rectOf(potEl)
+      let k = 0
+      for (const e of events) {
+        if (e.e === "newhand") {
+          ctx.sfx.whoosh()
+          const seats = order.filter((p) => seatEls[p])
+          for (let r = 0; r < 2; r++) seats.forEach((p, j) => {
+            const to = p === me ? rectOf(meRow.children[r]) || rectOf(meRow) : rectOf(seatEls[p])
+            fly(pcard(null, 40), potR, to, { dur: 360, delay: (r * seats.length + j) * 120, spin: 200, arc: 18, onDone: () => ctx.sfx.deal() })
+          })
+          if (meRow.children.length) [...meRow.children].forEach((c, j) => { c.style.animationDelay = `${(seats.length + j) * 0.12 + 0.3}s`; c.classList.add("slide-in") })
+        }
+        if (e.e === "bet" && e.do !== "check" && e.do !== "fold") {
+          fly(chipStack(e.do === "allin" ? 6 : e.do === "raise" || e.do === "bet" ? 4 : 3), rectOf(seatEls[e.who]), potR, { dur: 520, delay: k * 140, arc: 26, onDone: () => { ctx.sfx.chips(e.do === "allin" ? 7 : 4); potEl && potEl.classList.remove("land"); potEl && (void potEl.offsetWidth, potEl.classList.add("land")) } })
+          k++
+        }
+        if (e.e === "bet" && e.do === "fold") {
+          ctx.sfx.card()
+          const from = rectOf(seatEls[e.who])
+          if (from) fly(pcard(null, 30), from, { left: from.left + (potR ? (potR.left - from.left) * 0.5 : 0), top: from.top + (potR ? (potR.top - from.top) * 0.5 : 0), width: 20, height: 28 }, { dur: 420, spin: 0, rotate: 160 })
+        }
+        if (e.e === "street") ctx.sfx.flip()
+        if (e.e === "win" || e.e === "showdown") {
+          const winners = (v.result?.winners || []).map((x) => x.id)
+          ;(winners.length ? winners : e.who || []).forEach((p, j) => {
+            for (let c = 0; c < 4; c++) fly(chipStack(3), potR, rectOf(seatEls[p]), { dur: 600, delay: 450 + j * 200 + c * 90, arc: 30, onDone: () => ctx.sfx.chips(3) })
+          })
+          setTimeout(() => ctx.sfx.coin(), 900)
+        }
+      }
+      prevBoard = v.board.length
       log.textContent = (v.log || []).slice(-2).join(" · ")
       const toCall = v.to_call
       st.className = `status-line${mine ? " mine" : ""}`

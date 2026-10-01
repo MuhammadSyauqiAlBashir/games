@@ -29,7 +29,7 @@ BOT_NAMES = ["Bot Lele", "Bot Cacing", "Bot Belut", "Bot Sanca", "Bot Kobra", "B
 
 
 class Snake(Game):
-    key, name_id, name_en, icon = "snake", "Arena Ular", "Snake arena", "🐍"
+    key, name_id, name_en, icon = "snake", "Snake Arena", "Snake Arena", "🐍"
     kind = "realtime"
     tick_hz = HZ
     min_players, max_players = 2, 6

@@ -192,7 +192,7 @@ export function mount(stage, ctx) {
       if (key === drawn && !events.length) return
       drawn = key
       if (p.phase === "start") {
-        screen.replaceChildren(el("div", { class: "pp-head" }, el("div", { class: "pp-title big", text: ctx.L("Pesta Minigame!", "Minigame Party!") }),
+        screen.replaceChildren(el("div", { class: "pp-head" }, el("div", { class: "pp-title big", text: "Minigame Party!" }),
           el("div", { class: "pp-sub-t", text: ctx.L(`${p.count} minigame · menang = +10 koin · koin terbanyak juara!`, `${p.count} minigames · win = +10 coins · most coins wins!`) })),
         el("div", { class: "pp-lineup" }, p.order.map((k, i) => el("span", { style: { "--t": TINT[k] || "#3b6cf2", animationDelay: `${i * 0.08}s` }, text: "?" }))), coinsBar(v))
         if (events.some((e) => e.e === "start")) ctx.sfx.mpStart()

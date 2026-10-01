@@ -110,7 +110,7 @@ CHEST = [
 
 
 class Monopoly(Game):
-    key, name_id, name_en, icon = "monopoly", "Monopoli", "Monopoly", "🏦"
+    key, name_id, name_en, icon = "monopoly", "Monopoly", "Monopoly", "🏦"
     min_players, max_players = 2, 6
     santai_ok = True
     default_timer = 90

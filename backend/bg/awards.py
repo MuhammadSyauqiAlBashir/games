@@ -46,6 +46,7 @@ AWARDS = {
     "rounds_won": ("🏅", "Juara Ronde", "Round Winner", True),
     "correct": ("✅", "Paling Banyak Benar", "Most Correct", True),
     "mini_wins": ("🏆", "Raja Minigame", "Minigame Champ", True),
+    "normal_answers": ("🤓", "Terlalu Normal", "Way Too Normal", True),
     "first": ("👀", "Mata Elang", "Eagle Eye", True),
     "buzz": ("🔔", "Tercepat Pencet Bel", "Fastest Buzzer", True),
     "boomed": ("💥", "Langganan Meledak", "Bob-omb Magnet", True),

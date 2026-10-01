@@ -15,8 +15,67 @@ const PIPS = { 1: [[50, 50]], 2: [[28, 28], [72, 72]], 3: [[26, 26], [50, 50], [
 export function dieSvg(n, color = "#2e2722") {
   return svg("svg", { viewBox: "0 0 100 100" }, (PIPS[n] || []).map(([x, y]) => svg("circle", { cx: x, cy: y, r: 10, fill: n === 1 ? "#d9534f" : color })))
 }
+// ---- 3D dice ----------------------------------------------------------------------------------------------------
+// A real cube with six pip faces. makeDie() returns a die that tumbles and lands on a value; the animation is
+// time-based, so re-rendering the screen mid-roll doesn't restart it.
+const PIP_CELLS = { 1: [5], 2: [3, 7], 3: [3, 5, 7], 4: [1, 3, 7, 9], 5: [1, 3, 5, 7, 9], 6: [1, 3, 4, 6, 7, 9] }
+const FACE_ROT = { 1: [0, 0], 6: [0, 180], 3: [0, -90], 4: [0, 90], 5: [-90, 0], 2: [90, 0] }  // cube rotation [x, y] showing face n
+function cubeNode(size) {
+  const cube = el("div", { class: "cube" })
+  for (const n of [1, 2, 3, 4, 5, 6]) {
+    const face = el("div", { class: `face f${n}` })
+    for (let c = 1; c <= 9; c++) face.append(el("i", { class: PIP_CELLS[n].includes(c) ? `pip${n === 1 ? " red" : ""}` : "" }))
+    cube.append(face)
+  }
+  return el("div", { class: "die3d", style: { "--s": `${size}px` } }, cube, el("span", { class: "die-shadow" }))
+}
+export function makeDie(size = 64) {
+  const node = cubeNode(size)
+  const cube = node.firstChild
+  let cur = [-18, 24], from = cur, to = cur, t0 = 0, dur = 0, raf = 0, value = 0
+  const apply = (rx, ry, lift = 0) => { cube.style.transform = `translateY(${-lift}px) rotateX(${rx}deg) rotateY(${ry}deg)` }
+  const tick = () => {
+    const p = Math.min(1, (performance.now() - t0) / dur)
+    const e = 1 - (1 - p) ** 3
+    const lift = Math.sin(Math.min(1, p * 1.25) * Math.PI) * size * 0.55
+    apply(from[0] + (to[0] - from[0]) * e, from[1] + (to[1] - from[1]) * e, lift)
+    if (p < 1) raf = requestAnimationFrame(tick); else { cur = to; node.classList.remove("rolling") }
+  }
+  apply(...cur)
+  return {
+    el: node,
+    get value() { return value },
+    show(n, roll = false) {
+      if (!n) { node.classList.add("blank"); return }
+      node.classList.remove("blank")
+      const [fx, fy] = FACE_ROT[n]
+      const tilt = [-14, 18]  // a slight 3/4 view so you can see it's a cube
+      if (!roll) {
+        if (n === value && !node.classList.contains("rolling")) return
+        if (node.classList.contains("rolling") && n === value) return
+        value = n
+        cancelAnimationFrame(raf)
+        cur = [fx + tilt[0], fy + tilt[1]]
+        apply(...cur)
+        return
+      }
+      value = n
+      cancelAnimationFrame(raf)
+      from = cur
+      const spinX = 360 * (2 + Math.floor(Math.random() * 2)), spinY = 360 * (1 + Math.floor(Math.random() * 2))
+      to = [fx + tilt[0] + spinX + Math.round(from[0] / 360) * 360, fy + tilt[1] + spinY + Math.round(from[1] / 360) * 360]
+      t0 = performance.now(); dur = 900
+      node.classList.add("rolling")
+      raf = requestAnimationFrame(tick)
+    },
+  }
+}
+// A still 3D die showing n (or a 🎲 if there's no value yet).
 export function die(n, rolling = false) {
-  return el("div", { class: `dice${rolling ? " rolling" : ""}` }, n ? dieSvg(n) : el("span", { style: { fontSize: "30px" }, text: "🎲" }))
+  if (!n) return el("div", { class: "dice" }, el("span", { style: { fontSize: "30px" }, text: "🎲" }))
+  const d = makeDie(56)
+  d.show(n, rolling)
+  return d.el
 }
 
 export const SUIT = { S: "♠", H: "♥", D: "♦", C: "♣" }
@@ -63,3 +122,25 @@ export function domino(a, b, { size = 34, vertical = false, highlight = false, b
 }
 
 export function colorFor(ctx, pid) { return ctx.color(pid) || "#999" }
+
+// ---- flying cards / chips ------------------------------------------------------------------------------------
+// Moves a copy of `node` from one screen rectangle to another (fixed position, on top of everything).
+export function fly(node, from, to, { dur = 420, delay = 0, rotate = 0, spin = 0, scaleFrom = 1, arc = 0, onDone } = {}) {
+  if (!from || !to) { onDone && onDone(); return Promise.resolve() }
+  const box = el("div", { class: "fly", style: { left: `${to.left}px`, top: `${to.top}px`, width: `${to.width}px`, height: `${to.height}px` } }, node)
+  document.body.append(box)
+  const dx = from.left + from.width / 2 - (to.left + to.width / 2), dy = from.top + from.height / 2 - (to.top + to.height / 2)
+  const sx = from.width / Math.max(1, to.width) * scaleFrom
+  const kf = [
+    { transform: `translate(${dx}px, ${dy}px) scale(${sx}) rotate(${spin}deg)`, opacity: 1 },
+    { transform: `translate(${dx * 0.45}px, ${dy * 0.45 - arc}px) scale(${(sx + 1) / 2 * 1.08}) rotate(${(spin + rotate) / 2}deg)`, opacity: 1, offset: 0.55 },
+    { transform: `translate(0, 0) scale(1) rotate(${rotate}deg)`, opacity: 1 },
+  ]
+  const anim = box.animate(kf, { duration: dur, delay, easing: "cubic-bezier(.25,.8,.3,1)", fill: "both" })
+  return anim.finished.then(() => { box.remove(); onDone && onDone() }, () => box.remove())
+}
+export const rectOf = (n) => (n && n.isConnected ? n.getBoundingClientRect() : null)
+export function chipStack(n = 3) {
+  const cols = ["#e5484d", "#3b82d6", "#2e2722", "#3fa66a", "#f2b63c"]
+  return el("div", { class: "chip-stack" }, Array.from({ length: n }, (_, i) => el("i", { style: { background: cols[i % cols.length], bottom: `${i * 3}px` } })))
+}

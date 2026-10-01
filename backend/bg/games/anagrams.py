@@ -13,7 +13,7 @@ INTRO = 3.0
 
 
 class Anagrams(Game):
-    key, name_id, name_en, icon = "anagrams", "Anagram (Inggris)", "Anagrams", "🔤"
+    key, name_id, name_en, icon = "anagrams", "Anagrams", "Anagrams", "🔤"
     kind = "timed"
     min_players, max_players = 2, 6
     options = [

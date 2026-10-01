@@ -49,3 +49,11 @@ reports its score); arenas are server-simulated at 20 fps; 1-vs-3 games rotate t
 free-for-all; team games use 1v1 / 1v2 (solo counts double) / 2v2; the Kaboom-style co-op rhythm games are
 competitive (best score wins). Sensor and microphone games always have a touch fallback, and are off by default
 in Pesta. Night Lights and Unfriendly Flying Object were left out (duplicates of Pickax Dash / Sunset Standoff).
+
+## Polish round (2026-10-01)
+- Gaple: big felt table; the line snakes like a real table (grows from the first tile, turns at the edge, doubles
+  crosswise, rows turn sooner on portrait phones). Engine records `left_n` so the first tile is known.
+- 3D dice everywhere (Ludo, Snakes & Ladders, Monopoly): CSS cube, time-based tumble that survives re-renders.
+- Ludo: yard pieces centred in their spots. Snake Arena: shaded bodies, 6 skins, tongue, glow food, fills the screen.
+- UNO and Poker: cards/chips fly (Web Animations); poker deals, flips the board, chips to pot with clinks, pot to winner.
+- All game names in English. Picture Riddles rebuilt as Tebak Gambar; new Cak Lontong Quiz.

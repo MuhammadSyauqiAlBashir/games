@@ -255,7 +255,7 @@ class Trivia(QuizBase):
 
 # ---------------------------------------------------------------------------------------------------
 class Matematika(QuizBase):
-    key, name_id, name_en, icon = "math", "Matematika", "Math race", "➗"
+    key, name_id, name_en, icon = "math", "Math Race", "Math Race", "➗"
     typed = True
     options = [
         opt("level", "Tingkat", "Level", "select", "ramp",
@@ -310,30 +310,39 @@ class Matematika(QuizBase):
 
 # ---------------------------------------------------------------------------------------------------
 class Rebus(QuizBase):
-    key, name_id, name_en, icon = "rebus", "Tebak Gambar Kata", "Rebus puzzles", "🧩"
+    """Picture riddles (Tebak Gambar style): emoji pictures that combine into a tricky word or idiom.
+    Answers are built from letter tiles; each player may open letters (💡) at a cost of 30 % per letter."""
+    key, name_id, name_en, icon = "rebus", "Picture Riddles", "Picture Riddles", "🧩"
     typed = True
     options = [
         opt("lang", "Bahasa", "Language", "select", "id", [ch("id", "Indonesia"), ch("en", "English")]),
         opt("count", "Jumlah teka-teki", "Puzzles", "select", 10, [ch(n, str(n)) for n in (6, 10, 15)]),
         opt("seconds", "Waktu per teka-teki", "Time per puzzle", "select", 45, [ch(n, f"{n} dtk", f"{n} s") for n in (30, 45, 60, 90)]),
-        opt("ai", "Tambah teka-teki baru dari AI", "Add new AI puzzles", "bool", True),
+        opt("ai", "Tambah teka-teki baru dari AI", "Add new AI puzzles", "bool", False),
     ]
+    PENALTY = 0.7
 
     @classmethod
     async def prepare(cls, seats, options, rng):
         n = int(options.get("count", 10))
-        return {"qs": await content.rebus_puzzles(options.get("lang", "id"), n, bool(options.get("ai", True)), rng)}
+        return {"qs": await content.rebus_puzzles(options.get("lang", "id"), n, bool(options.get("ai", False)), rng)}
 
     @classmethod
     def setup(cls, players, options, rng, now):
         qs = (options.get("__content") or {}).get("qs", [])
         for x in qs:
             x["level"] = max(1, min(4, int(x.get("level", 2))))
+            letters = [c for c in x["answer"].upper() if c != " "]
+            fill = [c for c in "AEIOUBDGKLMNRSTPHJ" if c not in letters]
+            extra = rng.sample(fill, min(len(fill), max(4, 14 - len(letters))))
+            pool = letters + extra
+            rng.shuffle(pool)
+            x["pool"] = "".join(pool)
         return cls.base_state(players, options, qs)
 
     def public_question(self, cur, reveal):
         d = {"elements": cur["elements"], "level": cur["level"], "words": [len(w) for w in cur["answer"].split()],
-             "source": cur.get("source")}
+             "source": cur.get("source"), "pool": cur.get("pool", "")}
         if reveal:
             d.update({"answer": cur["answer"], "explain": cur.get("explain") or cur.get("hint", "")})
         return d
@@ -344,9 +353,29 @@ class Rebus(QuizBase):
         i = s["i"]
         if 0 <= i < len(s["qs"]) and s["phase"] == "question":
             cur = s["qs"][i]
-            v["hints"] = {"hint": cur.get("hint", ""), "at": [s["started_q"] + s["limit"] * 0.4, s["started_q"] + s["limit"] * 0.7],
-                          "letters": " ".join(w[0].upper() + "·" * (len(w) - 1) for w in cur["answer"].split())}
+            v["hints"] = {"hint": cur.get("hint", ""), "at": [s["started_q"] + s["limit"] * 0.35, 1e12], "letters": ""}
+            letters = [c for c in cur["answer"].upper() if c != " "]
+            mine = s["answers"].get(pid) or {}
+            v["revealed"] = {str(k): letters[k] for k in mine.get("rev", []) if k < len(letters)}
         return v
+
+    def act(self, pid, a, now):
+        s = self.s
+        if a.get("do") == "reveal":
+            if s["phase"] != "question":
+                raise IllegalMove("Wait for the next puzzle.")
+            cur = s["qs"][s["i"]]
+            mine = s["answers"].setdefault(pid, {"tries": 0})
+            if mine.get("final"):
+                raise IllegalMove("You've already answered.")
+            letters = [c for c in cur["answer"].upper() if c != " "]
+            rev = mine.setdefault("rev", [])
+            if len(rev) >= len(letters) - 1:
+                raise IllegalMove("No more letters to open.")
+            nxt = next(k for k in range(len(letters)) if k not in rev)
+            rev.append(nxt)
+            return [{"e": "revealed", "who": pid, "to": pid, "k": nxt}]
+        return super().act(pid, a, now)
 
     def answer(self, pid, cur, mine, a, now):
         text = str(a.get("text", "")).strip()[:80]
@@ -361,5 +390,75 @@ class Rebus(QuizBase):
                 if ok:
                     break
         if ok:
-            return self.correct(pid, cur, mine, now)
+            ev = self.correct(pid, cur, mine, now)
+            rev = len(mine.get("rev", []))
+            if rev:
+                cut = mine["pts"] - int(mine["pts"] * self.PENALTY ** rev)
+                mine["pts"] -= cut
+                self.s["scores"][pid] -= cut
+            return ev
         return [{"e": "wrong", "who": pid, "to": pid, "almost": almost, "text": text}]
+
+
+# ---------------------------------------------------------------------------------------------------
+class Lontong(QuizBase):
+    """Cak Lontong–style quiz: twisted-logic answers in TTS letter boxes. Typing the "normal" answer gets a MIKIR!"""
+    key, name_id, name_en, icon = "lontong", "Cak Lontong Quiz", "Cak Lontong Quiz", "🥸"
+    typed = True
+    min_players, max_players = 2, 6
+    options = [
+        opt("count", "Jumlah soal", "Questions", "select", 10, [ch(n, str(n)) for n in (6, 10, 15)]),
+        opt("seconds", "Waktu per soal", "Time per question", "select", 45, [ch(n, f"{n} dtk", f"{n} s") for n in (30, 45, 60)]),
+    ]
+
+    @classmethod
+    def bank(cls) -> list[dict]:
+        import json as _json
+        import os as _os
+        with open(_os.path.join(_os.path.dirname(content.__file__), "data", "lontong.json")) as f:
+            return _json.load(f)
+
+    @classmethod
+    def setup(cls, players, options, rng, now):
+        n = int(options.get("count", 10))
+        qs = cls.bank()
+        rng.shuffle(qs)
+        qs = sorted(qs[:n], key=lambda x: x["level"])
+        for x in qs:
+            x["level"] = max(1, min(4, int(x.get("level", 2))))
+        st = cls.base_state(players, {**options, "lang": "id"}, qs)
+        return st
+
+    def public_question(self, cur, reveal):
+        d = {"q": cur["q"], "level": cur["level"], "words": [len(w) for w in cur["answer"].split()]}
+        if reveal:
+            d.update({"answer": cur["answer"].upper(), "explain": cur.get("explain", "")})
+        return d
+
+    def view(self, pid):
+        v = super().view(pid)
+        s = self.s
+        i = s["i"]
+        if 0 <= i < len(s["qs"]) and s["phase"] == "question":
+            cur = s["qs"][i]
+            v["hints"] = {"hint": ctx_first(cur["answer"]), "at": [s["started_q"] + s["limit"] * 0.55, 1e12], "letters": ""}
+        return v
+
+    def answer(self, pid, cur, mine, a, now):
+        text = str(a.get("text", "")).strip()[:80]
+        if not text:
+            raise IllegalMove("Type an answer.")
+        mine["tries"] += 1
+        for cand in [cur["answer"], *(cur.get("alts") or [])]:
+            ok, _ = util.close_enough(text, cand)
+            if ok:
+                return self.correct(pid, cur, mine, now)
+        if any(util.close_enough(text, t)[0] for t in cur.get("traps") or []):
+            self.bump("normal_answers", pid)
+            return [{"e": "trap", "who": pid, "to": pid, "text": text}]
+        return [{"e": "wrong", "who": pid, "to": pid, "almost": util.close_enough(text, cur["answer"])[1], "text": text}]
+
+
+def ctx_first(answer: str) -> str:
+    words = answer.upper().split()
+    return "Huruf pertama: " + " ".join(w[0] + "·" * (len(w) - 1) for w in words)
