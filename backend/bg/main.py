@@ -4,6 +4,7 @@ The static app is served by Caddy; this serves /api and the /ws game connections
 from __future__ import annotations
 
 import asyncio
+import io
 import json
 import logging
 import random
@@ -292,6 +293,67 @@ async def room_info(code: str, s: Session = Depends(current)):
     if not room or room.status == "closed":
         raise HTTPException(404, "Room not found.")
     return {"room": room.room_info()}
+
+
+# ---- photo games: photos go up over HTTPS (too big for the game socket) and stay in the room's memory ----
+PHOTO_MAX = 6_000_000
+photo_last: dict[str, float] = {}
+
+
+def clean_jpeg(raw: bytes) -> bytes:
+    """Re-encode: right way up, max 768 px, no EXIF (no location or camera data leaves the phone's photo)."""
+    from PIL import Image, ImageOps
+    im = Image.open(io.BytesIO(raw))
+    im = ImageOps.exif_transpose(im).convert("RGB")
+    im.thumbnail((768, 768))
+    out = io.BytesIO()
+    im.save(out, "JPEG", quality=80, optimize=True)
+    return out.getvalue()
+
+
+@app.post("/api/rooms/{code}/photo")
+async def room_photo(code: str, request: Request, r: int, s: Session = Depends(current)):
+    room = await ROOMS.get(code)
+    if not room or not room.game or not room.seat_of(s.id) or not hasattr(room.game, "photo_ok"):
+        raise HTTPException(404, "Room not found.")
+    now = time.monotonic()
+    if now - photo_last.get(s.id, 0) < 2:
+        raise HTTPException(429, "Sebentar…")
+    photo_last[s.id] = now
+    why = room.game.photo_ok(s.id, r)
+    if why:
+        raise HTTPException(409, why)
+    raw = await request.body()
+    if not raw or len(raw) > PHOTO_MAX:
+        raise HTTPException(413, "Foto terlalu besar.")
+    try:
+        jpeg = await asyncio.to_thread(clean_jpeg, raw)
+    except Exception:  # noqa: BLE001
+        raise HTTPException(400, "Itu bukan foto.") from None
+    room.keep_photo(f"{r}:{s.id}", jpeg)
+    await room.server_input(s.id, {"do": "photo", "r": r})
+    check = getattr(room.cls, "check_photo", None)
+    if check:
+        async def run():
+            try:
+                res = await check(room.game, jpeg)
+            except Exception:  # noqa: BLE001
+                log.exception("photo check failed")
+                res = {"ok": True, "what": "", "comment": ""}
+            await room.server_input(s.id, {"do": "checked", "r": r, **res})
+        asyncio.create_task(run())
+    return {"ok": True}
+
+
+@app.get("/api/rooms/{code}/photo/{r}/{uid}")
+async def room_photo_get(code: str, r: int, uid: str, s: Session = Depends(current)):
+    room = await ROOMS.get(code)
+    if not room or not (room.seat_of(s.id) or s.id in room.conns):
+        raise HTTPException(404, "Not found.")
+    jpeg = room.photos.get(f"{r}:{uid}")
+    if not jpeg:
+        raise HTTPException(404, "Not found.")
+    return Response(jpeg, media_type="image/jpeg", headers={"Cache-Control": "private, max-age=600"})
 
 
 class InviteIn(BaseModel):

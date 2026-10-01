@@ -1,0 +1,1698 @@
+{
+ "id": [
+  {
+   "q": "Sebutkan benda yang selalu ada di tas ibu-ibu",
+   "answers": [
+    {
+     "a": "dompet",
+     "pts": 30,
+     "alias": [
+      "uang"
+     ]
+    },
+    {
+     "a": "hp",
+     "pts": 22,
+     "alias": [
+      "handphone",
+      "ponsel",
+      "telepon",
+      "hape"
+     ]
+    },
+    {
+     "a": "tisu",
+     "pts": 16,
+     "alias": [
+      "tissue"
+     ]
+    },
+    {
+     "a": "kunci",
+     "pts": 12,
+     "alias": [
+      "kunci rumah",
+      "kunci motor"
+     ]
+    },
+    {
+     "a": "lipstik",
+     "pts": 10,
+     "alias": [
+      "lipstick",
+      "make up",
+      "bedak"
+     ]
+    },
+    {
+     "a": "minyak angin",
+     "pts": 10,
+     "alias": [
+      "minyak kayu putih",
+      "balsem"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Sebutkan alasan orang telat datang ke kantor",
+   "answers": [
+    {
+     "a": "macet",
+     "pts": 34,
+     "alias": [
+      "jalanan macet",
+      "kemacetan"
+     ]
+    },
+    {
+     "a": "bangun kesiangan",
+     "pts": 26,
+     "alias": [
+      "kesiangan",
+      "telat bangun"
+     ]
+    },
+    {
+     "a": "hujan",
+     "pts": 14,
+     "alias": [
+      "banjir"
+     ]
+    },
+    {
+     "a": "ban bocor",
+     "pts": 10,
+     "alias": [
+      "motor mogok",
+      "mogok",
+      "kendaraan rusak"
+     ]
+    },
+    {
+     "a": "antar anak",
+     "pts": 9,
+     "alias": [
+      "antar anak sekolah"
+     ]
+    },
+    {
+     "a": "lupa",
+     "pts": 7,
+     "alias": [
+      "lupa waktu"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Sebutkan makanan yang biasa ada saat lebaran",
+   "answers": [
+    {
+     "a": "ketupat",
+     "pts": 38,
+     "alias": [
+      "kupat"
+     ]
+    },
+    {
+     "a": "opor ayam",
+     "pts": 24,
+     "alias": [
+      "opor"
+     ]
+    },
+    {
+     "a": "rendang",
+     "pts": 14,
+     "alias": []
+    },
+    {
+     "a": "nastar",
+     "pts": 10,
+     "alias": [
+      "kue nastar"
+     ]
+    },
+    {
+     "a": "sambal goreng ati",
+     "pts": 8,
+     "alias": [
+      "sambal goreng",
+      "ati"
+     ]
+    },
+    {
+     "a": "kastengel",
+     "pts": 6,
+     "alias": [
+      "kue keju"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Sebutkan hal yang dilakukan orang saat mati lampu",
+   "answers": [
+    {
+     "a": "cari lilin",
+     "pts": 30,
+     "alias": [
+      "nyalakan lilin",
+      "lilin"
+     ]
+    },
+    {
+     "a": "main hp",
+     "pts": 22,
+     "alias": [
+      "main handphone",
+      "hp",
+      "senter hp"
+     ]
+    },
+    {
+     "a": "tidur",
+     "pts": 18,
+     "alias": []
+    },
+    {
+     "a": "ngobrol",
+     "pts": 12,
+     "alias": [
+      "cerita",
+      "bercerita"
+     ]
+    },
+    {
+     "a": "keluar rumah",
+     "pts": 10,
+     "alias": [
+      "keluar",
+      "nongkrong di luar"
+     ]
+    },
+    {
+     "a": "kipas-kipas",
+     "pts": 8,
+     "alias": [
+      "kipasan"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Sebutkan benda yang ada di dapur",
+   "answers": [
+    {
+     "a": "kompor",
+     "pts": 28,
+     "alias": []
+    },
+    {
+     "a": "panci",
+     "pts": 20,
+     "alias": [
+      "wajan",
+      "penggorengan",
+      "kuali"
+     ]
+    },
+    {
+     "a": "pisau",
+     "pts": 16,
+     "alias": []
+    },
+    {
+     "a": "piring",
+     "pts": 14,
+     "alias": [
+      "mangkok",
+      "gelas"
+     ]
+    },
+    {
+     "a": "kulkas",
+     "pts": 12,
+     "alias": [
+      "lemari es"
+     ]
+    },
+    {
+     "a": "sendok",
+     "pts": 10,
+     "alias": [
+      "garpu",
+      "spatula",
+      "sutil"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Sebutkan hewan yang sering ada di rumah",
+   "answers": [
+    {
+     "a": "kucing",
+     "pts": 34,
+     "alias": []
+    },
+    {
+     "a": "cicak",
+     "pts": 24,
+     "alias": [
+      "tokek"
+     ]
+    },
+    {
+     "a": "tikus",
+     "pts": 16,
+     "alias": []
+    },
+    {
+     "a": "nyamuk",
+     "pts": 12,
+     "alias": [
+      "lalat"
+     ]
+    },
+    {
+     "a": "semut",
+     "pts": 8,
+     "alias": [
+      "kecoa"
+     ]
+    },
+    {
+     "a": "ayam",
+     "pts": 6,
+     "alias": []
+    }
+   ]
+  },
+  {
+   "q": "Sebutkan hal yang bikin orang marah di jalan",
+   "answers": [
+    {
+     "a": "macet",
+     "pts": 30,
+     "alias": [
+      "kemacetan"
+     ]
+    },
+    {
+     "a": "diserobot",
+     "pts": 24,
+     "alias": [
+      "diselip",
+      "disalip",
+      "potong jalan"
+     ]
+    },
+    {
+     "a": "klakson",
+     "pts": 16,
+     "alias": [
+      "diklakson"
+     ]
+    },
+    {
+     "a": "lubang jalan",
+     "pts": 12,
+     "alias": [
+      "jalan rusak",
+      "jalan berlubang"
+     ]
+    },
+    {
+     "a": "lampu merah lama",
+     "pts": 10,
+     "alias": [
+      "lampu merah"
+     ]
+    },
+    {
+     "a": "parkir sembarangan",
+     "pts": 8,
+     "alias": [
+      "parkir liar"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Sebutkan oleh-oleh dari Bali",
+   "answers": [
+    {
+     "a": "pie susu",
+     "pts": 30,
+     "alias": [
+      "pai susu"
+     ]
+    },
+    {
+     "a": "kacang disco",
+     "pts": 18,
+     "alias": [
+      "kacang"
+     ]
+    },
+    {
+     "a": "kaos",
+     "pts": 16,
+     "alias": [
+      "baju",
+      "kaos barong",
+      "pakaian"
+     ]
+    },
+    {
+     "a": "pia",
+     "pts": 12,
+     "alias": [
+      "pia legong"
+     ]
+    },
+    {
+     "a": "gantungan kunci",
+     "pts": 14,
+     "alias": [
+      "souvenir",
+      "suvenir"
+     ]
+    },
+    {
+     "a": "kopi",
+     "pts": 10,
+     "alias": [
+      "kopi bali"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Sebutkan alasan anak tidak mau ke sekolah",
+   "answers": [
+    {
+     "a": "malas",
+     "pts": 32,
+     "alias": [
+      "malas bangun"
+     ]
+    },
+    {
+     "a": "sakit",
+     "pts": 22,
+     "alias": [
+      "pura-pura sakit"
+     ]
+    },
+    {
+     "a": "belum kerjakan pr",
+     "pts": 18,
+     "alias": [
+      "pr",
+      "belum bikin pr",
+      "tugas"
+     ]
+    },
+    {
+     "a": "takut ulangan",
+     "pts": 12,
+     "alias": [
+      "ujian",
+      "ulangan"
+     ]
+    },
+    {
+     "a": "dibully",
+     "pts": 9,
+     "alias": [
+      "diganggu teman",
+      "bully"
+     ]
+    },
+    {
+     "a": "ngantuk",
+     "pts": 7,
+     "alias": []
+    }
+   ]
+  },
+  {
+   "q": "Sebutkan yang dicari orang saat bangun tidur",
+   "answers": [
+    {
+     "a": "hp",
+     "pts": 36,
+     "alias": [
+      "handphone",
+      "ponsel",
+      "hape"
+     ]
+    },
+    {
+     "a": "air minum",
+     "pts": 20,
+     "alias": [
+      "minum",
+      "air putih"
+     ]
+    },
+    {
+     "a": "kamar mandi",
+     "pts": 16,
+     "alias": [
+      "toilet",
+      "wc"
+     ]
+    },
+    {
+     "a": "kacamata",
+     "pts": 10,
+     "alias": []
+    },
+    {
+     "a": "jam",
+     "pts": 10,
+     "alias": [
+      "waktu"
+     ]
+    },
+    {
+     "a": "selimut",
+     "pts": 8,
+     "alias": [
+      "guling"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Sebutkan tempat orang suka liburan di Indonesia",
+   "answers": [
+    {
+     "a": "Bali",
+     "pts": 36,
+     "alias": []
+    },
+    {
+     "a": "Yogyakarta",
+     "pts": 20,
+     "alias": [
+      "jogja",
+      "yogya",
+      "jogjakarta"
+     ]
+    },
+    {
+     "a": "Bandung",
+     "pts": 14,
+     "alias": []
+    },
+    {
+     "a": "Lombok",
+     "pts": 10,
+     "alias": []
+    },
+    {
+     "a": "Raja Ampat",
+     "pts": 10,
+     "alias": [
+      "papua"
+     ]
+    },
+    {
+     "a": "Labuan Bajo",
+     "pts": 10,
+     "alias": [
+      "komodo",
+      "pulau komodo"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Sebutkan yang sering dijual abang-abang keliling",
+   "answers": [
+    {
+     "a": "bakso",
+     "pts": 30,
+     "alias": [
+      "pentol"
+     ]
+    },
+    {
+     "a": "siomay",
+     "pts": 18,
+     "alias": [
+      "batagor"
+     ]
+    },
+    {
+     "a": "es krim",
+     "pts": 16,
+     "alias": [
+      "es",
+      "es puter"
+     ]
+    },
+    {
+     "a": "tukang sayur",
+     "pts": 14,
+     "alias": [
+      "sayur",
+      "sayuran"
+     ]
+    },
+    {
+     "a": "nasi goreng",
+     "pts": 12,
+     "alias": []
+    },
+    {
+     "a": "roti",
+     "pts": 10,
+     "alias": [
+      "roti keliling"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Sebutkan sesuatu yang berwarna kuning",
+   "answers": [
+    {
+     "a": "pisang",
+     "pts": 30,
+     "alias": []
+    },
+    {
+     "a": "matahari",
+     "pts": 22,
+     "alias": [
+      "sinar matahari"
+     ]
+    },
+    {
+     "a": "kunyit",
+     "pts": 14,
+     "alias": []
+    },
+    {
+     "a": "jagung",
+     "pts": 12,
+     "alias": []
+    },
+    {
+     "a": "lemon",
+     "pts": 12,
+     "alias": [
+      "jeruk"
+     ]
+    },
+    {
+     "a": "kuning telur",
+     "pts": 10,
+     "alias": [
+      "telur"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Sebutkan hal yang dilakukan saat libur panjang",
+   "answers": [
+    {
+     "a": "tidur",
+     "pts": 28,
+     "alias": [
+      "rebahan",
+      "istirahat"
+     ]
+    },
+    {
+     "a": "jalan-jalan",
+     "pts": 24,
+     "alias": [
+      "liburan",
+      "piknik",
+      "traveling"
+     ]
+    },
+    {
+     "a": "mudik",
+     "pts": 16,
+     "alias": [
+      "pulang kampung"
+     ]
+    },
+    {
+     "a": "nonton",
+     "pts": 14,
+     "alias": [
+      "nonton film",
+      "nonton tv"
+     ]
+    },
+    {
+     "a": "main hp",
+     "pts": 10,
+     "alias": [
+      "main game",
+      "game"
+     ]
+    },
+    {
+     "a": "bersih-bersih rumah",
+     "pts": 8,
+     "alias": [
+      "beres-beres"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Sebutkan benda yang sering hilang di rumah",
+   "answers": [
+    {
+     "a": "remote",
+     "pts": 30,
+     "alias": [
+      "remote tv"
+     ]
+    },
+    {
+     "a": "kunci",
+     "pts": 26,
+     "alias": []
+    },
+    {
+     "a": "kaus kaki",
+     "pts": 14,
+     "alias": [
+      "kaos kaki"
+     ]
+    },
+    {
+     "a": "charger",
+     "pts": 12,
+     "alias": [
+      "cas",
+      "kabel cas"
+     ]
+    },
+    {
+     "a": "kacamata",
+     "pts": 10,
+     "alias": []
+    },
+    {
+     "a": "gunting",
+     "pts": 8,
+     "alias": []
+    }
+   ]
+  },
+  {
+   "q": "Sebutkan profesi yang pakai seragam",
+   "answers": [
+    {
+     "a": "polisi",
+     "pts": 30,
+     "alias": []
+    },
+    {
+     "a": "tentara",
+     "pts": 22,
+     "alias": [
+      "tni"
+     ]
+    },
+    {
+     "a": "dokter",
+     "pts": 14,
+     "alias": [
+      "perawat",
+      "suster"
+     ]
+    },
+    {
+     "a": "pilot",
+     "pts": 12,
+     "alias": [
+      "pramugari"
+     ]
+    },
+    {
+     "a": "satpam",
+     "pts": 12,
+     "alias": [
+      "security"
+     ]
+    },
+    {
+     "a": "guru",
+     "pts": 10,
+     "alias": []
+    }
+   ]
+  },
+  {
+   "q": "Sebutkan alasan orang begadang",
+   "answers": [
+    {
+     "a": "nonton bola",
+     "pts": 26,
+     "alias": [
+      "bola",
+      "sepak bola"
+     ]
+    },
+    {
+     "a": "main hp",
+     "pts": 24,
+     "alias": [
+      "main game",
+      "game",
+      "hp"
+     ]
+    },
+    {
+     "a": "kerjaan",
+     "pts": 18,
+     "alias": [
+      "lembur",
+      "kerja",
+      "tugas"
+     ]
+    },
+    {
+     "a": "nonton drakor",
+     "pts": 14,
+     "alias": [
+      "drakor",
+      "nonton film"
+     ]
+    },
+    {
+     "a": "tidak bisa tidur",
+     "pts": 10,
+     "alias": [
+      "insomnia"
+     ]
+    },
+    {
+     "a": "ngobrol",
+     "pts": 8,
+     "alias": [
+      "curhat"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Sebutkan sesuatu yang ada di pantai",
+   "answers": [
+    {
+     "a": "pasir",
+     "pts": 30,
+     "alias": []
+    },
+    {
+     "a": "ombak",
+     "pts": 22,
+     "alias": [
+      "air laut",
+      "laut"
+     ]
+    },
+    {
+     "a": "kelapa",
+     "pts": 14,
+     "alias": [
+      "pohon kelapa"
+     ]
+    },
+    {
+     "a": "kerang",
+     "pts": 12,
+     "alias": []
+    },
+    {
+     "a": "payung",
+     "pts": 12,
+     "alias": [
+      "kursi pantai"
+     ]
+    },
+    {
+     "a": "perahu",
+     "pts": 10,
+     "alias": [
+      "kapal"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Sebutkan minuman yang dijual di warung",
+   "answers": [
+    {
+     "a": "teh manis",
+     "pts": 30,
+     "alias": [
+      "es teh",
+      "teh"
+     ]
+    },
+    {
+     "a": "kopi",
+     "pts": 26,
+     "alias": [
+      "kopi sachet"
+     ]
+    },
+    {
+     "a": "es jeruk",
+     "pts": 14,
+     "alias": [
+      "jeruk"
+     ]
+    },
+    {
+     "a": "air mineral",
+     "pts": 12,
+     "alias": [
+      "aqua",
+      "air putih"
+     ]
+    },
+    {
+     "a": "susu",
+     "pts": 10,
+     "alias": []
+    },
+    {
+     "a": "minuman bersoda",
+     "pts": 8,
+     "alias": [
+      "soda",
+      "coca cola"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Sebutkan alasan orang tidak membalas chat",
+   "answers": [
+    {
+     "a": "sibuk",
+     "pts": 30,
+     "alias": []
+    },
+    {
+     "a": "lupa",
+     "pts": 22,
+     "alias": []
+    },
+    {
+     "a": "ketiduran",
+     "pts": 16,
+     "alias": [
+      "tidur"
+     ]
+    },
+    {
+     "a": "hp mati",
+     "pts": 14,
+     "alias": [
+      "baterai habis",
+      "lowbat"
+     ]
+    },
+    {
+     "a": "malas",
+     "pts": 10,
+     "alias": []
+    },
+    {
+     "a": "tidak ada kuota",
+     "pts": 8,
+     "alias": [
+      "tidak ada pulsa",
+      "sinyal jelek"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Sebutkan benda yang dibawa saat mudik",
+   "answers": [
+    {
+     "a": "koper",
+     "pts": 28,
+     "alias": [
+      "tas"
+     ]
+    },
+    {
+     "a": "oleh-oleh",
+     "pts": 24,
+     "alias": [
+      "makanan"
+     ]
+    },
+    {
+     "a": "bantal leher",
+     "pts": 12,
+     "alias": [
+      "bantal"
+     ]
+    },
+    {
+     "a": "uang",
+     "pts": 14,
+     "alias": [
+      "angpao",
+      "thr"
+     ]
+    },
+    {
+     "a": "charger",
+     "pts": 12,
+     "alias": [
+      "powerbank"
+     ]
+    },
+    {
+     "a": "obat",
+     "pts": 10,
+     "alias": [
+      "minyak angin"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Sebutkan sesuatu yang bisa terbang",
+   "answers": [
+    {
+     "a": "burung",
+     "pts": 34,
+     "alias": []
+    },
+    {
+     "a": "pesawat",
+     "pts": 26,
+     "alias": [
+      "kapal terbang"
+     ]
+    },
+    {
+     "a": "layang-layang",
+     "pts": 14,
+     "alias": [
+      "layangan"
+     ]
+    },
+    {
+     "a": "kupu-kupu",
+     "pts": 10,
+     "alias": []
+    },
+    {
+     "a": "balon",
+     "pts": 8,
+     "alias": []
+    },
+    {
+     "a": "nyamuk",
+     "pts": 8,
+     "alias": [
+      "lalat",
+      "lebah"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Sebutkan hal yang ditakuti anak kecil",
+   "answers": [
+    {
+     "a": "hantu",
+     "pts": 30,
+     "alias": [
+      "setan"
+     ]
+    },
+    {
+     "a": "gelap",
+     "pts": 24,
+     "alias": []
+    },
+    {
+     "a": "dokter gigi",
+     "pts": 14,
+     "alias": [
+      "disuntik",
+      "dokter"
+     ]
+    },
+    {
+     "a": "anjing",
+     "pts": 12,
+     "alias": []
+    },
+    {
+     "a": "petir",
+     "pts": 12,
+     "alias": [
+      "guntur"
+     ]
+    },
+    {
+     "a": "badut",
+     "pts": 8,
+     "alias": []
+    }
+   ]
+  },
+  {
+   "q": "Sebutkan makanan pedas",
+   "answers": [
+    {
+     "a": "sambal",
+     "pts": 30,
+     "alias": []
+    },
+    {
+     "a": "seblak",
+     "pts": 20,
+     "alias": []
+    },
+    {
+     "a": "ayam geprek",
+     "pts": 16,
+     "alias": [
+      "geprek"
+     ]
+    },
+    {
+     "a": "mie pedas",
+     "pts": 14,
+     "alias": [
+      "mi pedas",
+      "samyang"
+     ]
+    },
+    {
+     "a": "keripik pedas",
+     "pts": 10,
+     "alias": [
+      "basreng"
+     ]
+    },
+    {
+     "a": "rujak",
+     "pts": 10,
+     "alias": []
+    }
+   ]
+  }
+ ],
+ "en": [
+  {
+   "q": "Name something people always have in their bag",
+   "answers": [
+    {
+     "a": "wallet",
+     "pts": 30,
+     "alias": [
+      "money",
+      "purse"
+     ]
+    },
+    {
+     "a": "phone",
+     "pts": 24,
+     "alias": [
+      "mobile",
+      "cellphone"
+     ]
+    },
+    {
+     "a": "keys",
+     "pts": 16,
+     "alias": [
+      "key"
+     ]
+    },
+    {
+     "a": "tissues",
+     "pts": 12,
+     "alias": [
+      "tissue"
+     ]
+    },
+    {
+     "a": "lip balm",
+     "pts": 10,
+     "alias": [
+      "lipstick",
+      "makeup"
+     ]
+    },
+    {
+     "a": "water bottle",
+     "pts": 8,
+     "alias": [
+      "water"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Name a reason people are late for work",
+   "answers": [
+    {
+     "a": "traffic",
+     "pts": 34,
+     "alias": [
+      "traffic jam"
+     ]
+    },
+    {
+     "a": "overslept",
+     "pts": 26,
+     "alias": [
+      "alarm",
+      "woke up late"
+     ]
+    },
+    {
+     "a": "car trouble",
+     "pts": 12,
+     "alias": [
+      "flat tyre",
+      "flat tire",
+      "car broke down"
+     ]
+    },
+    {
+     "a": "rain",
+     "pts": 10,
+     "alias": [
+      "weather"
+     ]
+    },
+    {
+     "a": "kids",
+     "pts": 10,
+     "alias": [
+      "school run"
+     ]
+    },
+    {
+     "a": "missed the bus",
+     "pts": 8,
+     "alias": [
+      "bus",
+      "train"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Name something you find in a kitchen",
+   "answers": [
+    {
+     "a": "stove",
+     "pts": 28,
+     "alias": [
+      "oven",
+      "cooker"
+     ]
+    },
+    {
+     "a": "fridge",
+     "pts": 22,
+     "alias": [
+      "refrigerator"
+     ]
+    },
+    {
+     "a": "knife",
+     "pts": 16,
+     "alias": [
+      "knives"
+     ]
+    },
+    {
+     "a": "pan",
+     "pts": 14,
+     "alias": [
+      "pot",
+      "wok"
+     ]
+    },
+    {
+     "a": "plate",
+     "pts": 10,
+     "alias": [
+      "plates",
+      "bowl"
+     ]
+    },
+    {
+     "a": "spoon",
+     "pts": 10,
+     "alias": [
+      "fork",
+      "spatula"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Name an animal people keep as a pet",
+   "answers": [
+    {
+     "a": "dog",
+     "pts": 36,
+     "alias": [
+      "puppy"
+     ]
+    },
+    {
+     "a": "cat",
+     "pts": 30,
+     "alias": [
+      "kitten"
+     ]
+    },
+    {
+     "a": "fish",
+     "pts": 12,
+     "alias": [
+      "goldfish"
+     ]
+    },
+    {
+     "a": "bird",
+     "pts": 10,
+     "alias": [
+      "parrot"
+     ]
+    },
+    {
+     "a": "rabbit",
+     "pts": 6,
+     "alias": [
+      "bunny"
+     ]
+    },
+    {
+     "a": "hamster",
+     "pts": 6,
+     "alias": [
+      "guinea pig"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Name something that is yellow",
+   "answers": [
+    {
+     "a": "banana",
+     "pts": 32,
+     "alias": []
+    },
+    {
+     "a": "sun",
+     "pts": 22,
+     "alias": [
+      "sunshine"
+     ]
+    },
+    {
+     "a": "lemon",
+     "pts": 16,
+     "alias": []
+    },
+    {
+     "a": "corn",
+     "pts": 12,
+     "alias": []
+    },
+    {
+     "a": "egg yolk",
+     "pts": 10,
+     "alias": [
+      "yolk"
+     ]
+    },
+    {
+     "a": "school bus",
+     "pts": 8,
+     "alias": [
+      "taxi"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Name something people do on a long holiday",
+   "answers": [
+    {
+     "a": "sleep",
+     "pts": 28,
+     "alias": [
+      "rest",
+      "relax"
+     ]
+    },
+    {
+     "a": "travel",
+     "pts": 26,
+     "alias": [
+      "trip",
+      "vacation"
+     ]
+    },
+    {
+     "a": "visit family",
+     "pts": 16,
+     "alias": [
+      "family"
+     ]
+    },
+    {
+     "a": "watch movies",
+     "pts": 14,
+     "alias": [
+      "tv",
+      "netflix"
+     ]
+    },
+    {
+     "a": "play games",
+     "pts": 10,
+     "alias": [
+      "games"
+     ]
+    },
+    {
+     "a": "clean the house",
+     "pts": 6,
+     "alias": [
+      "cleaning"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Name something that can fly",
+   "answers": [
+    {
+     "a": "bird",
+     "pts": 34,
+     "alias": []
+    },
+    {
+     "a": "airplane",
+     "pts": 26,
+     "alias": [
+      "plane",
+      "aeroplane",
+      "jet"
+     ]
+    },
+    {
+     "a": "kite",
+     "pts": 12,
+     "alias": []
+    },
+    {
+     "a": "butterfly",
+     "pts": 10,
+     "alias": []
+    },
+    {
+     "a": "balloon",
+     "pts": 10,
+     "alias": []
+    },
+    {
+     "a": "helicopter",
+     "pts": 8,
+     "alias": [
+      "drone"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Name something you find at the beach",
+   "answers": [
+    {
+     "a": "sand",
+     "pts": 32,
+     "alias": []
+    },
+    {
+     "a": "waves",
+     "pts": 20,
+     "alias": [
+      "sea",
+      "ocean",
+      "water"
+     ]
+    },
+    {
+     "a": "shells",
+     "pts": 14,
+     "alias": [
+      "seashells"
+     ]
+    },
+    {
+     "a": "umbrella",
+     "pts": 12,
+     "alias": [
+      "beach chair"
+     ]
+    },
+    {
+     "a": "sunscreen",
+     "pts": 12,
+     "alias": [
+      "sun cream"
+     ]
+    },
+    {
+     "a": "crabs",
+     "pts": 10,
+     "alias": [
+      "crab"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Name something people lose all the time",
+   "answers": [
+    {
+     "a": "keys",
+     "pts": 32,
+     "alias": [
+      "key"
+     ]
+    },
+    {
+     "a": "phone",
+     "pts": 20,
+     "alias": []
+    },
+    {
+     "a": "remote",
+     "pts": 16,
+     "alias": [
+      "tv remote"
+     ]
+    },
+    {
+     "a": "socks",
+     "pts": 12,
+     "alias": [
+      "sock"
+     ]
+    },
+    {
+     "a": "glasses",
+     "pts": 12,
+     "alias": [
+      "sunglasses"
+     ]
+    },
+    {
+     "a": "wallet",
+     "pts": 8,
+     "alias": []
+    }
+   ]
+  },
+  {
+   "q": "Name something kids are afraid of",
+   "answers": [
+    {
+     "a": "the dark",
+     "pts": 30,
+     "alias": [
+      "dark",
+      "darkness"
+     ]
+    },
+    {
+     "a": "monsters",
+     "pts": 22,
+     "alias": [
+      "ghosts",
+      "monster"
+     ]
+    },
+    {
+     "a": "the dentist",
+     "pts": 16,
+     "alias": [
+      "dentist",
+      "doctor",
+      "shots"
+     ]
+    },
+    {
+     "a": "dogs",
+     "pts": 12,
+     "alias": [
+      "dog"
+     ]
+    },
+    {
+     "a": "thunder",
+     "pts": 12,
+     "alias": [
+      "storms",
+      "lightning"
+     ]
+    },
+    {
+     "a": "clowns",
+     "pts": 8,
+     "alias": [
+      "clown"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Name a reason people stay up late",
+   "answers": [
+    {
+     "a": "watching tv",
+     "pts": 26,
+     "alias": [
+      "tv",
+      "series",
+      "movies"
+     ]
+    },
+    {
+     "a": "phone",
+     "pts": 24,
+     "alias": [
+      "scrolling",
+      "social media",
+      "games"
+     ]
+    },
+    {
+     "a": "work",
+     "pts": 18,
+     "alias": [
+      "homework",
+      "studying"
+     ]
+    },
+    {
+     "a": "can't sleep",
+     "pts": 14,
+     "alias": [
+      "insomnia"
+     ]
+    },
+    {
+     "a": "party",
+     "pts": 10,
+     "alias": [
+      "going out"
+     ]
+    },
+    {
+     "a": "baby",
+     "pts": 8,
+     "alias": [
+      "kids"
+     ]
+    }
+   ]
+  },
+  {
+   "q": "Name a spicy food",
+   "answers": [
+    {
+     "a": "chili",
+     "pts": 30,
+     "alias": [
+      "chilli",
+      "chili pepper"
+     ]
+    },
+    {
+     "a": "curry",
+     "pts": 22,
+     "alias": []
+    },
+    {
+     "a": "hot sauce",
+     "pts": 16,
+     "alias": [
+      "sambal",
+      "sriracha"
+     ]
+    },
+    {
+     "a": "wings",
+     "pts": 12,
+     "alias": [
+      "buffalo wings"
+     ]
+    },
+    {
+     "a": "tacos",
+     "pts": 10,
+     "alias": [
+      "salsa"
+     ]
+    },
+    {
+     "a": "kimchi",
+     "pts": 10,
+     "alias": [
+      "ramen"
+     ]
+    }
+   ]
+  }
+ ]
+}

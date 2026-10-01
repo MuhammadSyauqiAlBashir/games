@@ -7,6 +7,20 @@ export const L = (id, en) => (lang === "en" ? en : id)
 export const gname = (g) => (g ? (lang === "en" ? g.name_en : g.name_id) : "")
 
 export const RULES = {
+  bomkata: ["Bom ada di tanganmu? Ketik kata asli yang mengandung huruf di bom, lalu bom pindah ke pemain berikutnya. Sumbunya rahasia dan makin pendek! Meledak = nyawa berkurang. Pakai semua huruf bonus = nyawa tambahan. Terakhir bertahan menang.",
+    "Holding the bomb? Type a real word containing the letters on it and the bomb moves on. The fuse is secret and gets shorter! Explode = lose a life. Use every bonus letter for an extra life. Last one standing wins."],
+  survei: ["Survei membuktikan! Tebak jawaban terpopuler dari 100 orang. Semua mengetik bersamaan — yang pertama menemukan jawaban dapat poinnya. 3× salah = tunggu ronde berikutnya. Ronde terakhir poin ganda!",
+    "Survey says! Guess the most popular answers from 100 people. Everyone types at once — first to find an answer gets its points. 3 wrong = wait for the next round. Last round counts double!"],
+  kembar: ["Kartumu dan kartu tengah selalu punya tepat SATU gambar yang sama. Tap gambar itu paling cepat untuk mengambil kartu tengah. Salah tap = beku sebentar!",
+    "Your card and the middle card always share exactly ONE picture. Tap it first to win the middle card. A wrong tap freezes you for a moment!"],
+  refleks: ["Tap secepat kilat saat sinyalnya muncul: layar hijau, gambar target, atau kata yang warnanya cocok. Tap sebelum sinyal = curi start, 0 poin.",
+    "Tap the instant the signal appears: green screen, the target picture, or the word whose colour matches. Tapping too early = false start, 0 points."],
+  ketik: ["Ketik teks yang sama secepat dan setepat mungkin. Huruf besar dan tanda baca tidak perlu. Mobil kalian balapan sesuai ketikan!",
+    "Type the same text as fast and accurately as you can. Capitals and punctuation aren't needed. Your cars race as you type!"],
+  fotohunt: ["Cari benda sesuai tantangan dan foto! Juri AI mengecek fotonya. Foto pertama yang diterima dapat 5 poin, lalu 3, 2, 1. Ditolak? Coba lagi (maks 4×). Foto tidak disimpan.",
+    "Find the thing and snap it! The AI judge checks your photo. First accepted photo gets 5 points, then 3, 2, 1. Rejected? Try again (up to 4×). Photos aren't saved."],
+  ekspresi: ["Pasang ekspresi atau gaya sesuai tantangan, lalu selfie! Juri AI menilai aktingnya (bukan wajahnya) dan memberi komentar lucu. Foto tidak disimpan.",
+    "Pull the face or pose from the challenge and take a selfie! The AI judge rates the acting (never looks) with a funny comment. Photos aren't saved."],
   ludo: ["Lempar dadu; butuh 6 untuk keluar kandang. Angka 6, memakan bidak lawan, atau masuk rumah = lempar lagi. Kotak bintang & kotak start aman. Harus pas untuk masuk rumah. Semua bidak masuk rumah = menang!",
     "Roll the dice; you need a 6 to leave the yard. A 6, capturing, or reaching home = roll again. Star and start squares are safe. Exact roll to get home. All pieces home = win!"],
   ulartangga: ["Lempar dadu dan jalan. Tangga naik, ular turun. Harus pas di 100 — kalau lebih, diam di tempat.",
@@ -127,6 +141,7 @@ export const TINT = {
   gaple: "#8d6e63", congklak: "#c9a227", checkers: "#5f6b7a", connect4: "#e3a93b", sos: "#8e6c9e", tictactoe: "#d9667e",
   trivia: "#4f8fcb", math: "#3d8b7a", rebus: "#e3a93b", anagrams: "#8e6c9e", drawguess: "#e07a5f", drawjudge: "#5f7a8c",
   penalty: "#3b8c5a", snake: "#7cb87a", lontong: "#1d2340",
+  bomkata: "#3a2f4a", survei: "#2b4fa8", kembar: "#e07a5f", refleks: "#22b455", ketik: "#5b6b8a", fotohunt: "#d9667e", ekspresi: "#f0a030",
   mp_pesta: "#e02e3c", mp_thwomp: "#6b7a99", mp_bigtop: "#d92f3a", mp_buzzer: "#6b3fb5", mp_shell: "#b86b2b", mp_turntable: "#2b64e0",
   mp_pound: "#f0a030", mp_sled: "#3aa0e0", mp_fish: "#1f6fc2", mp_flower: "#ff5a5f", mp_memory: "#5b3a8c",
   mp_circuit: "#5b4ab8", mp_blocks: "#e0551a", mp_shadow: "#1b2340", mp_conveyor: "#5b6b8a", mp_electric: "#d9a800", mp_filter: "#3b6cf2",

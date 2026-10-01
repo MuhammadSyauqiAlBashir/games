@@ -121,7 +121,8 @@ export async function renderRoom(root, code) {
   function drawSeats() {
     const v = s.view || {}
     const turn = new Set([v.turn].concat(s.game?.turnIds ? s.game.turnIds(v) : []).filter(Boolean))
-    const scores = s.game?.scores ? s.game.scores(v) : (v.scores || {})
+    let scores = {}
+    try { scores = (s.game?.scores && s.view ? s.game.scores(v) : v.scores) || {} } catch { scores = {} }  // no game view yet
     const fmt = s.game?.scoreFmt || ((x) => x)
     seatsBar.replaceChildren(...(s.room?.seats || []).map((p) => el("div", {
       class: `seat${turn.has(p.id) ? " turn" : ""}${p.online ? "" : " offline"}`, "data-pid": p.id },
