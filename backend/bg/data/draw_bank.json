@@ -1,0 +1,1172 @@
+{
+ "cats": {
+  "hewan": {
+   "id": "Hewan",
+   "en": "Animals",
+   "icon": "🐾"
+  },
+  "makanan": {
+   "id": "Makanan & minuman",
+   "en": "Food & drinks",
+   "icon": "🍜"
+  },
+  "rumah": {
+   "id": "Benda di rumah",
+   "en": "Things at home",
+   "icon": "🏠"
+  },
+  "profesi": {
+   "id": "Profesi",
+   "en": "Jobs",
+   "icon": "👷"
+  },
+  "tempat": {
+   "id": "Tempat & liburan",
+   "en": "Places & holidays",
+   "icon": "🏝️"
+  },
+  "olahraga": {
+   "id": "Olahraga & permainan",
+   "en": "Sports & games",
+   "icon": "⚽"
+  },
+  "kendaraan": {
+   "id": "Kendaraan",
+   "en": "Transport",
+   "icon": "🚗"
+  },
+  "alam": {
+   "id": "Alam & cuaca",
+   "en": "Nature & weather",
+   "icon": "🌋"
+  },
+  "budaya": {
+   "id": "Budaya Indonesia",
+   "en": "Indonesian culture",
+   "icon": "🇮🇩"
+  },
+  "kegiatan": {
+   "id": "Kegiatan",
+   "en": "Actions",
+   "icon": "🏃"
+  },
+  "sekolah": {
+   "id": "Sekolah & kantor",
+   "en": "School & office",
+   "icon": "🏫"
+  },
+  "dongeng": {
+   "id": "Dongeng & fantasi",
+   "en": "Fairy tales & fantasy",
+   "icon": "🧚"
+  },
+  "ungkapan": {
+   "id": "Peribahasa & ungkapan",
+   "en": "Idioms & sayings",
+   "icon": "💬"
+  },
+  "judul": {
+   "id": "Film, lagu & kartun",
+   "en": "Films, songs & cartoons",
+   "icon": "🎬"
+  }
+ },
+ "id": {
+  "hewan": {
+   "1": [
+    "kucing",
+    "anjing",
+    "ikan",
+    "ayam",
+    "bebek",
+    "sapi",
+    "gajah",
+    "jerapah",
+    "kupu-kupu",
+    "ular",
+    "kura-kura",
+    "burung",
+    "kelinci",
+    "semut",
+    "laba-laba"
+   ],
+   "2": [
+    "komodo",
+    "orang utan",
+    "kanguru",
+    "lumba-lumba",
+    "bunglon",
+    "landak",
+    "kelelawar",
+    "ubur-ubur",
+    "merak",
+    "cicak",
+    "kuda nil",
+    "burung hantu",
+    "kepiting",
+    "bekicot"
+   ],
+   "3": [
+    "ayam berkokok",
+    "kucing mencuri ikan",
+    "sarang lebah",
+    "ikan di akuarium",
+    "monyet makan pisang",
+    "kambing kurban",
+    "anak ayam menetas",
+    "singa mengaum",
+    "ular piton melilit",
+    "semut gotong royong"
+   ]
+  },
+  "makanan": {
+   "1": [
+    "nasi",
+    "pisang",
+    "apel",
+    "roti",
+    "telur",
+    "es krim",
+    "semangka",
+    "jeruk",
+    "kue",
+    "permen",
+    "susu",
+    "kopi",
+    "teh",
+    "wortel",
+    "jagung"
+   ],
+   "2": [
+    "nasi goreng",
+    "sate",
+    "bakso",
+    "martabak",
+    "rendang",
+    "gado-gado",
+    "kerupuk",
+    "tempe",
+    "es teh manis",
+    "mi ayam",
+    "pisang goreng",
+    "soto",
+    "durian",
+    "nasi tumpeng"
+   ],
+   "3": [
+    "es campur",
+    "kue ulang tahun",
+    "seblak pedas",
+    "ketoprak",
+    "klepon",
+    "bubur ayam",
+    "cendol",
+    "nasi padang",
+    "gorengan di gerobak",
+    "sambal ulek"
+   ]
+  },
+  "rumah": {
+   "1": [
+    "kursi",
+    "meja",
+    "kasur",
+    "lampu",
+    "pintu",
+    "jendela",
+    "bantal",
+    "gelas",
+    "sendok",
+    "piring",
+    "jam",
+    "kunci",
+    "payung",
+    "cermin",
+    "sikat gigi"
+   ],
+   "2": [
+    "kipas angin",
+    "kulkas",
+    "televisi",
+    "rice cooker",
+    "sapu",
+    "ember",
+    "setrika",
+    "mesin cuci",
+    "remote",
+    "jemuran",
+    "galon",
+    "rak sepatu",
+    "kompor",
+    "gayung"
+   ],
+   "3": [
+    "lampu mati",
+    "atap bocor",
+    "AC rusak",
+    "kabel kusut",
+    "cucian menumpuk",
+    "kamar berantakan",
+    "bel rumah",
+    "stop kontak",
+    "tikar piknik",
+    "gorden"
+   ]
+  },
+  "profesi": {
+   "1": [
+    "dokter",
+    "guru",
+    "polisi",
+    "petani",
+    "nelayan",
+    "koki",
+    "pilot",
+    "tentara",
+    "pemadam kebakaran",
+    "tukang pos"
+   ],
+   "2": [
+    "satpam",
+    "ojek online",
+    "tukang cukur",
+    "montir",
+    "perawat",
+    "astronot",
+    "penyanyi",
+    "fotografer",
+    "wasit",
+    "pelukis",
+    "penjahit",
+    "kurir"
+   ],
+   "3": [
+    "tukang parkir",
+    "youtuber",
+    "dalang",
+    "barista",
+    "penjual bakso keliling",
+    "dokter gigi",
+    "pawang hujan",
+    "arsitek",
+    "DJ",
+    "pesulap"
+   ]
+  },
+  "tempat": {
+   "1": [
+    "pantai",
+    "gunung",
+    "sekolah",
+    "rumah sakit",
+    "pasar",
+    "kebun",
+    "sawah",
+    "kolam renang",
+    "masjid",
+    "gereja",
+    "taman"
+   ],
+   "2": [
+    "Monas",
+    "Candi Borobudur",
+    "Bali",
+    "bandara",
+    "stasiun",
+    "mal",
+    "kebun binatang",
+    "perpustakaan",
+    "warung",
+    "danau",
+    "air terjun",
+    "pom bensin"
+   ],
+   "3": [
+    "pasar malam",
+    "Danau Toba",
+    "Raja Ampat",
+    "bioskop",
+    "kemah di hutan",
+    "mudik lebaran",
+    "Jembatan Suramadu",
+    "Patung Liberty",
+    "Menara Eiffel",
+    "Piramida"
+   ]
+  },
+  "olahraga": {
+   "1": [
+    "bola",
+    "sepeda",
+    "lari",
+    "renang",
+    "layang-layang",
+    "bulu tangkis",
+    "tenis meja",
+    "lompat tali",
+    "catur",
+    "kelereng"
+   ],
+   "2": [
+    "sepak bola",
+    "basket",
+    "voli",
+    "karate",
+    "panahan",
+    "selancar",
+    "panjat tebing",
+    "tinju",
+    "golf",
+    "ski",
+    "yoga",
+    "petak umpet"
+   ],
+   "3": [
+    "balap karung",
+    "panjat pinang",
+    "tarik tambang",
+    "egrang",
+    "lomba makan kerupuk",
+    "adu penalti",
+    "gol bunuh diri",
+    "kartu merah",
+    "lempar lembing",
+    "lari estafet"
+   ]
+  },
+  "kendaraan": {
+   "1": [
+    "mobil",
+    "motor",
+    "kapal",
+    "pesawat",
+    "kereta",
+    "bus",
+    "truk",
+    "sepeda",
+    "perahu",
+    "helikopter"
+   ],
+   "2": [
+    "becak",
+    "bajaj",
+    "angkot",
+    "ambulans",
+    "kapal selam",
+    "roket",
+    "traktor",
+    "delman",
+    "truk sampah",
+    "mobil polisi"
+   ],
+   "3": [
+    "macet di tol",
+    "kereta cepat",
+    "bus tingkat",
+    "perahu karet",
+    "kapal pesiar",
+    "ban bocor",
+    "lampu merah",
+    "parkir paralel",
+    "balon udara",
+    "odong-odong"
+   ]
+  },
+  "alam": {
+   "1": [
+    "matahari",
+    "bulan",
+    "bintang",
+    "awan",
+    "hujan",
+    "pelangi",
+    "pohon",
+    "bunga",
+    "daun",
+    "api",
+    "batu"
+   ],
+   "2": [
+    "gunung meletus",
+    "petir",
+    "banjir",
+    "salju",
+    "angin topan",
+    "gerhana",
+    "ombak",
+    "kaktus",
+    "jamur",
+    "air terjun",
+    "pasir"
+   ],
+   "3": [
+    "gempa bumi",
+    "tsunami",
+    "kabut asap",
+    "meteor jatuh",
+    "aurora",
+    "musim kemarau",
+    "tanah longsor",
+    "matahari terbenam",
+    "hujan es",
+    "pohon tumbang"
+   ]
+  },
+  "budaya": {
+   "1": [
+    "batik",
+    "wayang",
+    "keris",
+    "angklung",
+    "gamelan",
+    "bedug",
+    "ketupat",
+    "peci"
+   ],
+   "2": [
+    "ondel-ondel",
+    "reog",
+    "tari kecak",
+    "rumah gadang",
+    "karapan sapi",
+    "kuda lumping",
+    "barongsai",
+    "sarung",
+    "kentongan",
+    "gerobak siomay"
+   ],
+   "3": [
+    "tujuh belasan",
+    "halalbihalal",
+    "ngabuburit",
+    "takbiran",
+    "sungkeman",
+    "arisan",
+    "kondangan",
+    "ronda malam",
+    "nyekar",
+    "lebaran ketupat"
+   ]
+  },
+  "kegiatan": {
+   "1": [
+    "tidur",
+    "makan",
+    "minum",
+    "mandi",
+    "menangis",
+    "tertawa",
+    "berlari",
+    "menari",
+    "menyanyi",
+    "membaca"
+   ],
+   "2": [
+    "memancing",
+    "memasak",
+    "berkemah",
+    "menyapu",
+    "menjahit",
+    "berdoa",
+    "selfie",
+    "bersin",
+    "menguap",
+    "bersepeda"
+   ],
+   "3": [
+    "kesiangan",
+    "antre panjang",
+    "ketinggalan bus",
+    "kebelet pipis",
+    "lupa password",
+    "salah kostum",
+    "mati lampu",
+    "kepedasan",
+    "lari pagi",
+    "joget TikTok"
+   ]
+  },
+  "sekolah": {
+   "1": [
+    "buku",
+    "pensil",
+    "tas",
+    "penggaris",
+    "papan tulis",
+    "penghapus",
+    "kapur",
+    "meja guru"
+   ],
+   "2": [
+    "upacara bendera",
+    "laptop",
+    "kalkulator",
+    "seragam",
+    "rapor",
+    "kantin",
+    "lab",
+    "printer",
+    "stempel",
+    "rapat"
+   ],
+   "3": [
+    "ujian nasional",
+    "PR menumpuk",
+    "lembur",
+    "tidur di kelas",
+    "wisuda",
+    "nyontek",
+    "kerja dari rumah",
+    "presentasi",
+    "absen",
+    "bel istirahat"
+   ]
+  },
+  "dongeng": {
+   "1": [
+    "naga",
+    "peri",
+    "raja",
+    "ratu",
+    "istana",
+    "hantu",
+    "robot",
+    "alien",
+    "putri",
+    "penyihir"
+   ],
+   "2": [
+    "Malin Kundang",
+    "Timun Mas",
+    "Si Kancil",
+    "Bawang Merah",
+    "Sangkuriang",
+    "kuntilanak",
+    "pocong",
+    "unicorn",
+    "mahkota",
+    "tongkat sihir"
+   ],
+   "3": [
+    "Roro Jonggrang",
+    "Jaka Tarub",
+    "Lutung Kasarung",
+    "Keong Mas",
+    "Nyi Roro Kidul",
+    "lampu ajaib",
+    "karpet terbang",
+    "labu jadi kereta",
+    "sepatu kaca",
+    "cermin ajaib"
+   ]
+  },
+  "ungkapan": {
+   "4": [
+    "buah bibir",
+    "kambing hitam",
+    "panjang tangan",
+    "besar kepala",
+    "kepala dingin",
+    "anak emas",
+    "tangan kanan",
+    "meja hijau",
+    "lintah darat",
+    "kutu buku",
+    "jago merah",
+    "naik daun",
+    "cuci mata",
+    "mata keranjang",
+    "buaya darat",
+    "ringan tangan",
+    "kaki tangan",
+    "kupu-kupu malam",
+    "tikus kantor",
+    "hidung belang",
+    "bagai pinang dibelah dua",
+    "ada udang di balik batu",
+    "nasi sudah menjadi bubur",
+    "seperti katak dalam tempurung",
+    "air beriak tanda tak dalam",
+    "besar pasak daripada tiang",
+    "tong kosong nyaring bunyinya",
+    "bagai air di daun talas"
+   ]
+  },
+  "judul": {
+   "4": [
+    "Si Unyil",
+    "Upin Ipin",
+    "Laskar Pelangi",
+    "Doraemon",
+    "Spongebob",
+    "Titanic",
+    "Frozen",
+    "Harry Potter",
+    "Spider-Man",
+    "Avengers",
+    "Naruto",
+    "Shrek",
+    "Finding Nemo",
+    "Toy Story",
+    "Pengabdi Setan",
+    "Cinta Fitri",
+    "Lion King",
+    "Balonku Ada Lima",
+    "Bintang Kecil",
+    "Naik Delman",
+    "Pelangi-Pelangi",
+    "Cicak di Dinding",
+    "Burung Kakaktua",
+    "Topi Saya Bundar",
+    "Lihat Kebunku"
+   ]
+  }
+ },
+ "en": {
+  "hewan": {
+   "1": [
+    "cat",
+    "dog",
+    "fish",
+    "chicken",
+    "duck",
+    "cow",
+    "elephant",
+    "giraffe",
+    "butterfly",
+    "snake",
+    "turtle",
+    "bird",
+    "rabbit",
+    "ant",
+    "spider"
+   ],
+   "2": [
+    "komodo dragon",
+    "orangutan",
+    "kangaroo",
+    "dolphin",
+    "chameleon",
+    "hedgehog",
+    "bat",
+    "jellyfish",
+    "peacock",
+    "gecko",
+    "hippo",
+    "owl",
+    "crab",
+    "snail"
+   ],
+   "3": [
+    "rooster crowing",
+    "cat stealing fish",
+    "beehive",
+    "fish tank",
+    "monkey eating a banana",
+    "chick hatching",
+    "lion roaring",
+    "python squeezing",
+    "ant colony",
+    "sleeping sloth"
+   ]
+  },
+  "makanan": {
+   "1": [
+    "rice",
+    "banana",
+    "apple",
+    "bread",
+    "egg",
+    "ice cream",
+    "watermelon",
+    "orange",
+    "cake",
+    "candy",
+    "milk",
+    "coffee",
+    "tea",
+    "carrot",
+    "corn"
+   ],
+   "2": [
+    "fried rice",
+    "satay",
+    "meatball soup",
+    "pancake",
+    "pizza",
+    "noodles",
+    "french fries",
+    "sandwich",
+    "hot dog",
+    "sushi",
+    "taco",
+    "durian",
+    "popcorn",
+    "donut"
+   ],
+   "3": [
+    "birthday cake",
+    "spicy chili",
+    "breakfast in bed",
+    "food truck",
+    "fondue",
+    "burnt toast",
+    "spaghetti",
+    "bubble tea",
+    "fruit salad",
+    "barbecue"
+   ]
+  },
+  "rumah": {
+   "1": [
+    "chair",
+    "table",
+    "bed",
+    "lamp",
+    "door",
+    "window",
+    "pillow",
+    "glass",
+    "spoon",
+    "plate",
+    "clock",
+    "key",
+    "umbrella",
+    "mirror",
+    "toothbrush"
+   ],
+   "2": [
+    "fan",
+    "fridge",
+    "television",
+    "rice cooker",
+    "broom",
+    "bucket",
+    "iron",
+    "washing machine",
+    "remote",
+    "clothesline",
+    "kettle",
+    "shoe rack",
+    "stove",
+    "vacuum"
+   ],
+   "3": [
+    "power cut",
+    "leaking roof",
+    "broken AC",
+    "tangled cables",
+    "pile of laundry",
+    "messy bedroom",
+    "doorbell",
+    "power socket",
+    "picnic mat",
+    "curtains"
+   ]
+  },
+  "profesi": {
+   "1": [
+    "doctor",
+    "teacher",
+    "police officer",
+    "farmer",
+    "fisherman",
+    "chef",
+    "pilot",
+    "soldier",
+    "firefighter",
+    "postman"
+   ],
+   "2": [
+    "security guard",
+    "delivery rider",
+    "barber",
+    "mechanic",
+    "nurse",
+    "astronaut",
+    "singer",
+    "photographer",
+    "referee",
+    "painter",
+    "tailor",
+    "courier"
+   ],
+   "3": [
+    "parking attendant",
+    "youtuber",
+    "puppeteer",
+    "barista",
+    "street vendor",
+    "dentist",
+    "architect",
+    "DJ",
+    "magician",
+    "lifeguard"
+   ]
+  },
+  "tempat": {
+   "1": [
+    "beach",
+    "mountain",
+    "school",
+    "hospital",
+    "market",
+    "garden",
+    "rice field",
+    "swimming pool",
+    "park",
+    "church",
+    "mosque"
+   ],
+   "2": [
+    "Borobudur",
+    "Bali",
+    "airport",
+    "train station",
+    "mall",
+    "zoo",
+    "library",
+    "cafe",
+    "lake",
+    "waterfall",
+    "gas station",
+    "museum"
+   ],
+   "3": [
+    "night market",
+    "Lake Toba",
+    "cinema",
+    "camping in the woods",
+    "holiday traffic",
+    "Statue of Liberty",
+    "Eiffel Tower",
+    "pyramids",
+    "Great Wall",
+    "Big Ben"
+   ]
+  },
+  "olahraga": {
+   "1": [
+    "ball",
+    "bicycle",
+    "running",
+    "swimming",
+    "kite",
+    "badminton",
+    "table tennis",
+    "jump rope",
+    "chess",
+    "marbles"
+   ],
+   "2": [
+    "football",
+    "basketball",
+    "volleyball",
+    "karate",
+    "archery",
+    "surfing",
+    "rock climbing",
+    "boxing",
+    "golf",
+    "skiing",
+    "yoga",
+    "hide and seek"
+   ],
+   "3": [
+    "sack race",
+    "tug of war",
+    "stilts",
+    "penalty kick",
+    "own goal",
+    "red card",
+    "javelin",
+    "relay race",
+    "slam dunk",
+    "photo finish"
+   ]
+  },
+  "kendaraan": {
+   "1": [
+    "car",
+    "motorbike",
+    "ship",
+    "airplane",
+    "train",
+    "bus",
+    "truck",
+    "bicycle",
+    "boat",
+    "helicopter"
+   ],
+   "2": [
+    "rickshaw",
+    "tuk-tuk",
+    "minibus",
+    "ambulance",
+    "submarine",
+    "rocket",
+    "tractor",
+    "horse cart",
+    "garbage truck",
+    "police car"
+   ],
+   "3": [
+    "traffic jam",
+    "bullet train",
+    "double-decker bus",
+    "rubber dinghy",
+    "cruise ship",
+    "flat tyre",
+    "red light",
+    "parallel parking",
+    "hot-air balloon",
+    "roller coaster"
+   ]
+  },
+  "alam": {
+   "1": [
+    "sun",
+    "moon",
+    "star",
+    "cloud",
+    "rain",
+    "rainbow",
+    "tree",
+    "flower",
+    "leaf",
+    "fire",
+    "rock"
+   ],
+   "2": [
+    "volcano eruption",
+    "lightning",
+    "flood",
+    "snow",
+    "tornado",
+    "eclipse",
+    "wave",
+    "cactus",
+    "mushroom",
+    "waterfall",
+    "sand"
+   ],
+   "3": [
+    "earthquake",
+    "tsunami",
+    "smog",
+    "falling meteor",
+    "northern lights",
+    "drought",
+    "landslide",
+    "sunset",
+    "hailstorm",
+    "fallen tree"
+   ]
+  },
+  "budaya": {
+   "1": [
+    "batik",
+    "shadow puppet",
+    "kris dagger",
+    "angklung",
+    "gamelan",
+    "drum",
+    "ketupat",
+    "peci hat"
+   ],
+   "2": [
+    "ondel-ondel",
+    "reog mask",
+    "kecak dance",
+    "bull race",
+    "lion dance",
+    "sarong",
+    "bamboo gong",
+    "street food cart",
+    "rice terraces",
+    "longhouse"
+   ],
+   "3": [
+    "independence day games",
+    "Eid homecoming",
+    "breaking the fast",
+    "lantern parade",
+    "wedding reception",
+    "night watch",
+    "batik day",
+    "harvest festival",
+    "kite festival",
+    "traditional market"
+   ]
+  },
+  "kegiatan": {
+   "1": [
+    "sleeping",
+    "eating",
+    "drinking",
+    "bathing",
+    "crying",
+    "laughing",
+    "running",
+    "dancing",
+    "singing",
+    "reading"
+   ],
+   "2": [
+    "fishing",
+    "cooking",
+    "camping",
+    "sweeping",
+    "sewing",
+    "praying",
+    "selfie",
+    "sneezing",
+    "yawning",
+    "cycling"
+   ],
+   "3": [
+    "oversleeping",
+    "long queue",
+    "missing the bus",
+    "needing the toilet",
+    "forgot password",
+    "wrong outfit",
+    "blackout",
+    "too spicy",
+    "morning jog",
+    "TikTok dance"
+   ]
+  },
+  "sekolah": {
+   "1": [
+    "book",
+    "pencil",
+    "bag",
+    "ruler",
+    "whiteboard",
+    "eraser",
+    "chalk",
+    "teacher's desk"
+   ],
+   "2": [
+    "flag ceremony",
+    "laptop",
+    "calculator",
+    "uniform",
+    "report card",
+    "canteen",
+    "lab",
+    "printer",
+    "stamp",
+    "meeting"
+   ],
+   "3": [
+    "final exam",
+    "piles of homework",
+    "overtime",
+    "sleeping in class",
+    "graduation",
+    "cheating",
+    "work from home",
+    "presentation",
+    "roll call",
+    "recess bell"
+   ]
+  },
+  "dongeng": {
+   "1": [
+    "dragon",
+    "fairy",
+    "king",
+    "queen",
+    "castle",
+    "ghost",
+    "robot",
+    "alien",
+    "princess",
+    "witch"
+   ],
+   "2": [
+    "mermaid",
+    "giant",
+    "vampire",
+    "unicorn",
+    "crown",
+    "magic wand",
+    "treasure map",
+    "pirate ship",
+    "elf",
+    "werewolf"
+   ],
+   "3": [
+    "Cinderella's glass slipper",
+    "genie in a lamp",
+    "flying carpet",
+    "pumpkin carriage",
+    "magic mirror",
+    "Jack and the beanstalk",
+    "sleeping beauty",
+    "Pinocchio's nose",
+    "Rapunzel's hair",
+    "three little pigs"
+   ]
+  },
+  "ungkapan": {
+   "4": [
+    "raining cats and dogs",
+    "break the ice",
+    "piece of cake",
+    "couch potato",
+    "elephant in the room",
+    "butterflies in my stomach",
+    "cold feet",
+    "spill the beans",
+    "hit the sack",
+    "under the weather",
+    "apple of my eye",
+    "cry over spilt milk",
+    "let the cat out of the bag",
+    "once in a blue moon",
+    "bite the bullet",
+    "on cloud nine",
+    "the early bird catches the worm",
+    "time flies",
+    "walking on eggshells",
+    "a fish out of water",
+    "hot potato",
+    "night owl",
+    "big fish in a small pond",
+    "barking up the wrong tree"
+   ]
+  },
+  "judul": {
+   "4": [
+    "Titanic",
+    "Frozen",
+    "Harry Potter",
+    "Spider-Man",
+    "Avengers",
+    "Naruto",
+    "Shrek",
+    "Finding Nemo",
+    "Toy Story",
+    "Lion King",
+    "Jaws",
+    "Star Wars",
+    "Jurassic Park",
+    "Up",
+    "Cars",
+    "Minions",
+    "SpongeBob",
+    "Doraemon",
+    "Upin Ipin",
+    "Twinkle Twinkle Little Star",
+    "Baby Shark",
+    "Happy Birthday",
+    "Old MacDonald",
+    "Let It Go",
+    "Yellow Submarine"
+   ]
+  }
+ }
+}

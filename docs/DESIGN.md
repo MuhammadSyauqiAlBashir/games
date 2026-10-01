@@ -26,7 +26,12 @@
 - **Trivia:** 22 topics incl. flags, capitals, trick questions, K-pop, Islam, Bahasa Indonesia; difficulty phases ×1/×2/×3/×5; speed scoring.
 - **Matematika:** SD/SMP/SMA, arithmetic, sequences, story problems, logic — generated locally (always correct).
 - **Rebus:** built-in bank (EN + Indonesian emoji "tebak gambar") + AI puzzles rendered from text/emoji layouts.
-- **Draw games:** words from Gemini with level + personal theme (fallback lists); AI judge compares all drawings anonymously.
+- **Draw games:** words from a categorised bank (`data/draw_bank.json`, 14 categories × levels, ~440 words per language) plus fresh
+  Gemini words for the same categories; the category option ("Mix" or one category) is shown to everyone while drawing.
+  Words played recently are remembered in `bg_kv` `draw_recent:<lang>` (last 320) and skipped until the bank runs low.
+  AI judge compares all drawings anonymously; if Gemini is busy it retries for up to ~30 s, then everyone gets equal points.
+- **Snake Arena:** floating analog stick (touch anywhere), fullscreen button (landscape on phones that allow it).
+- **Big-Top Quiz:** each Toad keeps one picture all round; questions about where it went, waves, jumps, swaps, neighbours.
 - **Penalty:** left/middle/right for shooter and keeper; 5 kicks then sudden death.
 - **Snake:** last human alive; shrinking arena; computer snakes (count + skill adjustable); boost.
 
