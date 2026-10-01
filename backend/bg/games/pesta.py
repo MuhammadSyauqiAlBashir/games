@@ -31,7 +31,7 @@ ROULETTE, INTRO, RESULT, BONUS = 4.2, 25.0, 5.5, 9.0
 
 
 class Pesta(Mini):
-    key, name_id, name_en, icon = "mp_pesta", "Pesta Minigame", "Minigame Party", "🎉"
+    key, name_id, name_en, icon = "mp_pesta", "Minigame Party", "Minigame Party", "🎉"
     options = [opt("count", "Jumlah minigame", "Minigames", "select", 6, [ch(n, str(n)) for n in (4, 6, 8, 10)]),
                opt("games", "Minigame yang ikut", "Minigames included", "multi",
                    [m.key for m in ALL if getattr(m, "party_default", True)], [ch(m.key, m.name_en) for m in ALL],

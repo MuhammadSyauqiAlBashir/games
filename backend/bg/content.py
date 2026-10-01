@@ -468,7 +468,7 @@ REBUS_CHECK = obj({"checks": {"type": "array", "items": obj({
 
 
 def builtin_rebus() -> list[dict]:
-    with open(os.path.join(DATA, "rebus.json")) as f:
+    with open(os.path.join(DATA, "tebak.json")) as f:
         return json.load(f)
 
 
@@ -476,13 +476,13 @@ async def generate_rebus(lang: str, n: int = 6) -> int:
     language = "Bahasa Indonesia" if lang == "id" else "English"
     examples = [p for p in builtin_rebus() if p["lang"] == lang][:4]
     prompt = (
-        f"Create {n} rebus picture-word puzzles in {language} for a party game. The picture is built only from text and "
-        "emoji elements placed on a 100×100 canvas (x, y = centre). Each element: t (text or emoji), x, y, size (4-40), "
-        "color (css hex), rotate (degrees), style: one of '', 'bold', 'mirror' (reversed), 'strike', 'up' (reads upward), "
-        "'down' (reads downward), 'small', 'big', 'line' (t='' draws a horizontal line at y), 'box' (t='' draws a box), "
-        "'circle'. Classic tricks: position (over/under/in/between), size, repetition, colour names, backwards, broken "
-        "words, homophones. The answer must be a well-known word or phrase and the puzzle must be solvable by clever "
-        "adults. level 1-4. explanation: how to read it.\nExamples (JSON): " + json.dumps(examples, ensure_ascii=False))
+        f"Create {n} tricky picture riddles in {language} in the style of the Indonesian 'Tebak Gambar' app: a picture "
+        "built ONLY from emoji (no words) whose parts combine into a well-known idiom, expression, compound word or food "
+        "name — the fun is that the literal pictures mislead (e.g. 👅 + 🐊 = 'lidah buaya', 🦐 behind 🪨 = 'ada udang di "
+        "balik batu'). Elements are placed on a 100×100 canvas (x, y = centre): t (an emoji, or '+' between parts), x, y, "
+        "size (10-50), color ('' for emoji), rotate (degrees), style ('' or 'big', 'small', 'mirror'). Use positions for "
+        "behind / inside / on top. The answer must be solvable by clever adults. level 1-4. hint: a short clue to the "
+        "meaning. explanation: how to read it.\nExamples (JSON): " + json.dumps(examples, ensure_ascii=False))
     try:
         data = await ai.generate([prompt], schema=REBUS_SCHEMA, smart=True)
     except ai.AIUnavailable:
@@ -504,7 +504,7 @@ async def generate_rebus(lang: str, n: int = 6) -> int:
         if not v or not v.get("solvable") or not util.close_enough(v.get("my_answer", ""), p["answer"])[0]:
             continue
         try:
-            await pb.create("bg_questions", {"kind": "rebus", "topic": "rebus", "level": max(1, min(4, int(p.get("level", 2)))),
+            await pb.create("bg_questions", {"kind": "rebus", "topic": "tebak", "level": max(1, min(4, int(p.get("level", 2)))),
                                              "lang": lang, "q": {"answer": p["answer"], "hint": p.get("hint", ""),
                                                                  "elements": p["elements"], "explain": p.get("explanation", "")},
                                              "hash": qhash("rebus " + p["answer"]), "status": "ok", "source": "ai",
@@ -518,12 +518,12 @@ async def generate_rebus(lang: str, n: int = 6) -> int:
 async def rebus_puzzles(lang: str, n: int, use_ai: bool, rng: random.Random) -> list[dict]:
     out: list[dict] = []
     if use_ai:
-        bank = await pb.all("bg_questions", filter=f"kind = 'rebus' && lang = {q(lang)} && status = 'ok'",
+        bank = await pb.all("bg_questions", filter=f"kind = 'rebus' && topic = 'tebak' && lang = {q(lang)} && status = 'ok'",
                             sort="used,@random")
         if len(bank) < n:
             # New AI puzzles for next time; wait a little, the built-in bank fills the rest now.
             await asyncio.wait([keep(asyncio.create_task(generate_rebus(lang, max(6, n))))], timeout=8)
-            bank = await pb.all("bg_questions", filter=f"kind = 'rebus' && lang = {q(lang)} && status = 'ok'",
+            bank = await pb.all("bg_questions", filter=f"kind = 'rebus' && topic = 'tebak' && lang = {q(lang)} && status = 'ok'",
                                 sort="used,@random")
         for rec in bank[: n // 2]:
             out.append({"qid": rec["id"], "level": rec["level"], **rec["q"], "source": "ai"})

@@ -3,13 +3,18 @@
 Private multiplayer games for the owner, his wife and close friends — live on everyone's phone.
 https://games.bashir.my.id · same accounts and approval as lyrsync / finance · installable PWA.
 
-## Games (57)
+## Games (58)
 Board & dice: Ludo (4-colour board for 2–4, 6-colour board for 5–6), Ular Tangga, Monopoli (world cities,
 Rupiah, official rules or fast mode), Congklak, Dam (international 10×10), Connect 4, SOS, Tic-tac-toe (any size).
 Cards: UNO (official + house-rule switches), Sequence (teams at 4), Poker (Texas Hold'em, Rp1.000.000 per day),
 Gaple (domino, nyangkul). Quiz & party: Trivia (AI question bank, difficulty phases, ⚑ report), Matematika,
 Tebak Gambar Kata (rebus), Anagrams (English), Tebak Gambar (draw & guess), Gambar & Juri AI. Action: Adu Penalti,
-Arena Ular (snake with computer snakes). Rules summaries: `web/js/i18n.js` (RULES).
+Arena Ular (snake with computer snakes). Rules summaries: `web/js/i18n.js` (RULES). All game names are English (UI text stays Indonesian/English).
+
+**Cak Lontong Quiz** (`lontong`, Indonesian): twisted-logic questions with TTS letter boxes; typing a stored "normal"
+answer (trap) gets a MIKIR!; bank in `backend/bg/data/lontong.json` built by `tools/build_lontong.py`.
+**Picture Riddles** (`rebus`, Tebak Gambar style): emoji pictures → tricky idioms/compound words, answered with letter
+tiles, 💡 open-a-letter costs 30 % per letter; bank `data/tebak.json` built by `tools/build_tebak.py` (picture formulas).
 
 **Mario minigames** (Super Mario Party Jamboree style, Mario names in both languages, 2–4 players):
 Thwomp the Difference, Big-Top Quiz, Wario's Buzzer Beater, Sleight of Shell, Tricky Turntable, Lost and Pound,

@@ -1,6 +1,6 @@
 // Ular Tangga: 10×10 board, ladders and snakes, animated pieces with avatars.
 import { el, svg } from "../lib.js?v=__VERSION__"
-import { die, status } from "./common.js?v=__VERSION__"
+import { makeDie, status } from "./common.js?v=__VERSION__"
 
 const TILE = ["#fff4e0", "#fde3c2", "#e7f1dc", "#fbe0e0", "#e1ecf7"]
 function cellXY(n) {  // 1..100 → centre (x, y) in a 100×100 box; 1 is bottom-left, rows snake
@@ -58,6 +58,7 @@ export function mount(stage, ctx) {
   const bar = el("div", { class: "action-bar" })
   stage.append(st, wrap, bar)
   let layer = null, tokens = {}, boardKey = "", rolling = false
+  const D = makeDie(64)
   return {
     update(v, events) {
       const key = JSON.stringify(v.board)
@@ -101,7 +102,8 @@ export function mount(stage, ctx) {
         } else t.style.transform = `translate(${x}px, ${y}px)`
       })
       const mine = v.turn === ctx.me.id && !v.over
-      bar.replaceChildren(el("div", { class: `dice${rolling ? " rolling" : ""}` }, die(v.dice).firstChild),
+      if (rolling && roll) D.show(v.dice, true); else D.show(v.dice)
+      bar.replaceChildren(D.el,
         mine ? el("button", { class: "btn primary big", type: "button", text: ctx.L("Lempar dadu 🎲", "Roll 🎲"), onclick: () => ctx.send({ do: "roll" }) }) : null)
       let msg
       if (roll && roll.stuck) msg = ctx.L(`${ctx.name(roll.who)} butuh angka pas — diam di tempat`, `${ctx.name(roll.who)} needs an exact roll — stays put`)

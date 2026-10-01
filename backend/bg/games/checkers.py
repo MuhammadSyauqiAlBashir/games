@@ -19,7 +19,7 @@ def on(r, c):
 
 
 class Checkers(Game):
-    key, name_id, name_en, icon = "checkers", "Dam (Checkers)", "Checkers", "⚫"
+    key, name_id, name_en, icon = "checkers", "Checkers", "Checkers", "⚫"
     min_players, max_players = 2, 2
     santai_ok = True
     default_timer = 60

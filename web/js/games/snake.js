@@ -1,9 +1,119 @@
 // Snake arena: drag to steer, hold 🚀 to boost. The browser rebuilds each body from the stream of head positions.
 import { el } from "../lib.js?v=__VERSION__"
 
+const FOOD_COLS = ["#f7a6c1", "#8fcfee", "#b8e986", "#fcd34d"]
+const SKINS = ["stripes", "spots", "diamond", "zigzag", "gradient", "rainbow"]
+
+function shade(hex, amt) {
+  const n = parseInt(hex.replace("#", "").padEnd(6, "0").slice(0, 6), 16)
+  const f = (c) => Math.max(0, Math.min(255, Math.round(amt < 0 ? c * (1 + amt) : c + (255 - c) * amt)))
+  return `rgb(${f(n >> 16)},${f((n >> 8) & 255)},${f(n & 255)})`
+}
+function skinOf(id) { let h = 0; for (const ch of id) h = (h * 31 + ch.charCodeAt(0)) >>> 0; return SKINS[h % SKINS.length] }
+
+// A snake: shadow, tapered body with shading, a skin pattern, then the head with eyes and a flicking tongue.
+function drawSnake(g, id, sn, tx, ty, zoom, W, H, t) {
+  const rad = (9 + Math.min(12, sn.len / 50)) * zoom
+  const pts = sn.body.map(([x, y]) => [tx(x), ty(y)])
+  const n = pts.length
+  const vis = pts.some(([x, y]) => x > -60 && y > -60 && x < W + 60 && y < H + 60)
+  if (!vis) return
+  const skin = skinOf(id)
+  const base = sn.color, dark = shade(base, -0.35), light = shade(base, 0.35)
+  const radAt = (i) => rad * (i < n * 0.7 ? 1 : 0.35 + 0.65 * (1 - (i - n * 0.7) / (n * 0.3)))
+  g.lineCap = "round"; g.lineJoin = "round"
+  // shadow
+  g.globalAlpha = 0.28
+  g.strokeStyle = "#000"
+  strokeBody(g, pts, radAt, 2, 4 * zoom, 4 * zoom)
+  g.globalAlpha = 1
+  // outline, body, highlight
+  g.strokeStyle = dark; strokeBody(g, pts, radAt, 2.2)
+  if (skin === "gradient") {
+    for (let i = n - 1; i > 0; i--) {
+      g.strokeStyle = shade(base, 0.45 * (i / n) - 0.05)
+      g.lineWidth = radAt(i) * 1.8
+      g.beginPath(); g.moveTo(...pts[i]); g.lineTo(...pts[i - 1]); g.stroke()
+    }
+  } else if (skin === "rainbow") {
+    for (let i = n - 1; i > 0; i--) {
+      g.strokeStyle = `hsl(${(i * 7 + t * 60) % 360} 75% 58%)`
+      g.lineWidth = radAt(i) * 1.8
+      g.beginPath(); g.moveTo(...pts[i]); g.lineTo(...pts[i - 1]); g.stroke()
+    }
+  } else { g.strokeStyle = base; strokeBody(g, pts, radAt, 1.8) }
+  // pattern
+  if (skin === "stripes") {
+    g.strokeStyle = dark
+    for (let i = 4; i < n - 2; i += 6) { g.lineWidth = radAt(i) * 1.7; g.beginPath(); g.moveTo(...pts[i]); g.lineTo(...pts[Math.min(n - 1, i + 2)]); g.stroke() }
+  } else if (skin === "spots") {
+    g.fillStyle = light
+    for (let i = 3; i < n - 2; i += 4) { const [x, y] = pts[i]; const o = (i % 8 < 4 ? 1 : -1) * radAt(i) * 0.35; g.beginPath(); g.arc(x + o, y - o, radAt(i) * 0.3, 0, Math.PI * 2); g.fill() }
+  } else if (skin === "diamond") {
+    g.fillStyle = dark
+    for (let i = 4; i < n - 2; i += 5) {
+      const [x, y] = pts[i], [x2, y2] = pts[Math.max(0, i - 1)]
+      const a = Math.atan2(y2 - y, x2 - x), r = radAt(i) * 0.75
+      g.beginPath(); g.moveTo(x + Math.cos(a) * r, y + Math.sin(a) * r); g.lineTo(x + Math.cos(a + 1.57) * r * .6, y + Math.sin(a + 1.57) * r * .6)
+      g.lineTo(x - Math.cos(a) * r, y - Math.sin(a) * r); g.lineTo(x + Math.cos(a - 1.57) * r * .6, y + Math.sin(a - 1.57) * r * .6); g.closePath(); g.fill()
+    }
+  } else if (skin === "zigzag") {
+    g.strokeStyle = light; g.lineWidth = Math.max(1.5, rad * 0.25)
+    g.beginPath()
+    for (let i = 1; i < n - 1; i++) {
+      const [x, y] = pts[i], [x2, y2] = pts[i - 1]
+      const a = Math.atan2(y2 - y, x2 - x) + Math.PI / 2, o = (i % 4 < 2 ? 1 : -1) * radAt(i) * 0.5
+      const px = x + Math.cos(a) * o, py = y + Math.sin(a) * o
+      if (i === 1) g.moveTo(px, py); else g.lineTo(px, py)
+    }
+    g.stroke()
+  }
+  // glossy highlight along the back
+  g.globalAlpha = 0.28; g.strokeStyle = "#fff"; strokeBody(g, pts, radAt, 0.55, -rad * 0.3, -rad * 0.3); g.globalAlpha = 1
+  // head
+  const [hx, hy] = pts[0], a = sn.a
+  if (sn.boost) { g.fillStyle = shade(base, 0.5) + ""; g.globalAlpha = 0.35; g.beginPath(); g.arc(hx, hy, rad * 1.8, 0, Math.PI * 2); g.fill(); g.globalAlpha = 1 }
+  // tongue flicks every ~1.6 s
+  if ((t + id.length * 0.37) % 1.6 < 0.22) {
+    const L = rad * 1.5, bx = hx + Math.cos(a) * rad * 1.05, by = hy + Math.sin(a) * rad * 1.05
+    g.strokeStyle = "#e5484d"; g.lineWidth = Math.max(1.2, rad * 0.14)
+    g.beginPath(); g.moveTo(bx, by); g.lineTo(bx + Math.cos(a) * L, by + Math.sin(a) * L)
+    g.lineTo(bx + Math.cos(a + 0.4) * L * 1.25, by + Math.sin(a + 0.4) * L * 1.25)
+    g.moveTo(bx + Math.cos(a) * L, by + Math.sin(a) * L); g.lineTo(bx + Math.cos(a - 0.4) * L * 1.25, by + Math.sin(a - 0.4) * L * 1.25); g.stroke()
+  }
+  g.save(); g.translate(hx, hy); g.rotate(a)
+  g.fillStyle = dark; g.beginPath(); g.ellipse(0, 0, rad * 1.32, rad * 1.12, 0, 0, Math.PI * 2); g.fill()
+  g.fillStyle = skin === "rainbow" ? `hsl(${(t * 60) % 360} 75% 58%)` : base; g.beginPath(); g.ellipse(0, 0, rad * 1.22, rad * 1.02, 0, 0, Math.PI * 2); g.fill()
+  g.fillStyle = "rgba(255,255,255,.25)"; g.beginPath(); g.ellipse(-rad * 0.1, -rad * 0.35, rad * 0.7, rad * 0.35, 0, 0, Math.PI * 2); g.fill()
+  for (const side of [-1, 1]) {
+    g.fillStyle = "#fff"; g.beginPath(); g.ellipse(rad * 0.45, side * rad * 0.48, rad * 0.36, rad * 0.32, 0, 0, Math.PI * 2); g.fill()
+    g.fillStyle = "#111"; g.beginPath(); g.arc(rad * 0.58, side * rad * 0.46, rad * 0.17, 0, Math.PI * 2); g.fill()
+    g.fillStyle = "#fff"; g.beginPath(); g.arc(rad * 0.62, side * rad * 0.42 - rad * 0.05, rad * 0.06, 0, Math.PI * 2); g.fill()
+  }
+  g.fillStyle = dark; g.beginPath(); g.arc(rad * 1.05, -rad * 0.2, rad * 0.07, 0, Math.PI * 2); g.arc(rad * 1.05, rad * 0.2, rad * 0.07, 0, Math.PI * 2); g.fill()
+  g.restore()
+  g.font = `800 ${Math.round(12 * zoom * 1.4)}px Nunito, sans-serif`
+  g.fillStyle = "rgba(255,255,255,.9)"; g.textAlign = "center"
+  g.fillText(sn.bot ? sn.name : `${sn.avatar || ""} ${sn.name}`, hx, hy - rad * 1.4 - 6 * zoom)
+}
+// Strokes the body as a tapered polyline (width = radius × k), optionally offset (for shadow/highlight).
+function strokeBody(g, pts, radAt, k, dx = 0, dy = 0) {
+  const n = pts.length
+  if (n === 1) { g.beginPath(); g.arc(pts[0][0] + dx, pts[0][1] + dy, radAt(0) * k / 2, 0, Math.PI * 2); g.fillStyle = g.strokeStyle; g.fill(); return }
+  // draw in a few chunks so the tail can taper
+  const chunk = 6
+  for (let s = n - 1; s > 0; s -= chunk) {
+    const e = Math.max(0, s - chunk)
+    g.lineWidth = radAt(s) * k
+    g.beginPath(); g.moveTo(pts[s][0] + dx, pts[s][1] + dy)
+    for (let i = s - 1; i >= e; i--) g.lineTo(pts[i][0] + dx, pts[i][1] + dy)
+    g.stroke()
+  }
+}
+
 export function mount(stage, ctx) {
   const info = el("div", { class: "row between small", style: { padding: "0 4px 6px", fontWeight: 800 } })
-  const wrap = el("div", { style: { position: "relative", width: "100%", maxWidth: "760px", margin: "0 auto", aspectRatio: "1", maxHeight: "calc(100dvh - 210px)", borderRadius: "22px", overflow: "hidden", boxShadow: "var(--shadow-lg)", touchAction: "none", background: "#1f2b25" } })
+  const wrap = el("div", { style: { position: "relative", width: "100%", maxWidth: "760px", margin: "0 auto", height: "max(300px, calc(100dvh - 235px))", borderRadius: "22px", overflow: "hidden", boxShadow: "var(--shadow-lg)", touchAction: "none", background: "#1f2b25" } })
   const cv = el("canvas", { style: { width: "100%", height: "100%", display: "block", touchAction: "none" } })
   const boost = el("button", { type: "button", style: { position: "absolute", right: "14px", bottom: "14px", width: "70px", height: "70px", borderRadius: "50%", border: 0, fontSize: "30px", background: "rgba(255,255,255,.85)", boxShadow: "var(--shadow)" }, text: "🚀" })
   const board = el("div", { style: { position: "absolute", left: "10px", top: "10px", background: "rgba(0,0,0,.35)", color: "#fff", borderRadius: "12px", padding: "6px 10px", fontSize: "12px", fontWeight: 800 } })
@@ -47,7 +157,7 @@ export function mount(stage, ctx) {
 
   function onSnap(s) {
     S.snakes = {}
-    for (const [id, sn] of Object.entries(s.snakes)) S.snakes[id] = { ...sn, body: sn.body.map((p) => [...p]), boost: 0 }
+    for (const [id, sn] of Object.entries(s.snakes)) S.snakes[id] = { ...sn, body: sn.body.map((p) => [...p]), boost: 0, avatar: sn.bot ? "" : ctx.player(id).avatar }
     S.food = new Map(s.food.map((f) => [f[0], f]))
     S.r = s.r
   }
@@ -90,7 +200,7 @@ export function mount(stage, ctx) {
       const alive = Object.values(S.snakes).filter((s) => s.alive && s.body[0]).sort((a, b) => b.len - a.len)
       cam = alive[0]?.body[0] || [0, 0]
     }
-    const zoom = W / 650
+    const zoom = Math.max(W, H * 0.75) / 500
     const tx = (x) => (x - cam[0]) * zoom + W / 2
     const ty = (y) => (y - cam[1]) * zoom + H / 2
     g.fillStyle = "#16201b"
@@ -107,38 +217,21 @@ export function mount(stage, ctx) {
     g.strokeStyle = "#e5484d"
     g.lineWidth = 5 * zoom
     g.stroke()
-    // Food
+    // Food: soft glowing orbs
     for (const [, x, y, v] of S.food.values()) {
       const px = tx(x), py = ty(y)
       if (px < -10 || py < -10 || px > W + 10 || py > H + 10) continue
-      g.fillStyle = v > 1 ? "#f2cf3c" : ["#f7a6c1", "#8fcfee", "#b8e986", "#fcd34d"][(x + y) & 3]
-      g.beginPath(); g.arc(px, py, (v > 1 ? 5 : 3.5) * zoom, 0, Math.PI * 2); g.fill()
+      const col = v > 1 ? "#f2cf3c" : FOOD_COLS[(x + y) & 3]
+      const r0 = (v > 1 ? 5.2 : 3.6) * zoom
+      g.fillStyle = col + "40"; g.beginPath(); g.arc(px, py, r0 * 2.1, 0, Math.PI * 2); g.fill()
+      g.fillStyle = col; g.beginPath(); g.arc(px, py, r0, 0, Math.PI * 2); g.fill()
+      g.fillStyle = "rgba(255,255,255,.7)"; g.beginPath(); g.arc(px - r0 * .3, py - r0 * .35, r0 * .35, 0, Math.PI * 2); g.fill()
     }
     // Snakes
+    const t = performance.now() / 1000
     for (const [id, sn] of Object.entries(S.snakes)) {
       if (!sn.alive || !sn.body.length) continue
-      const rad = (9 + Math.min(12, sn.len / 50)) * zoom
-      g.fillStyle = sn.color
-      for (let i = sn.body.length - 1; i >= 0; i -= 1) {
-        const [x, y] = sn.body[i]
-        const px = tx(x), py = ty(y)
-        if (px < -40 || py < -40 || px > W + 40 || py > H + 40) continue
-        g.globalAlpha = i % 6 < 3 ? 1 : .85
-        g.beginPath(); g.arc(px, py, rad, 0, Math.PI * 2); g.fill()
-      }
-      g.globalAlpha = 1
-      const [hx, hy] = sn.body[0]
-      const hpx = tx(hx), hpy = ty(hy)
-      if (sn.boost) { g.strokeStyle = "rgba(255,255,255,.5)"; g.lineWidth = 3 * zoom; g.beginPath(); g.arc(hpx, hpy, rad * 1.3, 0, Math.PI * 2); g.stroke() }
-      for (const side of [-1, 1]) {
-        const ex = hpx + Math.cos(sn.a + side * .6) * rad * .55, ey = hpy + Math.sin(sn.a + side * .6) * rad * .55
-        g.fillStyle = "#fff"; g.beginPath(); g.arc(ex, ey, rad * .32, 0, Math.PI * 2); g.fill()
-        g.fillStyle = "#111"; g.beginPath(); g.arc(ex + Math.cos(sn.a) * rad * .12, ey + Math.sin(sn.a) * rad * .12, rad * .16, 0, Math.PI * 2); g.fill()
-      }
-      g.font = `${Math.round(12 * zoom * 1.4)}px Nunito, sans-serif`
-      g.fillStyle = "rgba(255,255,255,.85)"
-      g.textAlign = "center"
-      g.fillText(sn.bot ? sn.name : `${ctx.player(id).avatar} ${sn.name}`, hpx, hpy - rad - 6 * zoom)
+      drawSnake(g, id, sn, tx, ty, zoom, W, H, t)
     }
     // Mini-map
     const mm = 70 * (W / 700), mx = W - mm - 12, my = 12

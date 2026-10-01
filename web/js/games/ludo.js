@@ -1,6 +1,6 @@
 // Ludo: classic cross board (2–4 players) or a round six-colour board (5–6 players).
 import { el, svg } from "../lib.js?v=__VERSION__"
-import { die, status } from "./common.js?v=__VERSION__"
+import { makeDie, status } from "./common.js?v=__VERSION__"
 
 const SLOT_COLORS = ["#e5484d", "#3fa66a", "#f2b63c", "#3b82d6", "#9b6bd6", "#f0843c"]
 const SLOT_LIGHT = ["#fbd5d6", "#cdebd8", "#fcebc4", "#cfe0f7", "#e6d9f6", "#fde0cb"]
@@ -37,7 +37,7 @@ function crossXY(slot, prog, piece) {
   if (prog < 0) {
     const [r0, c0] = YARD[slot]
     const dx = piece % 2, dy = Math.floor(piece / 2)
-    return [(c0 + dx * 2 + 0.5) * cell + cell / 2, (r0 + dy * 2 + 0.5) * cell + cell / 2]
+    return [(c0 + dx * 2 + 0.5) * cell, (r0 + dy * 2 + 0.5) * cell]  // centres of the 4 spots in the yard's inner square
   }
   if (prog <= 50) return at(...TRACK[(13 * slot + prog) % 52])
   if (prog <= 55) return at(...HOME_COL[slot][prog - 51])
@@ -120,7 +120,8 @@ export function mount(stage, ctx) {
   const wrap = el("div", { class: "board-wrap", style: { borderRadius: "22px", overflow: "hidden", boxShadow: "var(--shadow-lg)" } })
   const bar = el("div", { class: "action-bar" })
   stage.append(st, wrap, bar)
-  let board = null, tokens = {}, size = 4, V = null, rolling = false
+  let board = null, tokens = {}, size = 4, V = null
+  const D = makeDie(64)
 
   function build(v) {
     size = v.size
@@ -180,8 +181,8 @@ export function mount(stage, ctx) {
 
   function drawBar(v) {
     const mine = v.turn === ctx.me.id && !v.over
-    const d = die(v.dice, rolling)
-    bar.replaceChildren(d)
+    D.show(v.dice)
+    bar.replaceChildren(D.el)
     if (mine && v.phase === "roll") bar.append(el("button", { class: "btn primary big", type: "button", text: ctx.L("Lempar dadu 🎲", "Roll 🎲"), onclick: () => ctx.send({ do: "roll" }) }))
     else if (mine && v.phase === "move") bar.append(el("span", { class: "muted", text: ctx.L("Pilih bidak yang bercincin", "Tap a ringed piece") }))
     const legend = el("div", { class: "row wrap", style: { justifyContent: "center", width: "100%" } },
@@ -196,7 +197,7 @@ export function mount(stage, ctx) {
       V = v
       if (!board || v.size !== size) build(v)
       for (const e of events) {
-        if (e.e === "roll") { ctx.sfx.dice(); rolling = true; setTimeout(() => { rolling = false }, 700) }
+        if (e.e === "roll") { ctx.sfx.dice(); D.show(v.dice, true) }
         if (e.e === "move") { if (e.caps && e.caps.length) ctx.sfx.capture(); else if (e.home) ctx.sfx.coin(); else ctx.sfx.place() }
       }
       drawTokens(v)

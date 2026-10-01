@@ -1,0 +1,5267 @@
+[
+{
+"answer": "lidah buaya",
+"alts": [],
+"hint": "tanaman obat",
+"explain": "Lidah (👅) + buaya (🐊) = tanaman lidah buaya",
+"level": 1,
+"lang": "id",
+"elements": [
+{
+"t": "👅",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🐊",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "👅 + 🐊"
+},
+{
+"answer": "telur mata sapi",
+"alts": [],
+"hint": "lauk sarapan",
+"explain": "Telur + mata + sapi = telur ceplok",
+"level": 1,
+"lang": "id",
+"elements": [
+{
+"t": "🥚",
+"x": 22.0,
+"y": 52,
+"size": 23,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 36.0,
+"y": 54,
+"size": 11.5,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "👁️",
+"x": 50.0,
+"y": 52,
+"size": 23,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 64.0,
+"y": 54,
+"size": 11.5,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🐄",
+"x": 78.0,
+"y": 52,
+"size": 23,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🥚 + 👁️ + 🐄"
+},
+{
+"answer": "kaki lima",
+"alts": [],
+"hint": "pedagang pinggir jalan",
+"explain": "Lima kaki = (pedagang) kaki lima",
+"level": 1,
+"lang": "id",
+"elements": [
+{
+"t": "🦶",
+"x": 27.23,
+"y": 60.28,
+"size": 28.52,
+"color": "",
+"rotate": -22.5,
+"style": ""
+},
+{
+"t": "🦶",
+"x": 38.615,
+"y": 56.14,
+"size": 28.52,
+"color": "",
+"rotate": -11.25,
+"style": ""
+},
+{
+"t": "🦶",
+"x": 50.0,
+"y": 52.0,
+"size": 28.52,
+"color": "",
+"rotate": 0.0,
+"style": ""
+},
+{
+"t": "🦶",
+"x": 61.385,
+"y": 56.14,
+"size": 28.52,
+"color": "",
+"rotate": 11.25,
+"style": ""
+},
+{
+"t": "🦶",
+"x": 72.77,
+"y": 60.28,
+"size": 28.52,
+"color": "",
+"rotate": 22.5,
+"style": ""
+}
+],
+"formula": "🦶x5"
+},
+{
+"answer": "buah tangan",
+"alts": [],
+"hint": "dibawa pulang dari liburan",
+"explain": "Buah + tangan = oleh-oleh",
+"level": 1,
+"lang": "id",
+"elements": [
+{
+"t": "🍎",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "✋",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🍎 + ✋"
+},
+{
+"answer": "kambing hitam",
+"alts": [],
+"hint": "yang disalahkan",
+"explain": "Kambing + hitam = orang yang dijadikan sasaran kesalahan",
+"level": 1,
+"lang": "id",
+"elements": [
+{
+"t": "🐐",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "⬛",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🐐 + ⬛"
+},
+{
+"answer": "buaya darat",
+"alts": [],
+"hint": "suka gonta-ganti pacar",
+"explain": "Buaya + darat",
+"level": 1,
+"lang": "id",
+"elements": [
+{
+"t": "🐊",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🏜️",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🐊 + 🏜️"
+},
+{
+"answer": "otak udang",
+"alts": [],
+"hint": "lambat berpikir",
+"explain": "Otak + udang = bodoh",
+"level": 1,
+"lang": "id",
+"elements": [
+{
+"t": "🧠",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🦐",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🧠 + 🦐"
+},
+{
+"answer": "mata duitan",
+"alts": [],
+"hint": "cinta uang",
+"explain": "Mata + duit(an)",
+"level": 1,
+"lang": "id",
+"elements": [
+{
+"t": "👁️",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "💵",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "👁️ + 💵"
+},
+{
+"answer": "muka tembok",
+"alts": [],
+"hint": "tidak tahu malu",
+"explain": "Muka + tembok",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "😐",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🧱",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "😐 + 🧱"
+},
+{
+"answer": "cuci mata",
+"alts": [],
+"hint": "jalan-jalan lihat yang indah",
+"explain": "Cuci + mata",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "🧼",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "👁️",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🧼 + 👁️"
+},
+{
+"answer": "makan angin",
+"alts": [],
+"hint": "jalan-jalan santai",
+"explain": "Makan + angin",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "🍽️",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🌬️",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🍽️ + 🌬️"
+},
+{
+"answer": "naik darah",
+"alts": [],
+"hint": "marah",
+"explain": "Naik + darah",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "⬆️",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🩸",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "⬆️ + 🩸"
+},
+{
+"answer": "kabar burung",
+"alts": [],
+"hint": "gosip yang belum pasti",
+"explain": "Kabar + burung",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "📰",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🐦",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "📰 + 🐦"
+},
+{
+"answer": "kabar angin",
+"alts": [],
+"hint": "berita belum jelas",
+"explain": "Kabar + angin",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "📰",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🌬️",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "📰 + 🌬️"
+},
+{
+"answer": "hidung belang",
+"alts": [],
+"hint": "suka menggoda",
+"explain": "Hidung + belang (zebra)",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "👃",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🦓",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "👃 + 🦓"
+},
+{
+"answer": "tangan kanan",
+"alts": [],
+"hint": "orang kepercayaan",
+"explain": "Tangan + kanan",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "✋",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "➡️",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "✋ + ➡️"
+},
+{
+"answer": "mata air",
+"alts": [],
+"hint": "sumber air",
+"explain": "Mata + air",
+"level": 1,
+"lang": "id",
+"elements": [
+{
+"t": "👁️",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "💧",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "👁️ + 💧"
+},
+{
+"answer": "kaki gunung",
+"alts": [],
+"hint": "bagian bawah gunung",
+"explain": "Kaki + gunung",
+"level": 1,
+"lang": "id",
+"elements": [
+{
+"t": "🦶",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "⛰️",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🦶 + ⛰️"
+},
+{
+"answer": "angkat kaki",
+"alts": [],
+"hint": "pergi",
+"explain": "Angkat + kaki = pergi",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "🏋️",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🦶",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🏋️ + 🦶"
+},
+{
+"answer": "patah hati",
+"alts": [],
+"hint": "putus cinta",
+"explain": "Patah + hati",
+"level": 1,
+"lang": "id",
+"elements": [
+{
+"t": "✂️",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "❤️",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "✂️ + ❤️"
+},
+{
+"answer": "kuping gajah",
+"alts": [],
+"hint": "kue kering cokelat",
+"explain": "Kuping + gajah = nama kue",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "👂",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🐘",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "👂 + 🐘"
+},
+{
+"answer": "rambut nenek",
+"alts": [],
+"hint": "jajanan manis berserabut",
+"explain": "Rambut + nenek = kembang gula rambut nenek",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "💇",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "👵",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "💇 + 👵"
+},
+{
+"answer": "kumis kucing",
+"alts": [],
+"hint": "tanaman herbal",
+"explain": "Kumis + kucing",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "🥸",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🐱",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🥸 + 🐱"
+},
+{
+"answer": "lidah kucing",
+"alts": [],
+"hint": "kue lebaran",
+"explain": "Kue + lidah + kucing",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "🍪",
+"x": 22.0,
+"y": 52,
+"size": 23,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 36.0,
+"y": 54,
+"size": 11.5,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "👅",
+"x": 50.0,
+"y": 52,
+"size": 23,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 64.0,
+"y": 54,
+"size": 11.5,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🐱",
+"x": 78.0,
+"y": 52,
+"size": 23,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🍪 + 👅 + 🐱"
+},
+{
+"answer": "lampu merah",
+"alts": [],
+"hint": "berhenti!",
+"explain": "Lampu + merah",
+"level": 1,
+"lang": "id",
+"elements": [
+{
+"t": "💡",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🟥",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "💡 + 🟥"
+},
+{
+"answer": "lampu hijau",
+"alts": [],
+"hint": "diberi izin",
+"explain": "Lampu + hijau = izin",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "💡",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🟩",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "💡 + 🟩"
+},
+{
+"answer": "jalan tikus",
+"alts": [],
+"hint": "jalan pintas",
+"explain": "Jalan + tikus",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "🛣️",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🐭",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🛣️ + 🐭"
+},
+{
+"answer": "uang muka",
+"alts": [],
+"hint": "DP",
+"explain": "Uang + muka = DP",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "💰",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "😀",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "💰 + 😀"
+},
+{
+"answer": "uang saku",
+"alts": [],
+"hint": "jajan anak sekolah",
+"explain": "Uang + saku",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "💰",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "👖",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "💰 + 👖"
+},
+{
+"answer": "kepala dua",
+"alts": [],
+"hint": "umur 20-an",
+"explain": "Dua kepala = berkepala dua",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "👦",
+"x": 42.41,
+"y": 54.76,
+"size": 33.12,
+"color": "",
+"rotate": -7.5,
+"style": ""
+},
+{
+"t": "👦",
+"x": 57.59,
+"y": 54.76,
+"size": 33.12,
+"color": "",
+"rotate": 7.5,
+"style": ""
+}
+],
+"formula": "👦x2"
+},
+{
+"answer": "tangan dingin",
+"alts": [],
+"hint": "selalu berhasil merawat/mengurus",
+"explain": "Tangan + dingin",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "✋",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🥶",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "✋ + 🥶"
+},
+{
+"answer": "darah biru",
+"alts": [],
+"hint": "keturunan bangsawan",
+"explain": "Darah + biru",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "🩸",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🟦",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🩸 + 🟦"
+},
+{
+"answer": "anak emas",
+"alts": [],
+"hint": "anak kesayangan",
+"explain": "Anak + emas",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "👶",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🪙",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "👶 + 🪙"
+},
+{
+"answer": "kaki tangan",
+"alts": [],
+"hint": "komplotan",
+"explain": "Kaki + tangan",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "🦶",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "✋",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🦶 + ✋"
+},
+{
+"answer": "tikus kantor",
+"alts": [],
+"hint": "koruptor",
+"explain": "Tikus + kantor",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "🐭",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🏢",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🐭 + 🏢"
+},
+{
+"answer": "banting tulang",
+"alts": [],
+"hint": "kerja keras",
+"explain": "Banting + tulang",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "💥",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🦴",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "💥 + 🦴"
+},
+{
+"answer": "ada udang di balik batu",
+"alts": [],
+"hint": "ada maksud tersembunyi",
+"explain": "Udangnya ada di balik batu",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "🦐",
+"x": 44.480000000000004,
+"y": 43.72,
+"size": 32.199999999999996,
+"color": "",
+"rotate": -8,
+"style": ""
+},
+{
+"t": "🪨",
+"x": 53.68,
+"y": 55.68,
+"size": 46,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🦐<🪨"
+},
+{
+"answer": "sudah jatuh tertimpa tangga",
+"alts": [],
+"hint": "sial berturut-turut",
+"explain": "Jatuh, lalu tertimpa tangga",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "🤕",
+"x": 50.0,
+"y": 66.72,
+"size": 36.800000000000004,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🪜",
+"x": 50.0,
+"y": 37.28,
+"size": 34.5,
+"color": "",
+"rotate": -18,
+"style": ""
+}
+],
+"formula": "🪜^🤕"
+},
+{
+"answer": "katak dalam tempurung",
+"alts": [],
+"hint": "pengetahuannya sempit",
+"explain": "Katak di dalam tempurung kelapa",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "🥥",
+"x": 50.0,
+"y": 52,
+"size": 52.9,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🐸",
+"x": 50.0,
+"y": 54.3,
+"size": 19.32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🐸@🥥"
+},
+{
+"answer": "nasi sudah menjadi bubur",
+"alts": [],
+"hint": "sudah terlambat menyesal",
+"explain": "Nasi → bubur",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "🍚",
+"x": 22.0,
+"y": 52,
+"size": 23,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 36.0,
+"y": 54,
+"size": 11.5,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "➡️",
+"x": 50.0,
+"y": 52,
+"size": 23,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 64.0,
+"y": 54,
+"size": 11.5,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🥣",
+"x": 78.0,
+"y": 52,
+"size": 23,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🍚 + ➡️ + 🥣"
+},
+{
+"answer": "air mata buaya",
+"alts": [],
+"hint": "pura-pura sedih",
+"explain": "Air + mata + buaya",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "💧",
+"x": 22.0,
+"y": 52,
+"size": 23,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 36.0,
+"y": 54,
+"size": 11.5,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "👁️",
+"x": 50.0,
+"y": 52,
+"size": 23,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 64.0,
+"y": 54,
+"size": 11.5,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🐊",
+"x": 78.0,
+"y": 52,
+"size": 23,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "💧 + 👁️ + 🐊"
+},
+{
+"answer": "musuh dalam selimut",
+"alts": [],
+"hint": "pengkhianat dari dalam",
+"explain": "Musuh di dalam selimut",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "🛌",
+"x": 50.0,
+"y": 52,
+"size": 52.9,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "😈",
+"x": 50.0,
+"y": 54.3,
+"size": 19.32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "😈@🛌"
+},
+{
+"answer": "bagai pinang dibelah dua",
+"alts": [],
+"hint": "mirip sekali",
+"explain": "Pinang dibelah dua",
+"level": 4,
+"lang": "id",
+"elements": [
+{
+"t": "🥥",
+"x": 22.0,
+"y": 52,
+"size": 23,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 36.0,
+"y": 54,
+"size": 11.5,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🔪",
+"x": 50.0,
+"y": 52,
+"size": 23,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 64.0,
+"y": 54,
+"size": 11.5,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "2️⃣",
+"x": 78.0,
+"y": 52,
+"size": 23,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🥥 + 🔪 + 2️⃣"
+},
+{
+"answer": "anjing dan kucing",
+"alts": [],
+"hint": "selalu bertengkar",
+"explain": "Seperti anjing dan kucing",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "🐶",
+"x": 22.0,
+"y": 52,
+"size": 23,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 36.0,
+"y": 54,
+"size": 11.5,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "⚔️",
+"x": 50.0,
+"y": 52,
+"size": 23,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 64.0,
+"y": 54,
+"size": 11.5,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🐱",
+"x": 78.0,
+"y": 52,
+"size": 23,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🐶 + ⚔️ + 🐱"
+},
+{
+"answer": "gajah di pelupuk mata",
+"alts": [],
+"hint": "kesalahan sendiri tak terlihat",
+"explain": "Gajah di pelupuk mata tak tampak",
+"level": 4,
+"lang": "id",
+"elements": [
+{
+"t": "🐘",
+"x": 44.480000000000004,
+"y": 43.72,
+"size": 32.199999999999996,
+"color": "",
+"rotate": -8,
+"style": ""
+},
+{
+"t": "👁️",
+"x": 53.68,
+"y": 55.68,
+"size": 46,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🐘<👁️"
+},
+{
+"answer": "bunga desa",
+"alts": [],
+"hint": "gadis tercantik di kampung",
+"explain": "Bunga + desa",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "🌸",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🏘️",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🌸 + 🏘️"
+},
+{
+"answer": "sapi perah",
+"alts": [],
+"hint": "dimanfaatkan terus",
+"explain": "Sapi + perah",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "🐄",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🥛",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🐄 + 🥛"
+},
+{
+"answer": "kursi panas",
+"alts": [],
+"hint": "jabatan yang rawan",
+"explain": "Kursi + panas",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "🪑",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🔥",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🪑 + 🔥"
+},
+{
+"answer": "lepas tangan",
+"alts": [],
+"hint": "tak mau bertanggung jawab",
+"explain": "Lepas + tangan",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "🔓",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "✋",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🔓 + ✋"
+},
+{
+"answer": "rumah makan",
+"alts": [],
+"hint": "restoran",
+"explain": "Rumah + makan",
+"level": 1,
+"lang": "id",
+"elements": [
+{
+"t": "🏠",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🍽️",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🏠 + 🍽️"
+},
+{
+"answer": "kereta api",
+"alts": [],
+"hint": "kendaraan di atas rel",
+"explain": "Kereta + api",
+"level": 1,
+"lang": "id",
+"elements": [
+{
+"t": "🚃",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🔥",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🚃 + 🔥"
+},
+{
+"answer": "bom waktu",
+"alts": [],
+"hint": "masalah yang bisa meledak nanti",
+"explain": "Bom + waktu",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "💣",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "⏰",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "💣 + ⏰"
+},
+{
+"answer": "ringan tangan",
+"alts": [],
+"hint": "suka menolong",
+"explain": "Ringan + tangan",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "🪶",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "✋",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🪶 + ✋"
+},
+{
+"answer": "muka dua",
+"alts": [
+"bermuka dua"
+],
+"hint": "tidak tulus",
+"explain": "Dua muka = bermuka dua",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "😀",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "😠",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "😀 + 😠"
+},
+{
+"answer": "tinggi hati",
+"alts": [],
+"hint": "sombong",
+"explain": "Tinggi (jerapah) + hati",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "🦒",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "❤️",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🦒 + ❤️"
+},
+{
+"answer": "keras kepala",
+"alts": [
+"kepala batu"
+],
+"hint": "susah dinasihati",
+"explain": "Keras (batu) + kepala",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "🪨",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "👦",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🪨 + 👦"
+},
+{
+"answer": "besar kepala",
+"alts": [],
+"hint": "sombong",
+"explain": "Kepala diperbesar",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "🔍",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "👦",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🔍 + 👦"
+},
+{
+"answer": "panjang tangan",
+"alts": [],
+"hint": "suka mencuri",
+"explain": "Panjang + tangan",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "📏",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "✋",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "📏 + ✋"
+},
+{
+"answer": "tangan besi",
+"alts": [],
+"hint": "pemimpin yang keras",
+"explain": "Tangan + besi",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "✋",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🔩",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "✋ + 🔩"
+},
+{
+"answer": "mata keranjang",
+"alts": [],
+"hint": "suka melirik lawan jenis",
+"explain": "Mata + keranjang",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "👁️",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🧺",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "👁️ + 🧺"
+},
+{
+"answer": "buah bibir",
+"alts": [],
+"hint": "bahan omongan orang",
+"explain": "Buah + bibir",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "🍎",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "👄",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🍎 + 👄"
+},
+{
+"answer": "naik daun",
+"alts": [],
+"hint": "sedang populer",
+"explain": "Naik + daun",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "⬆️",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🍃",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "⬆️ + 🍃"
+},
+{
+"answer": "jatuh hati",
+"alts": [],
+"hint": "mulai suka",
+"explain": "Jatuh + hati",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "⬇️",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "❤️",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "⬇️ + ❤️"
+},
+{
+"answer": "buang air",
+"alts": [],
+"hint": "ke toilet",
+"explain": "Buang + air",
+"level": 1,
+"lang": "id",
+"elements": [
+{
+"t": "🗑️",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "💧",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🗑️ + 💧"
+},
+{
+"answer": "telinga tipis",
+"alts": [],
+"hint": "mudah tersinggung",
+"explain": "Telinga + tipis (kertas)",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "👂",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "📄",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "👂 + 📄"
+},
+{
+"answer": "harga mati",
+"alts": [],
+"hint": "tidak bisa ditawar",
+"explain": "Harga + mati",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "🏷️",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "💀",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🏷️ + 💀"
+},
+{
+"answer": "tangan kosong",
+"alts": [],
+"hint": "tidak membawa apa-apa",
+"explain": "Tangan + kosong (nol)",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "✋",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "0️⃣",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "✋ + 0️⃣"
+},
+{
+"answer": "batu loncatan",
+"alts": [],
+"hint": "langkah awal menuju tujuan",
+"explain": "Batu + loncat(an)",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "🪨",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🦘",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🪨 + 🦘"
+},
+{
+"answer": "cari muka",
+"alts": [],
+"hint": "mengambil hati atasan",
+"explain": "Cari + muka",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "🔍",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "😀",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🔍 + 😀"
+},
+{
+"answer": "adu domba",
+"alts": [],
+"hint": "memecah belah",
+"explain": "Adu + domba",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "🥊",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🐑",
+"x": 65.72,
+"y": 53.92,
+"size": 23.04,
+"color": "",
+"rotate": -7.5,
+"style": ""
+},
+{
+"t": "🐑",
+"x": 76.28,
+"y": 53.92,
+"size": 23.04,
+"color": "",
+"rotate": 7.5,
+"style": ""
+}
+],
+"formula": "🥊 + 🐑x2"
+},
+{
+"answer": "kepala keluarga",
+"alts": [],
+"hint": "ayah",
+"explain": "Kepala + keluarga",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "👦",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "👨‍👩‍👧",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "👦 + 👨‍👩‍👧"
+},
+{
+"answer": "ayam jago",
+"alts": [],
+"hint": "andalan",
+"explain": "Ayam + jago (juara)",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "🐓",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🏆",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🐓 + 🏆"
+},
+{
+"answer": "orang dalam",
+"alts": [],
+"hint": "koneksi di dalam",
+"explain": "Orang di dalam (kantor)",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "🏢",
+"x": 50.0,
+"y": 52,
+"size": 52.9,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🧍",
+"x": 50.0,
+"y": 54.3,
+"size": 19.32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🧍@🏢"
+},
+{
+"answer": "cuci tangan",
+"alts": [],
+"hint": "tak mau ikut bertanggung jawab",
+"explain": "Cuci + tangan",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "🧼",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "✋",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🧼 + ✋"
+},
+{
+"answer": "si jago merah",
+"alts": [
+"jago merah"
+],
+"hint": "kebakaran",
+"explain": "Jago + merah = api",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "🐓",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🔴",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🐓 + 🔴"
+},
+{
+"answer": "kuda hitam",
+"alts": [],
+"hint": "pemenang tak terduga",
+"explain": "Kuda + hitam",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "🐴",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "⬛",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🐴 + ⬛"
+},
+{
+"answer": "macan kertas",
+"alts": [],
+"hint": "galak di luar, lemah di dalam",
+"explain": "Macan + kertas",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "🐯",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "📄",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🐯 + 📄"
+},
+{
+"answer": "bintang lapangan",
+"alts": [],
+"hint": "pemain terbaik",
+"explain": "Bintang + lapangan",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "⭐",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🏟️",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "⭐ + 🏟️"
+},
+{
+"answer": "bulan madu",
+"alts": [],
+"hint": "liburan pengantin baru",
+"explain": "Bulan + madu",
+"level": 1,
+"lang": "id",
+"elements": [
+{
+"t": "🌙",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🍯",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🌙 + 🍯"
+},
+{
+"answer": "mata pelajaran",
+"alts": [],
+"hint": "di sekolah",
+"explain": "Mata + pelajaran",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "👁️",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "📚",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "👁️ + 📚"
+},
+{
+"answer": "tanggal tua",
+"alts": [],
+"hint": "akhir bulan, dompet tipis",
+"explain": "Tanggal + tua",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "📅",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "👴",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "📅 + 👴"
+},
+{
+"answer": "kepala dingin",
+"alts": [],
+"hint": "tenang menghadapi masalah",
+"explain": "Kepala + dingin",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "👦",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🧊",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "👦 + 🧊"
+},
+{
+"answer": "darah daging",
+"alts": [],
+"hint": "anak kandung",
+"explain": "Darah + daging",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "🩸",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🥩",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🩸 + 🥩"
+},
+{
+"answer": "anak bawang",
+"alts": [],
+"hint": "tidak dianggap dalam permainan",
+"explain": "Anak + bawang",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "👶",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🧅",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "👶 + 🧅"
+},
+{
+"answer": "telur busuk",
+"alts": [],
+"hint": "",
+"explain": "Telur + busuk",
+"level": 1,
+"lang": "id",
+"elements": [
+{
+"t": "🥚",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🤢",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🥚 + 🤢"
+},
+{
+"answer": "kaki bukit",
+"alts": [],
+"hint": "bawah bukit",
+"explain": "Kaki + bukit",
+"level": 2,
+"lang": "id",
+"elements": [
+{
+"t": "🦶",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🏞️",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🦶 + 🏞️"
+},
+{
+"answer": "bunga tidur",
+"alts": [],
+"hint": "mimpi",
+"explain": "Bunga + tidur = mimpi",
+"level": 3,
+"lang": "id",
+"elements": [
+{
+"t": "🌸",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "😴",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🌸 + 😴"
+},
+{
+"answer": "kupu-kupu malam",
+"alts": [
+"kupu kupu malam"
+],
+"hint": "",
+"explain": "Kupu-kupu + malam",
+"level": 4,
+"lang": "id",
+"elements": [
+{
+"t": "🦋",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🌙",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🦋 + 🌙"
+},
+{
+"answer": "piece of cake",
+"alts": [],
+"hint": "very easy",
+"explain": "Piece + cake",
+"level": 1,
+"lang": "en",
+"elements": [
+{
+"t": "🧩",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🍰",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🧩 + 🍰"
+},
+{
+"answer": "raining cats and dogs",
+"alts": [],
+"hint": "heavy rain",
+"explain": "Rain + cats + dogs",
+"level": 1,
+"lang": "en",
+"elements": [
+{
+"t": "🌧️",
+"x": 22.0,
+"y": 52,
+"size": 23,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 36.0,
+"y": 54,
+"size": 11.5,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🐱",
+"x": 50.0,
+"y": 52,
+"size": 23,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 64.0,
+"y": 54,
+"size": 11.5,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🐶",
+"x": 78.0,
+"y": 52,
+"size": 23,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🌧️ + 🐱 + 🐶"
+},
+{
+"answer": "break the ice",
+"alts": [],
+"hint": "start a conversation",
+"explain": "Break + ice",
+"level": 1,
+"lang": "en",
+"elements": [
+{
+"t": "🔨",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🧊",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🔨 + 🧊"
+},
+{
+"answer": "couch potato",
+"alts": [],
+"hint": "lazy at home",
+"explain": "Couch + potato",
+"level": 1,
+"lang": "en",
+"elements": [
+{
+"t": "🛋️",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🥔",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🛋️ + 🥔"
+},
+{
+"answer": "cold feet",
+"alts": [],
+"hint": "nervous before a big step",
+"explain": "Cold + feet",
+"level": 2,
+"lang": "en",
+"elements": [
+{
+"t": "🥶",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🦶",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🥶 + 🦶"
+},
+{
+"answer": "spill the beans",
+"alts": [],
+"hint": "tell the secret",
+"explain": "Spill + beans",
+"level": 2,
+"lang": "en",
+"elements": [
+{
+"t": "💦",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🫘",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "💦 + 🫘"
+},
+{
+"answer": "elephant in the room",
+"alts": [],
+"hint": "the obvious problem nobody mentions",
+"explain": "An elephant in the room",
+"level": 2,
+"lang": "en",
+"elements": [
+{
+"t": "🏠",
+"x": 50.0,
+"y": 52,
+"size": 52.9,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🐘",
+"x": 50.0,
+"y": 54.3,
+"size": 19.32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🐘@🏠"
+},
+{
+"answer": "night owl",
+"alts": [],
+"hint": "stays up late",
+"explain": "Night + owl",
+"level": 1,
+"lang": "en",
+"elements": [
+{
+"t": "🌙",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🦉",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🌙 + 🦉"
+},
+{
+"answer": "early bird",
+"alts": [],
+"hint": "up early",
+"explain": "Early + bird",
+"level": 1,
+"lang": "en",
+"elements": [
+{
+"t": "⏰",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🐦",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "⏰ + 🐦"
+},
+{
+"answer": "apple of my eye",
+"alts": [],
+"hint": "someone you love most",
+"explain": "Apple + eye",
+"level": 2,
+"lang": "en",
+"elements": [
+{
+"t": "🍎",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "👁️",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🍎 + 👁️"
+},
+{
+"answer": "time flies",
+"alts": [],
+"hint": "it goes by fast",
+"explain": "Time + flies",
+"level": 2,
+"lang": "en",
+"elements": [
+{
+"t": "⏰",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🪰",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "⏰ + 🪰"
+},
+{
+"answer": "bookworm",
+"alts": [],
+"hint": "loves reading",
+"explain": "Book + worm",
+"level": 1,
+"lang": "en",
+"elements": [
+{
+"t": "📚",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🪱",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "📚 + 🪱"
+},
+{
+"answer": "brainstorm",
+"alts": [],
+"hint": "share ideas",
+"explain": "Brain + storm",
+"level": 1,
+"lang": "en",
+"elements": [
+{
+"t": "🧠",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "⛈️",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🧠 + ⛈️"
+},
+{
+"answer": "butterfly",
+"alts": [],
+"hint": "it flutters",
+"explain": "Butter + fly",
+"level": 2,
+"lang": "en",
+"elements": [
+{
+"t": "🧈",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🪰",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🧈 + 🪰"
+},
+{
+"answer": "starfish",
+"alts": [],
+"hint": "lives in the sea",
+"explain": "Star + fish",
+"level": 1,
+"lang": "en",
+"elements": [
+{
+"t": "⭐",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🐟",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "⭐ + 🐟"
+},
+{
+"answer": "sunflower",
+"alts": [],
+"hint": "tall and yellow",
+"explain": "Sun + flower",
+"level": 1,
+"lang": "en",
+"elements": [
+{
+"t": "☀️",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🌸",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "☀️ + 🌸"
+},
+{
+"answer": "earring",
+"alts": [],
+"hint": "jewellery",
+"explain": "Ear + ring",
+"level": 1,
+"lang": "en",
+"elements": [
+{
+"t": "👂",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "💍",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "👂 + 💍"
+},
+{
+"answer": "hot dog",
+"alts": [],
+"hint": "food",
+"explain": "Hot + dog",
+"level": 1,
+"lang": "en",
+"elements": [
+{
+"t": "🔥",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🐶",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🔥 + 🐶"
+},
+{
+"answer": "top dog",
+"alts": [],
+"hint": "the boss",
+"explain": "Top + dog",
+"level": 2,
+"lang": "en",
+"elements": [
+{
+"t": "🔝",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🐶",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🔝 + 🐶"
+},
+{
+"answer": "big cheese",
+"alts": [],
+"hint": "an important person",
+"explain": "A BIG cheese",
+"level": 3,
+"lang": "en",
+"elements": [
+{
+"t": "🧀",
+"x": 50.0,
+"y": 52,
+"size": 62.1,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "big:🧀"
+},
+{
+"answer": "cat nap",
+"alts": [],
+"hint": "a short sleep",
+"explain": "Cat + nap",
+"level": 1,
+"lang": "en",
+"elements": [
+{
+"t": "🐱",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "😴",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🐱 + 😴"
+},
+{
+"answer": "love birds",
+"alts": [
+"lovebirds"
+],
+"hint": "a couple",
+"explain": "Love + birds",
+"level": 1,
+"lang": "en",
+"elements": [
+{
+"t": "❤️",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🐦",
+"x": 65.72,
+"y": 53.92,
+"size": 23.04,
+"color": "",
+"rotate": -7.5,
+"style": ""
+},
+{
+"t": "🐦",
+"x": 76.28,
+"y": 53.92,
+"size": 23.04,
+"color": "",
+"rotate": 7.5,
+"style": ""
+}
+],
+"formula": "❤️ + 🐦x2"
+},
+{
+"answer": "cash cow",
+"alts": [],
+"hint": "makes lots of money",
+"explain": "Cash + cow",
+"level": 2,
+"lang": "en",
+"elements": [
+{
+"t": "💵",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🐄",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "💵 + 🐄"
+},
+{
+"answer": "fish out of water",
+"alts": [],
+"hint": "feels out of place",
+"explain": "A fish out of the water",
+"level": 3,
+"lang": "en",
+"elements": [
+{
+"t": "💧",
+"x": 58.28,
+"y": 63.5,
+"size": 39.1,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "🐟",
+"x": 39.88,
+"y": 39.12,
+"size": 27.599999999999998,
+"color": "",
+"rotate": -25,
+"style": ""
+},
+{
+"t": "💨",
+"x": 52.3,
+"y": 51.08,
+"size": 13.799999999999999,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🐟!💧"
+},
+{
+"answer": "under the weather",
+"alts": [],
+"hint": "feeling ill",
+"explain": "Someone under the weather",
+"level": 3,
+"lang": "en",
+"elements": [
+{
+"t": "🙂",
+"x": 50.0,
+"y": 66.72,
+"size": 36.800000000000004,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "⛈️",
+"x": 50.0,
+"y": 37.28,
+"size": 34.5,
+"color": "",
+"rotate": -18,
+"style": ""
+}
+],
+"formula": "⛈️^🙂"
+},
+{
+"answer": "once in a blue moon",
+"alts": [],
+"hint": "very rarely",
+"explain": "Once + blue + moon",
+"level": 3,
+"lang": "en",
+"elements": [
+{
+"t": "1️⃣",
+"x": 22.0,
+"y": 52,
+"size": 23,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 36.0,
+"y": 54,
+"size": 11.5,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🔵",
+"x": 50.0,
+"y": 52,
+"size": 23,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 64.0,
+"y": 54,
+"size": 11.5,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🌙",
+"x": 78.0,
+"y": 52,
+"size": 23,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "1️⃣ + 🔵 + 🌙"
+},
+{
+"answer": "penny for your thoughts",
+"alts": [
+"a penny for your thoughts"
+],
+"hint": "what are you thinking?",
+"explain": "Penny + thoughts",
+"level": 3,
+"lang": "en",
+"elements": [
+{
+"t": "🪙",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "💭",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🪙 + 💭"
+},
+{
+"answer": "when pigs fly",
+"alts": [],
+"hint": "never",
+"explain": "Pigs + fly",
+"level": 2,
+"lang": "en",
+"elements": [
+{
+"t": "🐷",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "✈️",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🐷 + ✈️"
+},
+{
+"answer": "piggy bank",
+"alts": [],
+"hint": "save coins",
+"explain": "Piggy + bank",
+"level": 1,
+"lang": "en",
+"elements": [
+{
+"t": "🐷",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🏦",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🐷 + 🏦"
+},
+{
+"answer": "two birds one stone",
+"alts": [
+"kill two birds with one stone"
+],
+"hint": "two things at once",
+"explain": "Kill two birds with one stone",
+"level": 3,
+"lang": "en",
+"elements": [
+{
+"t": "2️⃣",
+"x": 18.5,
+"y": 52,
+"size": 18,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 29.0,
+"y": 54,
+"size": 9.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🐦",
+"x": 39.5,
+"y": 52,
+"size": 18,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 9.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "1️⃣",
+"x": 60.5,
+"y": 52,
+"size": 18,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 71.0,
+"y": 54,
+"size": 9.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🪨",
+"x": 81.5,
+"y": 52,
+"size": 18,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "2️⃣ + 🐦 + 1️⃣ + 🪨"
+},
+{
+"answer": "smart cookie",
+"alts": [],
+"hint": "a clever person",
+"explain": "Smart + cookie",
+"level": 2,
+"lang": "en",
+"elements": [
+{
+"t": "🧠",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🍪",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🧠 + 🍪"
+},
+{
+"answer": "cool cat",
+"alts": [],
+"hint": "a stylish person",
+"explain": "Cool + cat",
+"level": 2,
+"lang": "en",
+"elements": [
+{
+"t": "😎",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🐱",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "😎 + 🐱"
+},
+{
+"answer": "dragonfly",
+"alts": [],
+"hint": "an insect",
+"explain": "Dragon + fly",
+"level": 2,
+"lang": "en",
+"elements": [
+{
+"t": "🐉",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🪰",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🐉 + 🪰"
+},
+{
+"answer": "snowman",
+"alts": [],
+"hint": "built in winter",
+"explain": "Snow + man",
+"level": 1,
+"lang": "en",
+"elements": [
+{
+"t": "❄️",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "👨",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "❄️ + 👨"
+},
+{
+"answer": "rainbow",
+"alts": [],
+"hint": "after the rain",
+"explain": "Rain + bow",
+"level": 2,
+"lang": "en",
+"elements": [
+{
+"t": "🌧️",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🎀",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🌧️ + 🎀"
+},
+{
+"answer": "pineapple",
+"alts": [],
+"hint": "a fruit",
+"explain": "Pine + apple",
+"level": 2,
+"lang": "en",
+"elements": [
+{
+"t": "🌲",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🍎",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🌲 + 🍎"
+},
+{
+"answer": "eye candy",
+"alts": [],
+"hint": "nice to look at",
+"explain": "Eye + candy",
+"level": 2,
+"lang": "en",
+"elements": [
+{
+"t": "👁️",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🍬",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "👁️ + 🍬"
+},
+{
+"answer": "sweet tooth",
+"alts": [],
+"hint": "loves sugar",
+"explain": "Sweet + tooth",
+"level": 2,
+"lang": "en",
+"elements": [
+{
+"t": "🍬",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🦷",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🍬 + 🦷"
+},
+{
+"answer": "green thumb",
+"alts": [],
+"hint": "good with plants",
+"explain": "Green + thumb",
+"level": 2,
+"lang": "en",
+"elements": [
+{
+"t": "🟩",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "👍",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🟩 + 👍"
+},
+{
+"answer": "sleep like a log",
+"alts": [],
+"hint": "sleep deeply",
+"explain": "Sleep + log",
+"level": 2,
+"lang": "en",
+"elements": [
+{
+"t": "😴",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🪵",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "😴 + 🪵"
+},
+{
+"answer": "on cloud nine",
+"alts": [
+"cloud nine"
+],
+"hint": "very happy",
+"explain": "Cloud + nine",
+"level": 2,
+"lang": "en",
+"elements": [
+{
+"t": "☁️",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "9️⃣",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "☁️ + 9️⃣"
+},
+{
+"answer": "butterfingers",
+"alts": [
+"butter fingers"
+],
+"hint": "keeps dropping things",
+"explain": "Butter + fingers",
+"level": 2,
+"lang": "en",
+"elements": [
+{
+"t": "🧈",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "👉",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🧈 + 👉"
+},
+{
+"answer": "cupcake",
+"alts": [],
+"hint": "a small treat",
+"explain": "Cup (trophy) + cake",
+"level": 2,
+"lang": "en",
+"elements": [
+{
+"t": "🏆",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🍰",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🏆 + 🍰"
+},
+{
+"answer": "horsepower",
+"alts": [],
+"hint": "engine strength",
+"explain": "Horse + power",
+"level": 2,
+"lang": "en",
+"elements": [
+{
+"t": "🐴",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "⚡",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🐴 + ⚡"
+},
+{
+"answer": "keyboard",
+"alts": [],
+"hint": "you type on it",
+"explain": "Key + board",
+"level": 3,
+"lang": "en",
+"elements": [
+{
+"t": "🔑",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "🛹",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "🔑 + 🛹"
+},
+{
+"answer": "deadline",
+"alts": [],
+"hint": "the last moment",
+"explain": "Dead + line",
+"level": 3,
+"lang": "en",
+"elements": [
+{
+"t": "💀",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "📏",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "💀 + 📏"
+},
+{
+"answer": "handbag",
+"alts": [],
+"hint": "carry it",
+"explain": "Hand + bag",
+"level": 1,
+"lang": "en",
+"elements": [
+{
+"t": "✋",
+"x": 29.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+},
+{
+"t": "+",
+"x": 50.0,
+"y": 54,
+"size": 16.0,
+"color": "#c9a227",
+"rotate": 0,
+"style": "bold"
+},
+{
+"t": "👜",
+"x": 71.0,
+"y": 52,
+"size": 32,
+"color": "",
+"rotate": 0,
+"style": ""
+}
+],
+"formula": "✋ + 👜"
+}
+]

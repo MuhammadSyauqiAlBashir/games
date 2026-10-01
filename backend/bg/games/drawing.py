@@ -61,7 +61,7 @@ THEME_OPT = opt("theme", "Tema pribadi (opsional)", "Personal theme (optional)",
 
 
 class DrawGuess(Game):
-    key, name_id, name_en, icon = "drawguess", "Tebak Gambar", "Draw & Guess", "🎨"
+    key, name_id, name_en, icon = "drawguess", "Draw & Guess", "Draw & Guess", "🎨"
     kind = "timed"
     content_per_player = True
     min_players, max_players = 2, 6
@@ -228,7 +228,7 @@ JUDGE_SCHEMA = {"type": "object", "properties": {"ranking": {"type": "array", "i
 
 
 class DrawJudge(Game):
-    key, name_id, name_en, icon = "drawjudge", "Gambar & Juri AI", "Draw & AI judge", "🤖"
+    key, name_id, name_en, icon = "drawjudge", "Draw & AI Judge", "Draw & AI Judge", "🤖"
     kind = "timed"
     min_players, max_players = 2, 6
     options = [

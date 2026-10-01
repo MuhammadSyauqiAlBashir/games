@@ -44,7 +44,7 @@ def random_board(rng, n_ladders: int, n_snakes: int) -> dict:
 
 
 class UlarTangga(Game):
-    key, name_id, name_en, icon = "ulartangga", "Ular Tangga", "Snakes & Ladders", "🐍"
+    key, name_id, name_en, icon = "ulartangga", "Snakes & Ladders", "Snakes & Ladders", "🐍"
     min_players, max_players = 2, 6
     santai_ok = True
     default_timer = 20

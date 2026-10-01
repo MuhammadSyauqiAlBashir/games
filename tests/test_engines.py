@@ -238,3 +238,66 @@ def test_snake_runs():
         g.step(t)
         assert g.frame() is not None
     assert g.over
+
+
+def test_lontong_trap_and_answer():
+    import random
+    from bg.games.quiz import Lontong
+    ps = [{"id": "a", "name": "A"}, {"id": "b", "name": "B"}]
+    g = Lontong(Lontong.setup(ps, {"count": 6}, random.Random(3), 0.0), random.Random(3))
+    now = 0.0
+    while g.s["phase"] != "question":
+        now += 0.5
+        g.tick(now)
+    cur = g.s["qs"][g.s["i"]]
+    if cur.get("traps"):
+        ev = g.act("a", {"text": cur["traps"][0]}, now)
+        assert ev[0]["e"] == "trap"
+    ev = g.act("a", {"text": cur["answer"]}, now + 1)
+    assert ev[0]["e"] == "right"
+    assert g.view("a")["q"]["words"] == [len(w) for w in cur["answer"].split()]
+
+
+def test_rebus_tiles_and_reveal():
+    import random
+    from bg.games.quiz import Rebus
+    from bg import content
+    qs = [dict(p, qid="x", source="builtin") for p in content.builtin_rebus() if p["lang"] == "id"][:6]
+    ps = [{"id": "a", "name": "A"}, {"id": "b", "name": "B"}]
+    g = Rebus(Rebus.setup(ps, {"__content": {"qs": qs}}, random.Random(1), 0.0), random.Random(1))
+    now = 0.0
+    while g.s["phase"] != "question":
+        now += 0.5
+        g.tick(now)
+    cur = g.s["qs"][g.s["i"]]
+    letters = cur["answer"].upper().replace(" ", "")
+    assert sorted(letters) == sorted([c for c in cur["pool"] if c in letters])[:0] or all(cur["pool"].count(c) >= letters.count(c) for c in set(letters))
+    g.act("a", {"do": "reveal"}, now)
+    assert g.view("a")["revealed"] == {"0": letters[0]}
+    g.act("a", {"text": cur["answer"]}, now + 1)
+    assert g.s["answers"]["a"]["ok"]
+
+
+def test_gaple_origin_tracks_first_tile():
+    import random
+    from bg.games.gaple import Gaple
+    ps = [{"id": "a", "name": "A"}, {"id": "b", "name": "B"}]
+    for seed in range(5):
+        g = Gaple(Gaple.setup(ps, {}, random.Random(seed), 0.0), random.Random(seed))
+        first = None
+        for _ in range(200):
+            if g.over or g.s["phase"] != "play":
+                break
+            pid = g.s["turn"]
+            v = g.view(pid)
+            if v["can"]:
+                i, sides = next(iter(v["can"].items()))
+                g.act(pid, {"do": "play", "i": int(i), "side": sides[-1]}, 0)
+                if first is None:
+                    first = g.s["line"][0]["t"]
+            elif v["bone"]:
+                g.act(pid, {"do": "draw"}, 0)
+            else:
+                g.act(pid, {"do": "pass"}, 0)
+            if g.s["line"]:
+                assert g.s["line"][g.view(pid)["origin"]]["t"] in (first, first[::-1])

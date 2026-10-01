@@ -12,7 +12,7 @@ SIDES = ("L", "M", "R")
 
 
 class Penalty(Game):
-    key, name_id, name_en, icon = "penalty", "Adu Penalti", "Penalty shootout", "⚽"
+    key, name_id, name_en, icon = "penalty", "Penalty Shootout", "Penalty Shootout", "⚽"
     kind = "timed"
     min_players, max_players = 2, 2
     options = [opt("kicks", "Tendangan per pemain", "Kicks each", "select", 5, [ch(n, str(n)) for n in (3, 5, 7)]),
