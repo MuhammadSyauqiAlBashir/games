@@ -382,8 +382,10 @@ class DrawJudge(Game):
         by = {r["id"]: r for r in ranking}
         order = sorted(ids, key=lambda p: -(by.get(p, {}).get("score", -1) if s["canvas"].get(p) else -1))
         res = []
-        for rank, pid in enumerate(order, 1):
+        sc = {p: by.get(p, {}).get("score", -1) if s["canvas"].get(p) else -2 for p in ids}
+        for pid in order:
             r = by.get(pid, {})
+            rank = 1 + sum(1 for q in ids if sc[q] > sc[pid])  # equal scores share the rank (and the points)
             pts = 100 * (n - rank + 1) if s["canvas"].get(pid) else 0
             if not result:
                 pts = 50 if s["canvas"].get(pid) else 0

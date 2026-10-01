@@ -19,7 +19,7 @@ import logging
 import random
 import secrets
 import time
-from collections import deque
+from collections import OrderedDict, deque
 from fastapi import WebSocket
 
 from . import awards, push, util
@@ -32,6 +32,7 @@ CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ"
 PAUSE_GRACE = {"realtime": 3.0, "timed": 4.0, "turn": 5.0}
 COUNTDOWN = 3.0
 LOOP_DT = 0.2
+PHOTO_BYTES = 12_000_000  # photo games: at most this much JPEG kept per room (oldest dropped)
 
 
 class Room:
@@ -70,6 +71,7 @@ class Room:
         self.frame_no = 0
         self.prefetch_task: asyncio.Task | None = None
         self.prefetch_key = ""
+        self.photos: OrderedDict[str, bytes] = OrderedDict()  # photo games: "round:uid" -> JPEG, memory only
 
     # ---- clock ----------------------------------------------------------------------
     def clock(self) -> float:
@@ -407,6 +409,7 @@ class Room:
                    for s in self.seats]
         self.clock_base, self.run_since = 0.0, None
         self.pending_needs = set()
+        self.photos.clear()
         state = self.cls.setup(players, opts, self.rng, 0.0)
         self.game = self.cls(state, self.rng)
         self.started_at = time.time()
@@ -569,7 +572,8 @@ class Room:
     async def _fulfil(self, need):
         log.info("room %s: working on %s in the background", self.code, need.get("kind"))
         try:
-            result = await self.cls.fulfil(need, self.full_options())
+            room_hook = getattr(self.cls, "fulfil_room", None)
+            result = await (room_hook(need, self.full_options(), self) if room_hook else self.cls.fulfil(need, self.full_options()))
         except Exception as e:  # noqa: BLE001
             log.warning("need %s failed: %s", need.get("kind"), e)
             result = None
@@ -577,6 +581,25 @@ class Room:
             if self.game and (self.game.s.get("ai_need") or {}).get("id") == need["id"]:
                 events = self.game.provide(need, result, self.clock())
                 log.info("room %s: %s done (%s)", self.code, need.get("kind"), events)
+                await self.after_move(events)
+
+    # ---- server-side input (photo games: a photo arrived / was checked) -------------------------
+    def keep_photo(self, key: str, jpeg: bytes):
+        self.photos[key] = jpeg
+        self.photos.move_to_end(key)
+        while sum(len(v) for v in self.photos.values()) > PHOTO_BYTES and len(self.photos) > 1:
+            self.photos.popitem(last=False)
+
+    async def server_input(self, uid: str, data: dict):
+        async with self.lock:
+            if not self.game or self.status not in ("playing", "paused") or not hasattr(self.game, "server_input"):
+                return
+            try:
+                events = self.game.server_input(uid, data, self.clock())
+            except Exception:  # noqa: BLE001
+                log.exception("%s: server input failed", self.game_key)
+                return
+            if events:
                 await self.after_move(events)
 
     # ---- realtime frames ---------------------------------------------------------------------
@@ -634,6 +657,7 @@ class Room:
 
     def back_to_lobby(self):
         self.status = "lobby"
+        self.photos.clear()
         self.prefetch_key = ""
         self.game = None
         self.end_info = None

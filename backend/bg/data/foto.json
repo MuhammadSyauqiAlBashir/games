@@ -1,0 +1,380 @@
+{
+ "hunt": [
+  {
+   "id": "Sesuatu yang bulat dan merah",
+   "en": "Something round and red",
+   "where": "semua"
+  },
+  {
+   "id": "Sendok",
+   "en": "A spoon",
+   "where": "rumah"
+  },
+  {
+   "id": "Tiga benda berwarna biru sekaligus",
+   "en": "Three blue things in one photo",
+   "where": "semua"
+  },
+  {
+   "id": "Sesuatu yang lebih tua darimu",
+   "en": "Something older than you",
+   "where": "semua"
+  },
+  {
+   "id": "Benda yang huruf depannya B",
+   "en": "Something starting with the letter B",
+   "where": "semua"
+  },
+  {
+   "id": "Sesuatu yang lembut dan empuk",
+   "en": "Something soft and fluffy",
+   "where": "rumah"
+  },
+  {
+   "id": "Gambar hewan (bukan hewan sungguhan)",
+   "en": "A picture of an animal (not a real one)",
+   "where": "semua"
+  },
+  {
+   "id": "Sesuatu yang bisa menyala",
+   "en": "Something that lights up",
+   "where": "semua"
+  },
+  {
+   "id": "Botol",
+   "en": "A bottle",
+   "where": "semua"
+  },
+  {
+   "id": "Sesuatu berbentuk segitiga",
+   "en": "Something shaped like a triangle",
+   "where": "semua"
+  },
+  {
+   "id": "Sesuatu yang berbau harum",
+   "en": "Something that smells nice",
+   "where": "rumah"
+  },
+  {
+   "id": "Kaus kaki",
+   "en": "A sock",
+   "where": "rumah"
+  },
+  {
+   "id": "Benda dengan angka 7 di atasnya",
+   "en": "Something with the number 7 on it",
+   "where": "semua"
+  },
+  {
+   "id": "Sesuatu yang manis untuk dimakan",
+   "en": "Something sweet to eat",
+   "where": "rumah"
+  },
+  {
+   "id": "Tanaman atau daun",
+   "en": "A plant or a leaf",
+   "where": "semua"
+  },
+  {
+   "id": "Sesuatu yang berwarna emas atau kuning mengilap",
+   "en": "Something gold or shiny yellow",
+   "where": "semua"
+  },
+  {
+   "id": "Jam (jam dinding, jam tangan, atau jam di layar)",
+   "en": "A clock or a watch",
+   "where": "semua"
+  },
+  {
+   "id": "Kunci",
+   "en": "A key",
+   "where": "rumah"
+  },
+  {
+   "id": "Sesuatu yang bergaris-garis",
+   "en": "Something striped",
+   "where": "semua"
+  },
+  {
+   "id": "Benda yang lebih kecil dari jempolmu",
+   "en": "Something smaller than your thumb",
+   "where": "semua"
+  },
+  {
+   "id": "Sesuatu yang dipakai di kepala",
+   "en": "Something you wear on your head",
+   "where": "rumah"
+  },
+  {
+   "id": "Bantal",
+   "en": "A pillow",
+   "where": "rumah"
+  },
+  {
+   "id": "Sesuatu dari kayu",
+   "en": "Something made of wood",
+   "where": "semua"
+  },
+  {
+   "id": "Buah",
+   "en": "A fruit",
+   "where": "rumah"
+  },
+  {
+   "id": "Tulisan berbahasa Inggris",
+   "en": "Some writing in English",
+   "where": "semua"
+  },
+  {
+   "id": "Sesuatu yang bisa memantulkan wajahmu",
+   "en": "Something you can see your reflection in",
+   "where": "semua"
+  },
+  {
+   "id": "Mainan",
+   "en": "A toy",
+   "where": "rumah"
+  },
+  {
+   "id": "Sesuatu yang berwarna hijau dan bisa dimakan",
+   "en": "Something green you can eat",
+   "where": "rumah"
+  },
+  {
+   "id": "Remote TV",
+   "en": "A TV remote",
+   "where": "rumah"
+  },
+  {
+   "id": "Sesuatu dengan roda",
+   "en": "Something with wheels",
+   "where": "semua"
+  },
+  {
+   "id": "Langit",
+   "en": "The sky",
+   "where": "luar"
+  },
+  {
+   "id": "Kendaraan berwarna putih",
+   "en": "A white vehicle",
+   "where": "luar"
+  },
+  {
+   "id": "Pohon",
+   "en": "A tree",
+   "where": "luar"
+  },
+  {
+   "id": "Daun yang sudah kering",
+   "en": "A dry leaf",
+   "where": "luar"
+  },
+  {
+   "id": "Sesuatu yang berbentuk hati",
+   "en": "Something heart-shaped",
+   "where": "semua"
+  },
+  {
+   "id": "Gelas berisi minuman",
+   "en": "A glass with a drink in it",
+   "where": "rumah"
+  },
+  {
+   "id": "Sandal",
+   "en": "A pair of sandals",
+   "where": "rumah"
+  },
+  {
+   "id": "Sesuatu berwarna ungu",
+   "en": "Something purple",
+   "where": "semua"
+  },
+  {
+   "id": "Benda yang ada logo merek terkenal",
+   "en": "Something with a famous brand logo",
+   "where": "semua"
+  },
+  {
+   "id": "Sesuatu yang bisa menghasilkan suara",
+   "en": "Something that makes a sound",
+   "where": "semua"
+  },
+  {
+   "id": "Buku",
+   "en": "A book",
+   "where": "rumah"
+  },
+  {
+   "id": "Sesuatu yang dingin",
+   "en": "Something cold",
+   "where": "rumah"
+  },
+  {
+   "id": "Kabel",
+   "en": "A cable",
+   "where": "rumah"
+  },
+  {
+   "id": "Batu",
+   "en": "A stone",
+   "where": "luar"
+  },
+  {
+   "id": "Sesuatu yang berbulu",
+   "en": "Something hairy or furry",
+   "where": "semua"
+  },
+  {
+   "id": "Tanganmu membentuk huruf V",
+   "en": "A V sign with your hand",
+   "where": "semua"
+  }
+ ],
+ "expr": [
+  {
+   "id": "Wajah paling kaget",
+   "en": "Most surprised face"
+  },
+  {
+   "id": "Senyum paling lebar",
+   "en": "Biggest smile"
+  },
+  {
+   "id": "Wajah habis makan sambal super pedas",
+   "en": "Face after eating super spicy chili"
+  },
+  {
+   "id": "Tatapan detektif yang curiga",
+   "en": "Suspicious detective stare"
+  },
+  {
+   "id": "Pose superhero",
+   "en": "Superhero pose"
+  },
+  {
+   "id": "Wajah pura-pura menangis paling dramatis",
+   "en": "Most dramatic fake crying"
+  },
+  {
+   "id": "Wajah mengantuk di hari Senin",
+   "en": "Monday morning sleepy face"
+  },
+  {
+   "id": "Pose model sampul majalah",
+   "en": "Magazine cover model pose"
+  },
+  {
+   "id": "Wajah jijik melihat kecoa",
+   "en": "Disgusted face at a cockroach"
+  },
+  {
+   "id": "Ekspresi menang lotre",
+   "en": "Just won the lottery"
+  },
+  {
+   "id": "Wajah orang yang lupa matikan kompor",
+   "en": "Just remembered the stove is still on"
+  },
+  {
+   "id": "Gaya foto KTP paling serius",
+   "en": "Most serious ID-photo face"
+  },
+  {
+   "id": "Wajah bangga juara satu",
+   "en": "Proud first-place winner face"
+  },
+  {
+   "id": "Ekspresi patah hati",
+   "en": "Heartbroken face"
+  },
+  {
+   "id": "Pose kungfu",
+   "en": "Kung fu pose"
+  },
+  {
+   "id": "Wajah menahan tawa",
+   "en": "Trying not to laugh"
+  },
+  {
+   "id": "Wajah marah tapi lucu",
+   "en": "Angry but cute face"
+  },
+  {
+   "id": "Pose penyanyi dangdut lagi di panggung",
+   "en": "Singer on stage pose"
+  },
+  {
+   "id": "Wajah bingung mengerjakan soal matematika",
+   "en": "Confused by a maths problem"
+  },
+  {
+   "id": "Ekspresi kaget lihat tagihan",
+   "en": "Shocked at the bill"
+  },
+  {
+   "id": "Wajah tukang pamer",
+   "en": "Show-off face"
+  },
+  {
+   "id": "Pose patung pahlawan",
+   "en": "Hero statue pose"
+  },
+  {
+   "id": "Wajah orang kedinginan",
+   "en": "Freezing cold face"
+  },
+  {
+   "id": "Wajah kepanasan",
+   "en": "Melting in the heat face"
+  },
+  {
+   "id": "Ekspresi kucing yang lapar",
+   "en": "Hungry cat impression"
+  },
+  {
+   "id": "Wajah penjahat sinetron",
+   "en": "Soap-opera villain face"
+  },
+  {
+   "id": "Wajah sok cool",
+   "en": "Trying-too-hard-to-be-cool face"
+  },
+  {
+   "id": "Pose penari balet",
+   "en": "Ballet dancer pose"
+  },
+  {
+   "id": "Ekspresi mencium bau tidak sedap",
+   "en": "Smelling something awful"
+  },
+  {
+   "id": "Wajah takut nonton film horor",
+   "en": "Watching a horror film"
+  },
+  {
+   "id": "Ekspresi zombie",
+   "en": "Zombie face"
+  },
+  {
+   "id": "Wajah orang yang baru bangun tidur",
+   "en": "Just woke up face"
+  },
+  {
+   "id": "Senyum paling palsu",
+   "en": "Most fake smile"
+  },
+  {
+   "id": "Pose binaraga pamer otot",
+   "en": "Bodybuilder flexing"
+  },
+  {
+   "id": "Wajah malu-malu",
+   "en": "Shy face"
+  },
+  {
+   "id": "Ekspresi lapar menunggu makanan",
+   "en": "Starving, waiting for food"
+  }
+ ]
+}

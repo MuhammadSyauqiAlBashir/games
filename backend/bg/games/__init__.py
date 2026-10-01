@@ -11,17 +11,21 @@ from .ludo import Ludo
 from .monopoly import Monopoly
 from .pesta import MINIS, MINIS2, Pesta
 from .penalty import Penalty
+from .photo import Ekspresi, FotoHunt
 from .poker import Poker
 from .quiz import Lontong, Matematika, Rebus, Trivia
 from .sequence import Sequence
 from .snake import Snake
+from .speed import BomKata, Kembar, Ketik, Refleks
 from .sos import SOS
+from .survei import Survei
 from .tictactoe import TicTacToe
 from .ulartangga import UlarTangga
 from .uno import Uno
 
 ORDER = [Ludo, UlarTangga, Uno, Monopoly, Sequence, Poker, Gaple, Congklak, Checkers, Connect4, SOS, TicTacToe,
-         Trivia, Matematika, Rebus, Lontong, Anagrams, DrawGuess, DrawJudge, Penalty, Snake, Pesta, *MINIS, *MINIS2]
+         Trivia, Matematika, Rebus, Lontong, Anagrams, DrawGuess, DrawJudge, BomKata, Survei, Kembar, Refleks, Ketik,
+         FotoHunt, Ekspresi, Penalty, Snake, Pesta, *MINIS, *MINIS2]
 GAMES: dict[str, type[Game]] = {g.key: g for g in ORDER}
 
 CATEGORIES = {
@@ -29,7 +33,9 @@ CATEGORIES = {
     "mario2": ("Minigame Mario lainnya", "More Mario minigames", [m.key for m in MINIS2]),
     "board": ("Papan & dadu", "Board & dice", ["ludo", "ulartangga", "monopoly", "congklak", "checkers", "connect4", "sos", "tictactoe"]),
     "cards": ("Kartu", "Cards", ["uno", "sequence", "poker", "gaple"]),
-    "party": ("Kuis & pesta", "Quiz & party", ["trivia", "lontong", "math", "rebus", "anagrams", "drawguess", "drawjudge"]),
+    "speed": ("Adu cepat", "Speed challenges", ["bomkata", "survei", "kembar", "refleks", "ketik"]),
+    "ai": ("Dinilai AI", "Judged by AI", ["fotohunt", "ekspresi", "drawjudge"]),
+    "party": ("Kuis & pesta", "Quiz & party", ["trivia", "lontong", "math", "rebus", "anagrams", "drawguess"]),
     "action": ("Aksi", "Action", ["penalty", "snake"]),
 }
 

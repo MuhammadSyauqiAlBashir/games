@@ -26,6 +26,16 @@
 - **Trivia:** 22 topics incl. flags, capitals, trick questions, K-pop, Islam, Bahasa Indonesia; difficulty phases ×1/×2/×3/×5; speed scoring.
 - **Matematika:** SD/SMP/SMA, arithmetic, sequences, story problems, logic — generated locally (always correct).
 - **Rebus:** built-in bank (EN + Indonesian emoji "tebak gambar") + AI puzzles rendered from text/emoji layouts.
+- **Speed challenges (2026-10-01):** Bom Kata (`speed.py`; Indonesian words = Sastrawi root list + stemmer, MIT, in
+  `lexicon.py`; English = ENABLE; secret fuse per turn, bonus letters = extra life), Survei 100 (`survei.py`; Gemini
+  boards with aliases + `data/survei.json` bank, recent questions in `bg_kv survei_recent:<lang>`), Cari Kembar
+  (Dobble deck from a projective plane of order 7), Refleks Kilat (reaction measured on the phone from the frame the
+  signal is drawn; < 90 ms = false start), Ketik Ngebut (`data/ketik.json`; only letters/digits/spaces count).
+- **Photo games:** Foto Hunt + Ekspresi Challenge (`photo.py`). Photos go up via `POST /api/rooms/{code}/photo`,
+  are re-encoded (EXIF stripped, ≤768 px), kept only in the room's memory (≤12 MB, gone at back-to-lobby/close),
+  checked by Gemini (fast models, retries ≤25 s; busy = accepted unchecked) / ranked (retries ≤30 s; busy = equal
+  points). Judging is about the acting only, never looks. Free-tier Gemini: Google may use the photos to improve
+  its products — the screen says the photos go to Gemini.
 - **Draw games:** words from a categorised bank (`data/draw_bank.json`, 14 categories × levels, ~440 words per language) plus fresh
   Gemini words for the same categories; the category option ("Mix" or one category) is shown to everyone while drawing.
   Words played recently are remembered in `bg_kv` `draw_recent:<lang>` (last 320) and skipped until the bank runs low.
