@@ -317,7 +317,7 @@ async def invite(code: str, body: InviteIn, s: Session = Depends(current)):
 @app.get("/api/players")
 async def players(s: Session = Depends(current)):
     profs = await pb.all("bg_profiles", fields="user,name,avatar,color", sort="name")
-    online = {u for r in ROOMS.rooms.values() for u in r.conns if r.conns[u]}
+    online = ROOMS.online_ids()
     return {"players": [{"id": p["user"], "name": p["name"], "avatar": p["avatar"], "color": p["color"],
                          "online": p["user"] in online} for p in profs]}
 
@@ -520,19 +520,47 @@ async def health():
 # The live connection
 # ---------------------------------------------------------------------------------------------------------
 
-@app.websocket("/ws/{code}")
-async def ws(websocket: WebSocket, code: str):
+async def ws_user(websocket: WebSocket) -> dict | None:
+    """Same-origin check + session cookie; closes the socket and returns None when not allowed."""
     origin = websocket.headers.get("origin", "")
     host = urlparse(origin).netloc
     if host != urlparse(config.PUBLIC_URL).netloc and not (config.DEV and host.startswith(("127.0.0.1", "localhost"))):
         await websocket.close(code=4403)
-        return
+        return None
     token = websocket.cookies.get(COOKIE, "")
     res = await verify(token) if token else None
     if not res:
         await websocket.close(code=4401)
+        return None
+    return res[0]
+
+
+@app.websocket("/ws/lobby")
+async def ws_lobby(websocket: WebSocket):
+    """The home page: pushed room list + who's online (nothing is accepted from the client except pings)."""
+    user = await ws_user(websocket)
+    if not user:
         return
-    user, _ = res
+    await websocket.accept()
+    await ROOMS.lobby_join(websocket, user["id"])
+    try:
+        while True:
+            raw = await websocket.receive_text()
+            if raw == "ping":
+                await websocket.send_text('{"t":"pong"}')
+    except WebSocketDisconnect:
+        pass
+    except Exception:  # noqa: BLE001
+        log.exception("lobby ws error")
+    finally:
+        ROOMS.lobby_leave(websocket)
+
+
+@app.websocket("/ws/{code}")
+async def ws(websocket: WebSocket, code: str):
+    user = await ws_user(websocket)
+    if not user:
+        return
     room = await ROOMS.get(code)
     if not room or room.status == "closed":
         await websocket.close(code=4404)

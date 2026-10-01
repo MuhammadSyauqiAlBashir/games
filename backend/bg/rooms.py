@@ -135,6 +135,7 @@ class Room:
             pass
 
     async def broadcast_room(self):
+        ROOMS.poke()  # seats / status changed: the home pages show it too
         info = {"t": "room", "room": self.room_info()}
         for socks in list(self.conns.values()):
             for ws in list(socks):
@@ -719,6 +720,9 @@ class Rooms:
     def __init__(self):
         self.rooms: dict[str, Room] = {}
         self.lock = asyncio.Lock()
+        self.lobby: dict = {}            # home-page sockets: websocket -> [uid, last payload sent]
+        self.lobby_wake = asyncio.Event()
+        self.lobby_task: asyncio.Task | None = None
 
     def start(self, room: Room):
         self.rooms[room.code] = room
@@ -736,6 +740,7 @@ class Rooms:
             self.start(room)
             room.schedule_prefetch()
             await room.save()
+            self.poke()
             return room
 
     async def get(self, code: str) -> Room | None:
@@ -783,6 +788,46 @@ class Rooms:
                     if room.task:
                         room.task.cancel()
                     self.rooms.pop(code, None)
+                    self.poke()
+
+    # ---- live home page ----------------------------------------------------------------------------
+    def online_ids(self) -> set[str]:
+        return {u for r in self.rooms.values() for u in r.conns if r.conns[u]} | {v[0] for v in self.lobby.values()}
+
+    def poke(self):
+        """Something on the home page may have changed: check now instead of at the next tick."""
+        self.lobby_wake.set()
+
+    async def lobby_join(self, ws, uid: str):
+        self.lobby[ws] = [uid, ""]
+        if not self.lobby_task or self.lobby_task.done():
+            self.lobby_task = asyncio.create_task(self.lobby_loop())
+        self.poke()
+
+    def lobby_leave(self, ws):
+        self.lobby.pop(ws, None)
+        self.poke()
+
+    async def lobby_loop(self):
+        """About once a second (or right away when poked), send each home page its room list + who's online —
+        only when it changed. Stops when nobody is on the home page."""
+        while self.lobby:
+            try:
+                await asyncio.wait_for(self.lobby_wake.wait(), timeout=1.0)
+            except asyncio.TimeoutError:
+                pass
+            self.lobby_wake.clear()
+            await asyncio.sleep(0.15)  # let a burst of changes settle
+            online = sorted(self.online_ids())
+            for ws, entry in list(self.lobby.items()):
+                payload = json.dumps({"t": "lobby", "rooms": self.list_for(entry[0]), "online": online}, sort_keys=True)
+                if payload == entry[1]:
+                    continue
+                entry[1] = payload
+                try:
+                    await asyncio.wait_for(ws.send_text(payload), timeout=5)
+                except Exception:  # noqa: BLE001 — a dead socket is dropped; its handler cleans up too
+                    self.lobby.pop(ws, None)
 
     def list_for(self, uid: str) -> list[dict]:
         out = []
