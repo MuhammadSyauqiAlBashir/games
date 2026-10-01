@@ -1,6 +1,6 @@
 // Ular Tangga: 10×10 board, ladders and snakes, animated pieces with avatars.
 import { el, svg } from "../lib.js?v=__VERSION__"
-import { makeDie, status } from "./common.js?v=__VERSION__"
+import { gated, makeDie, status, throwDice } from "./common.js?v=__VERSION__"
 
 const TILE = ["#fff4e0", "#fde3c2", "#e7f1dc", "#fbe0e0", "#e1ecf7"]
 function cellXY(n) {  // 1..100 → centre (x, y) in a 100×100 box; 1 is bottom-left, rows snake
@@ -57,10 +57,21 @@ export function mount(stage, ctx) {
   const wrap = el("div", { class: "board-wrap", style: { borderRadius: "20px", overflow: "hidden", boxShadow: "var(--shadow-lg)" } })
   const bar = el("div", { class: "action-bar" })
   stage.append(st, wrap, bar)
-  let layer = null, tokens = {}, boardKey = "", rolling = false
+  let layer = null, tokens = {}, boardKey = ""
   const D = makeDie(64)
   return {
-    update(v, events) {
+    update: gated((v, events) => {
+      const r = events.find((e) => e.e === "roll")
+      if (r && v.dice && wrap.firstChild) {
+        ctx.sfx.dice()
+        return throwDice(wrap, [v.dice], { onHit: ctx.sfx.dieHit }).then(() => render(v, events))
+      }
+      render(v, events)
+    }),
+    scores: (v) => v.pos,
+  }
+
+  function render(v, events) {
       const key = JSON.stringify(v.board)
       if (key !== boardKey) {
         boardKey = key
@@ -73,10 +84,8 @@ export function mount(stage, ctx) {
       }
       const roll = events.find((e) => e.e === "roll")
       if (roll) {
-        ctx.sfx.dice()
-        rolling = true
-        setTimeout(() => { rolling = false }, 700)
-        setTimeout(() => { if (roll.ladder) ctx.sfx.ladder(); else if (roll.snake) ctx.sfx.snake(); else if (roll.stuck) ctx.sfx.wrong() }, 650)
+        if (roll.stuck) ctx.sfx.wrong(); else ctx.sfx.place()
+        setTimeout(() => { if (roll.ladder) ctx.sfx.ladder(); else if (roll.snake) ctx.sfx.snake() }, 550)
       }
       const at = {}
       Object.entries(v.pos).forEach(([pid, n]) => { (at[n] = at[n] || []).push(pid) })
@@ -102,7 +111,7 @@ export function mount(stage, ctx) {
         } else t.style.transform = `translate(${x}px, ${y}px)`
       })
       const mine = v.turn === ctx.me.id && !v.over
-      if (rolling && roll) D.show(v.dice, true); else D.show(v.dice)
+      D.show(v.dice)
       bar.replaceChildren(D.el,
         mine ? el("button", { class: "btn primary big", type: "button", text: ctx.L("Lempar dadu 🎲", "Roll 🎲"), onclick: () => ctx.send({ do: "roll" }) }) : null)
       let msg
@@ -111,7 +120,5 @@ export function mount(stage, ctx) {
       else if (roll && roll.snake) msg = ctx.L(`${ctx.name(roll.who)} digigit ular! 🐍`, `${ctx.name(roll.who)} got bitten! 🐍`)
       status(ctx, st, v, msg && !mine ? { other: msg } : {})
       if (msg && mine) st.textContent = msg + " · " + ctx.L("Giliranmu!", "Your turn!")
-    },
-    scores: (v) => v.pos,
   }
 }

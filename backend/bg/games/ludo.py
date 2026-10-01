@@ -69,6 +69,9 @@ class Ludo(Game):
                 out.append(i)
         return out
 
+    def anim_seconds(self, events):
+        return 1.7 if any(e.get("e") == "roll" for e in events) else 0.0  # the dice-throw animation on the phones
+
     def view(self, pid):
         return {**self.base_view(), "size": self.s["size"], "slot": self.s["slot"], "pieces": self.s["pieces"],
                 "phase": self.s["phase"], "dice": self.s["dice"], "moves": self.s["moves"] if pid == self.s["turn"] else [],
@@ -113,7 +116,7 @@ class Ludo(Game):
         start = pieces[i]
         new = 0 if start < 0 else start + roll
         pieces[i] = new
-        ev = {"e": "move", "who": pid, "piece": i, "from": start, "to": new, "caps": []}
+        ev = {"e": "move", "who": pid, "piece": i, "from": start, "dest": new, "caps": []}
         bonus = roll == 6
         pos = self.abs_pos(pid, new)
         if pos is not None and not self.safe(pos):

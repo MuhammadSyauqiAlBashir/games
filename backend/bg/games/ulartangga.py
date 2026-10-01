@@ -67,6 +67,9 @@ class UlarTangga(Game):
                 "pos": {p["id"]: 0 for p in players}, "turn": players[0]["id"], "turn_no": 1, "dice": None,
                 "six_again": bool(options.get("six_again")), "last": None}
 
+    def anim_seconds(self, events):
+        return 1.7 if any(e.get("e") == "roll" for e in events) else 0.0  # the dice-throw animation on the phones
+
     def view(self, pid):
         return {**self.base_view(), "board": self.s["board"], "pos": self.s["pos"], "dice": self.s["dice"],
                 "last": self.s["last"]}
@@ -100,7 +103,7 @@ class UlarTangga(Game):
                 end = sn
                 ev["snake"] = sn
                 self.bump("snakes", pid)
-        ev["to"] = end
+        ev["end"] = end  # not "to": that key marks private events
         self.s["pos"][pid] = end
         self.s["last"] = pid
         if end == 100:

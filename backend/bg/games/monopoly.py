@@ -192,6 +192,9 @@ class Monopoly(Game):
         return 0
 
     # ---- view -------------------------------------------------------------------------------------
+    def anim_seconds(self, events):
+        return 1.7 if any(e.get("e") == "roll" for e in events) else 0.0  # the dice-throw animation on the phones
+
     def view(self, pid):
         s = self.s
         return {**self.base_view(), "squares": SQUARES, "cash": s["cash"], "pos": s["pos"], "jail": s["jail"],
@@ -315,7 +318,7 @@ class Monopoly(Game):
             s["cash"][pid] += GO_SALARY
             self.log(f"{self.name(pid)} lewat GO: +{self.rp(GO_SALARY)}", f"{self.name(pid)} passes GO: +{self.rp(GO_SALARY)}")
         s["pos"][pid] = new
-        return [{"e": "move", "who": pid, "from": start, "to": new}] + self._land(pid, now)
+        return [{"e": "move", "who": pid, "from": start, "dest": new}] + self._land(pid, now)
 
     def _goto(self, pid, target, now, collect=True):
         s = self.s
@@ -357,7 +360,7 @@ class Monopoly(Game):
                              f"{self.name(pid)} pays {self.rp(amount)} rent to {self.name(owner)} ({info['name']})")
                     self.bump("rent_paid", pid, amount)
                     self.bump("rent_got", owner, amount)
-                    return [{"e": "rent", "who": pid, "to": owner, "amount": amount, "sq": sq}] + \
+                    return [{"e": "rent", "who": pid, "owner": owner, "amount": amount, "sq": sq}] + \
                         self._pay(pid, owner, amount, "rent")
             return []
         if t == "tax":
@@ -397,7 +400,7 @@ class Monopoly(Game):
             target = min(targets, key=lambda t: (t - pos) % 40 or 40)
             s["cash"][pid] += GO_SALARY if target < pos else 0
             s["pos"][pid] = target
-            ev.append({"e": "move", "who": pid, "from": pos, "to": target})
+            ev.append({"e": "move", "who": pid, "from": pos, "dest": target})
             return ev + self._land(pid, now, multiplier=2 if eff[1] == "airport" else 10)
         if kind == "money":
             if eff[1] >= 0:
@@ -409,7 +412,7 @@ class Monopoly(Game):
             return ev
         if kind == "back":
             s["pos"][pid] = (s["pos"][pid] - eff[1]) % 40
-            ev.append({"e": "move", "who": pid, "back": True, "to": s["pos"][pid]})
+            ev.append({"e": "move", "who": pid, "back": True, "dest": s["pos"][pid]})
             return ev + self._land(pid, now)
         if kind == "jail":
             self.bump("jailed", pid)
@@ -498,7 +501,7 @@ class Monopoly(Game):
         s["jailcards"][pid] = []
         s["debt"] = None
         self.log(f"{self.name(pid)} bangkrut!", f"{self.name(pid)} is bankrupt!")
-        ev = [{"e": "bankrupt", "who": pid, "to": creditor}]
+        ev = [{"e": "bankrupt", "who": pid, "creditor": creditor}]
         if len(self.active()) <= 1:
             self._final()
             return ev
@@ -732,7 +735,7 @@ class Monopoly(Game):
         self.bump("trades", a)
         self.bump("trades", b)
         self.log(f"{self.name(a)} dan {self.name(b)} bertukar!", f"{self.name(a)} and {self.name(b)} made a trade!")
-        return [{"e": "trade_ok", "from": a, "to": b}]
+        return [{"e": "trade_ok", "from": a, "with": b}]
 
     # ---- turns ---------------------------------------------------------------------------------------------------------
     def _end_turn(self, pid):

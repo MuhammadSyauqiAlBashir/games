@@ -1,6 +1,6 @@
 // Monopoly: world-cities board (money in Rupiah), property cards, auctions, building, trading.
 import { el, rp, rpShort, sheet, svg } from "../lib.js?v=__VERSION__"
-import { makeDie } from "./common.js?v=__VERSION__"
+import { gated, makeDie, throwDice } from "./common.js?v=__VERSION__"
 
 const GROUP = { brown: "#8b5a3c", lightblue: "#8fcfee", pink: "#d95aa5", orange: "#f39a3c", red: "#e5484d", yellow: "#f2cf3c",
   green: "#3fa66a", darkblue: "#2f5fb3", airport: "#5b6b7a", utility: "#9aa5b1" }
@@ -218,10 +218,21 @@ export function mount(stage, ctx) {
 
   return {
     destroy() { clearInterval(ticker) },
-    update(v, events) {
+    update: gated((v, events) => {
+      if (events.some((e) => e.e === "roll") && v.dice && wrap.firstChild) {
+        ctx.sfx.dice()
+        return throwDice(wrap, v.dice, { onHit: ctx.sfx.dieHit }).then(() => render(v, events))
+      }
+      render(v, events)
+    }),
+    scores: (v) => v.cash,
+    scoreFmt: (x) => (typeof x === "number" ? rpShort(x) : x),
+    turnIds: (v) => (v.phase === "auction" ? [] : v.trade ? [v.trade.to] : v.phase === "debt" && v.debt ? [v.debt.who] : []),
+  }
+
+  function render(v, events) {
       V = v
       for (const e of events) {
-        if (e.e === "roll") { ctx.sfx.dice(); if (v.dice) { D1.show(v.dice[0], true); D2.show(v.dice[1], true) } }
         if (e.e === "buy" || e.e === "sold") ctx.sfx.cash()
         if (e.e === "rent") ctx.sfx.coin()
         if (e.e === "card") ctx.sfx.card()
@@ -237,9 +248,5 @@ export function mount(stage, ctx) {
       st.className = `status-line${turn === ctx.me.id && !v.over ? " mine" : ""}`
       st.textContent = v.over ? ctx.L("Permainan selesai", "Game over") : v.phase === "auction" ? ctx.L("Lelang! Semua boleh menawar", "Auction! Everyone can bid")
         : turn === ctx.me.id ? ctx.L("Giliranmu", "Your turn") : ctx.L(`Giliran ${ctx.name(turn)}`, `${ctx.name(turn)}'s turn`)
-    },
-    scores: (v) => v.cash,
-    scoreFmt: (x) => (typeof x === "number" ? rpShort(x) : x),
-    turnIds: (v) => (v.phase === "auction" ? [] : v.trade ? [v.trade.to] : v.phase === "debt" && v.debt ? [v.debt.who] : []),
   }
 }

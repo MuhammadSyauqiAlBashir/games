@@ -1,6 +1,6 @@
 // Ludo: classic cross board (2–4 players) or a round six-colour board (5–6 players).
 import { el, svg } from "../lib.js?v=__VERSION__"
-import { makeDie, status } from "./common.js?v=__VERSION__"
+import { gated, makeDie, status, throwDice } from "./common.js?v=__VERSION__"
 
 const SLOT_COLORS = ["#e5484d", "#3fa66a", "#f2b63c", "#3b82d6", "#9b6bd6", "#f0843c"]
 const SLOT_LIGHT = ["#fbd5d6", "#cdebd8", "#fcebc4", "#cfe0f7", "#e6d9f6", "#fde0cb"]
@@ -193,18 +193,25 @@ export function mount(stage, ctx) {
   }
 
   return {
-    update(v, events) {
-      V = v
+    update: gated((v, events) => {
       if (!board || v.size !== size) build(v)
+      if (events.some((e) => e.e === "roll") && v.dice) {
+        ctx.sfx.dice()
+        return throwDice(wrap, [v.dice], { onHit: ctx.sfx.dieHit }).then(() => render(v, events))
+      }
+      render(v, events)
+    }),
+    scores: (v) => Object.fromEntries(Object.entries(v.pieces).map(([p, ps]) => [p, `${ps.filter((x) => x === 56).length}🏠`])),
+  }
+
+  function render(v, events) {
+      V = v
       for (const e of events) {
-        if (e.e === "roll") { ctx.sfx.dice(); D.show(v.dice, true) }
         if (e.e === "move") { if (e.caps && e.caps.length) ctx.sfx.capture(); else if (e.home) ctx.sfx.coin(); else ctx.sfx.place() }
       }
       drawTokens(v)
       drawBar(v)
       status(ctx, st, v, { mine: v.phase === "roll" ? ctx.L("Giliranmu — lempar dadu!", "Your turn — roll!") : ctx.L(`Dapat ${v.dice}! Pilih bidak`, `You rolled ${v.dice}! Pick a piece`) })
       void V
-    },
-    scores: (v) => Object.fromEntries(Object.entries(v.pieces).map(([p, ps]) => [p, `${ps.filter((x) => x === 56).length}🏠`])),
   }
 }
