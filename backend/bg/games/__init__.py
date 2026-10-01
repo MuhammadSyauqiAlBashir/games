@@ -15,6 +15,7 @@ from .photo import Ekspresi, FotoHunt
 from .poker import Poker
 from .quiz import Lontong, Matematika, Rebus, Trivia
 from .sequence import Sequence
+from .sing import Karaoke, NyanyiHits, TiruSuara
 from .snake import Snake
 from .speed import BomKata, Kembar, Ketik, Refleks
 from .sos import SOS
@@ -25,7 +26,7 @@ from .uno import Uno
 
 ORDER = [Ludo, UlarTangga, Uno, Monopoly, Sequence, Poker, Gaple, Congklak, Checkers, Connect4, SOS, TicTacToe,
          Trivia, Matematika, Rebus, Lontong, Anagrams, DrawGuess, DrawJudge, BomKata, Survei, Kembar, Refleks, Ketik,
-         FotoHunt, Ekspresi, Penalty, Snake, Pesta, *MINIS, *MINIS2]
+         FotoHunt, Ekspresi, Karaoke, NyanyiHits, TiruSuara, Penalty, Snake, Pesta, *MINIS, *MINIS2]
 GAMES: dict[str, type[Game]] = {g.key: g for g in ORDER}
 
 CATEGORIES = {
@@ -35,6 +36,7 @@ CATEGORIES = {
     "cards": ("Kartu", "Cards", ["uno", "sequence", "poker", "gaple"]),
     "speed": ("Adu cepat", "Speed challenges", ["bomkata", "survei", "kembar", "refleks", "ketik"]),
     "ai": ("Dinilai AI", "Judged by AI", ["fotohunt", "ekspresi", "drawjudge"]),
+    "voice": ("Nyanyi & suara", "Sing & sounds", ["karaoke", "nyanyihits", "tirusuara"]),
     "party": ("Kuis & pesta", "Quiz & party", ["trivia", "lontong", "math", "rebus", "anagrams", "drawguess"]),
     "action": ("Aksi", "Action", ["penalty", "snake"]),
 }

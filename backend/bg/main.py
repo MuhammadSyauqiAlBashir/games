@@ -356,6 +356,53 @@ async def room_photo_get(code: str, r: int, uid: str, s: Session = Depends(curre
     return Response(jpeg, media_type="image/jpeg", headers={"Cache-Control": "private, max-age=600"})
 
 
+# ---- voice games: short WAV recordings (16 kHz mono from the phone), memory only like the photos ----
+AUDIO_MAX = 1_200_000  # ~15 s of 16 kHz mono, a little more for 22/44 kHz music clips cut on the phone
+
+
+def wav_seconds(raw: bytes) -> float:
+    import wave
+    with wave.open(io.BytesIO(raw)) as w:
+        if w.getnchannels() != 1 or w.getsampwidth() != 2 or not 8000 <= w.getframerate() <= 48000:
+            raise ValueError("format")
+        return w.getnframes() / w.getframerate()
+
+
+@app.post("/api/rooms/{code}/audio")
+async def room_audio(code: str, request: Request, r: int, slot: str = "me", s: Session = Depends(current)):
+    room = await ROOMS.get(code)
+    if not room or not room.game or not room.seat_of(s.id) or not hasattr(room.game, "audio_ok"):
+        raise HTTPException(404, "Room not found.")
+    if slot not in ("me", "ref"):
+        raise HTTPException(400, "?")
+    why = room.game.audio_ok(s.id, r, slot)
+    if why:
+        raise HTTPException(409, why)
+    raw = await request.body()
+    if not raw or len(raw) > AUDIO_MAX:
+        raise HTTPException(413, "Rekaman terlalu panjang.")
+    try:
+        secs = wav_seconds(raw)
+    except Exception:  # noqa: BLE001
+        raise HTTPException(400, "Itu bukan rekaman WAV.") from None
+    if secs > 16:
+        raise HTTPException(413, "Maksimal 15 detik.")
+    room.keep_photo(f"a{r}:{'ref' if slot == 'ref' else s.id}", raw)
+    await room.server_input(s.id, {"do": "clip", "r": r, "slot": slot, "secs": secs})
+    return {"ok": True, "secs": round(secs, 2)}
+
+
+@app.get("/api/rooms/{code}/audio/{r}/{who}")
+async def room_audio_get(code: str, r: int, who: str, s: Session = Depends(current)):
+    room = await ROOMS.get(code)
+    if not room or not (room.seat_of(s.id) or s.id in room.conns):
+        raise HTTPException(404, "Not found.")
+    wav = room.photos.get(f"a{r}:{who}")
+    if not wav:
+        raise HTTPException(404, "Not found.")
+    return Response(wav, media_type="audio/wav", headers={"Cache-Control": "private, max-age=600"})
+
+
 class InviteIn(BaseModel):
     users: list[str] = Field(max_length=10)
 
