@@ -10,12 +10,11 @@ Photos reach the server through POST /api/rooms/{code}/photo (main.py), which ca
 
 from __future__ import annotations
 
-import asyncio
 import json
 import logging
 import os
 
-from .. import ai
+from .. import ai, cfai, vision
 from .base import Game, IllegalMove, ch, opt, rank_by_score
 
 log = logging.getLogger("bg.photo")
@@ -29,26 +28,6 @@ S = {"type": "string"}
 def prompts() -> dict:
     with open(os.path.join(DATA, "foto.json")) as f:
         return json.load(f)
-
-
-async def ask_with_retry(parts: list, schema: dict, budget: float, waits=(0, 3, 6, 10), smart: bool = True,
-                         per_try: float = 30.0) -> dict | None:
-    """Gemini with retries while it's busy (free tier: 503/429 spikes), within `budget` seconds."""
-    loop = asyncio.get_running_loop()
-    end = loop.time() + budget
-    for k, wait in enumerate(waits):
-        if wait:
-            if loop.time() + wait + 3 > end:
-                break
-            await asyncio.sleep(wait)
-        left = end - loop.time()
-        if left < 3:
-            break
-        try:
-            return await asyncio.wait_for(ai.generate(parts, schema=schema, smart=smart), timeout=min(left, per_try))
-        except (ai.AIUnavailable, asyncio.TimeoutError) as e:
-            log.warning("photo AI try %d failed: %s", k + 1, e)
-    return None
 
 
 class PhotoGame(Game):
@@ -182,7 +161,10 @@ class FotoHunt(PhotoGame):
                   "a drawing/print counts only if the task says picture). what = what you see (max 6 words). "
                   f"comment = one short fun sentence in {language} about the photo.")
         # a quick yes/no: the fast models, short tries, so a busy moment still leaves time to retry
-        data = await ask_with_retry([prompt, ai.image_part(jpeg, "image/jpeg")], CHECK_SCHEMA, budget=25, smart=False, per_try=12)
+        # a quick yes/no: Gemini's fast models first, Cloudflare alongside after a few seconds if Gemini is slow
+        data = await vision.race(
+            lambda: ai.generate([prompt, ai.image_part(jpeg, "image/jpeg")], schema=CHECK_SCHEMA),
+            lambda: cfai.vision_json(prompt, jpeg, CHECK_SCHEMA, max_tokens=300), budget=25, head_start=5)
         if data is None:
             busy = ("Juri AI lagi sibuk — fotomu diterima tanpa dicek 🙈", "The AI judge is busy — photo accepted unchecked 🙈")
             return {"ok": True, "what": "", "comment": busy[lang == "en"]}
@@ -269,7 +251,7 @@ class Ekspresi(PhotoGame):
 
     @classmethod
     async def fulfil_room(cls, need, options, room):
-        labels, parts = {}, []
+        labels, parts, tiles = {}, [], []
         for i, pid in enumerate(need["ids"]):
             jpeg = room.photos.get(f"{need['r']}:{pid}")
             if not jpeg:
@@ -277,6 +259,7 @@ class Ekspresi(PhotoGame):
             label = chr(65 + i)
             labels[label] = pid
             parts += [f"Photo {label}:", ai.image_part(jpeg, "image/jpeg")]
+            tiles.append((label, jpeg))
         if not parts:
             return {"ranking": []}
         lang = need["lang"]
@@ -286,7 +269,14 @@ class Ekspresi(PhotoGame):
                   f"(Indonesian: \"{it['id']}\"). Score each photo 0-100 ONLY for how well the person acts out the challenge "
                   "(expression, pose, effort, creativity). Never comment on looks, body, age, skin or clothes. "
                   f"For each: one short funny, encouraging comment in {language}. Labels: {', '.join(labels)}.")
-        data = await ask_with_retry([prompt] + parts, RANK_SCHEMA, budget=30)
+        try:
+            grid = vision.collage(tiles)
+        except Exception:  # noqa: BLE001 — no backup judge then, Gemini still gets the separate images
+            grid = None
+        data = await vision.race(
+            lambda: ai.generate([prompt] + parts, schema=RANK_SCHEMA, smart=True),
+            (lambda: cfai.vision_json(prompt + " The image is a grid of the photos; each photo's label is in the black badge in "
+                                     "its top-left corner. Give exactly one ranking entry per label.", grid, RANK_SCHEMA)) if grid else None, budget=30)
         if data is None:
             return None
         out = []
