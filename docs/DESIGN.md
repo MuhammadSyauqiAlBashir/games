@@ -33,8 +33,10 @@
   signal is drawn; < 90 ms = false start), Ketik Ngebut (`data/ketik.json`; only letters/digits/spaces count).
 - **Photo games:** Foto Hunt + Ekspresi Challenge (`photo.py`). Photos go up via `POST /api/rooms/{code}/photo`,
   are re-encoded (EXIF stripped, ≤768 px), kept only in the room's memory (≤12 MB, gone at back-to-lobby/close),
-  checked by Gemini (fast models, retries ≤25 s; busy = accepted unchecked) / ranked (retries ≤30 s; busy = equal
-  points). Judging is about the acting only, never looks. Free-tier Gemini: Google may use the photos to improve
+  checked / ranked by Gemini with a **Cloudflare Workers AI backup** (`vision.race`: Gemini gets a 5–7 s head
+  start, then Llama 4 Scout (then Gemma 4) on one labelled collage runs alongside; first answer wins; ≤25/30 s, then
+  accepted unchecked / equal points). Same for Draw & AI Judge. Cloudflare use is capped at BG_CF_DAILY_NEURONS
+  (2000/day, ~40 per judging) in `bg_kv cf_neurons:<date>` so the shop's free FLUX allowance is left alone. Judging is about the acting only, never looks. Free-tier Gemini: Google may use the photos to improve
   its products — the screen says the photos go to Gemini.
 - **Draw games:** words from a categorised bank (`data/draw_bank.json`, 14 categories × levels, ~440 words per language) plus fresh
   Gemini words for the same categories; the category option ("Mix" or one category) is shown to everyone while drawing.

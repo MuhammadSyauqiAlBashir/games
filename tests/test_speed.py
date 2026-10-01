@@ -214,8 +214,13 @@ def test_ekspresi(monkeypatch):
     need = g.s["ai_need"]
     assert g.s["phase"] == "judging" and need["ids"] == g.ids()
 
+    import io
+    from PIL import Image
+    buf = io.BytesIO()
+    Image.new("RGB", (64, 64), "orange").save(buf, "JPEG")
+
     class Room:
-        photos = {f"1:{p}": b"jpeg" for p in g.ids()}
+        photos = {f"1:{p}": buf.getvalue() for p in g.ids()}
 
     async def fake(parts, **k):
         return {"ranking": [{"label": "B", "score": 90, "comment": "wow"}, {"label": "A", "score": 50, "comment": "ok"},

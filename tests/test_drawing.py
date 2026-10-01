@@ -56,28 +56,54 @@ def test_recent_words_are_not_repeated(monkeypatch):
     assert len(mem["draw_recent:id"]) == 90
 
 
-def test_judge_retries_then_gives_up(monkeypatch):
-    calls = []
+def test_race_gemini_busy_cloudflare_answers():
+    from bg import vision
+    calls = {"g": 0, "c": 0}
 
-    async def busy(*a, **k):
-        calls.append(1)
+    async def gem():
+        calls["g"] += 1
+        await asyncio.sleep(0.3)
+        raise ai.AIUnavailable("503")
+
+    async def cf():
+        calls["c"] += 1
+        return {"ranking": ["cf"]}
+
+    out = asyncio.run(vision.race(gem, cf, budget=5, head_start=0.5))
+    assert out == {"ranking": ["cf"]} and calls["g"] >= 1 and calls["c"] == 1
+
+
+def test_race_gemini_fast_wins_and_backup_unused():
+    from bg import vision
+    used = []
+
+    async def gem():
+        return {"ok": 1}
+
+    async def cf():
+        used.append(1)
+        return {"ok": 2}
+
+    assert asyncio.run(vision.race(gem, cf, budget=5, head_start=1)) == {"ok": 1} and not used
+
+
+def test_race_everything_busy_gives_none():
+    from bg import vision
+
+    async def busy():
         raise ai.AIUnavailable("429")
 
-    monkeypatch.setattr(ai, "generate", busy)
-    out = asyncio.run(drawing.judge_with_retry(["x"], budget=5, waits=(0, 0.05, 0.05, 0.05)))
-    assert out is None and len(calls) == 4
+    assert asyncio.run(vision.race(busy, busy, budget=4, head_start=0.2)) is None
 
-    n = []
 
-    async def flaky(*a, **k):
-        n.append(1)
-        if len(n) < 3:
-            raise ai.AIUnavailable("503")
-        return {"ranking": []}
-
-    monkeypatch.setattr(ai, "generate", flaky)
-    assert asyncio.run(drawing.judge_with_retry(["x"], budget=5, waits=(0, 0.05, 0.05, 0.05))) == {"ranking": []}
-    assert len(n) == 3
+def test_collage_labels():
+    import io
+    from PIL import Image
+    from bg import vision
+    px = io.BytesIO()
+    Image.new("RGB", (50, 80), "red").save(px, "PNG")
+    grid = Image.open(io.BytesIO(vision.collage([("A", px.getvalue()), ("B", px.getvalue()), ("C", px.getvalue())])))
+    assert grid.size == (768, 768)
 
 
 def test_drawjudge_flow_with_busy_judge():

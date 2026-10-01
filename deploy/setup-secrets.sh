@@ -16,4 +16,8 @@ sudo install -d -o root -g root -m 755 /etc/bashgames
 umask 077
 printf 'BG_PB_USER=svc_bashgames\nBG_PB_PASSWORD=%s\nGEMINI_API_KEY=%s\n' "$PASS" "$GEMINI" | sudo tee /etc/bashgames/env >/dev/null
 sudo chown root:bashgames /etc/bashgames/env && sudo chmod 640 /etc/bashgames/env
+# Cloudflare Workers AI (backup photo/drawing judge): reuse the shop's account + token if present
+if sudo test -f /etc/couple-suits/admin.env; then
+  sudo grep -E '^CF_(ACCOUNT_ID|API_TOKEN)=' /etc/couple-suits/admin.env | sudo tee -a /etc/bashgames/env >/dev/null || true
+fi
 echo "secrets ready: /etc/bashgames/env (Gemini: $([ -n "$GEMINI" ] && echo yes || echo NO))"

@@ -14,11 +14,10 @@ Coordinates are 0..1000 on a square canvas."""
 
 from __future__ import annotations
 
-import asyncio
 import io
 import logging
 
-from .. import ai, content, util
+from .. import ai, cfai, content, util, vision
 from .base import Game, IllegalMove, ch, opt, rank_by_score
 
 log = logging.getLogger("bg.drawing")
@@ -239,27 +238,7 @@ JUDGE_SCHEMA = {"type": "object", "properties": {"ranking": {"type": "array", "i
 
 BUSY = ("Juri AI lagi sibuk (sudah dicoba ±30 dtk) — semua dapat poin sama.",
         "The AI judge is busy (we kept trying for ~30 s) — everyone gets the same points.")
-JUDGE_BUDGET = 30.0           # seconds the players are willing to wait for the judge in total
-JUDGE_WAITS = (0, 4, 8, 12)   # pause before each try (free Gemini is often "busy" for a few seconds)
-
-
-async def judge_with_retry(parts: list, budget: float = JUDGE_BUDGET, waits=JUDGE_WAITS):
-    """Ask Gemini, and if every model is busy/out of quota, wait and ask again — up to `budget` seconds."""
-    loop = asyncio.get_running_loop()
-    end = loop.time() + budget
-    for k, wait in enumerate(waits):
-        if wait:
-            if loop.time() + wait + 3 > end:
-                break
-            await asyncio.sleep(wait)
-        left = end - loop.time()
-        if left < 3:
-            break
-        try:
-            return await asyncio.wait_for(ai.generate(parts, schema=JUDGE_SCHEMA, smart=True), timeout=left)
-        except (ai.AIUnavailable, asyncio.TimeoutError) as e:
-            log.warning("judge try %d failed: %s", k + 1, e)
-    return None
+JUDGE_BUDGET = 30.0  # seconds the players are willing to wait for the judge in total
 
 
 class DrawJudge(Game):
@@ -346,13 +325,15 @@ class DrawJudge(Game):
     @classmethod
     async def fulfil(cls, need, options):
         word, lang = need["word"], need["lang"]
-        labels, parts = {}, []
+        labels, parts, tiles = {}, [], []
         for i, (pid, strokes) in enumerate(need["canvas"].items()):
             label = chr(65 + i)
             labels[label] = pid
             if strokes:
+                png = render_png(strokes)
                 parts.append(f"Drawing {label}:")
-                parts.append(ai.image_part(render_png(strokes), "image/png"))
+                parts.append(ai.image_part(png, "image/png"))
+                tiles.append((label, png))
         if not parts:
             return {"ranking": []}
         language = "Bahasa Indonesia (santai, lucu, sopan)" if lang == "id" else "English (playful, kind)"
@@ -362,7 +343,15 @@ class DrawJudge(Game):
                   f"Score each drawing 0-100 for how clearly it shows \"{word}\" (recognisability matters more than art "
                   f"skill). For each: a one-sentence comment in {language} and what it looks like (looks_like, same "
                   f"language). Labels: {', '.join(k for k in labels if need['canvas'][labels[k]])}.")
-        data = await judge_with_retry([prompt] + parts)
+        try:
+            grid = vision.collage(tiles)
+        except Exception:  # noqa: BLE001 — no backup judge then, Gemini still gets the separate images
+            grid = None
+        data = await vision.race(
+            lambda: ai.generate([prompt] + parts, schema=JUDGE_SCHEMA, smart=True),
+            (lambda: cfai.vision_json(prompt + " The image is a grid of the drawings; each drawing's label is in the black badge "
+                                     "in its top-left corner. Give exactly one ranking entry per label.", grid, JUDGE_SCHEMA)) if grid else None,
+            budget=JUDGE_BUDGET)
         if data is None:
             return None  # every try failed → provide() gives everyone the same points
         out = []
