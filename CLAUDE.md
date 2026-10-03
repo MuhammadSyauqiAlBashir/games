@@ -6,6 +6,11 @@ live on phones. https://games.bashir.my.id · installable PWA · same accounts/a
 Read `README.md` (architecture, every game, deploy, dev/test) and `docs/DESIGN.md` (owner's rule choices and house
 rules per game, AI design) before deeper work. Server-wide facts are in `~/.claude/CLAUDE.md`.
 
+Original conversations (everything the owner asked and decided, 2026-09-26 → 10-03, all apps; search them when a
+detail is missing): `~/work/tx_user.txt` (owner's messages), `~/work/tx_asks.txt` (multiple-choice decisions),
+`~/work/tx_assistant.txt` (Claude's longer answers); raw transcript
+`~/.claude/projects/-home-bashir/b434ae8c-ff15-4ca3-aa6d-842e57f5a2aa.jsonl`.
+
 ## Rules for working on this app (owner's workflow)
 
 - **Git workflow:** work on `develop` → commit → push `develop` → open a PR to `main` → merge it, all through the
@@ -23,6 +28,30 @@ rules per game, AI design) before deeper work. Server-wide facts are in `~/.clau
 - Photos/recordings stay in room memory only (never PocketBase/disk) and are only sent to the AI judge.
 - Never print secrets. Owner likes step-by-step explanations; budget-conscious (free tiers).
 - Update this file (History / Open decisions) when something changes.
+
+## Owner's original brief and standing preferences
+
+- Brief (2026-09-27): one platform named **BashGames** for the owner, his wife and 2 closest friends (login/register
+  with the same approval as the other apps), mobile web + iOS Home Screen app, best UI/UX. Games are **always
+  multiplayer, never against the computer** — the computer only rolls dice/shuffles. Exception the owner asked for:
+  the slither.io-style Snake Arena has computer snakes so 2 players isn't boring. Real-time as much as possible;
+  2–6 players depending on the game.
+- Look & feel: **calm premium, cozy, playful**; sound on/off decided by each user; text chat + emoji reactions in
+  every game; win history (who beat whom), statistics, awards on the winning page, per-game leaderboards, fun
+  monthly titles, kind roasts and **loser dares**; cute avatars + colours.
+- Connection drops: pause for everyone, wait for all to tap Ready, then a countdown (Live mode); Santai (play-later)
+  mode for turn games too. Turn timer adjustable per game, default from the general setting in Profile.
+- Poker in Rupiah, chips reset every 24 h, broke = can't play until tomorrow. Trivia: many topics, difficulty
+  phases with more points, ⚑ report question and learn from reports; AI content prepared ahead so games never wait.
+- No page scrolling/zooming inside the app (owner request 2026-09-28). Mario minigames keep their Mario names
+  even though users speak Indonesian; licensing isn't a concern (private, personal use — owner's words).
+- Bugs the owner reported and that were fixed: Tebak Gambar Kata keyboard kept closing (inputs are now built once
+  and only shown/hidden — keep it that way), penalty needed a ball-into-net animation, Congklak too fast/small
+  (slower sowing animation with dropping seeds, bigger board).
+- Testing alone: every game needs ≥2 seats; use a second approved account (e.g. `bashirtest`) in Safari while the
+  Home Screen app is logged in as the owner, Santai mode for turn games. A "Coba sendiri" practice mode was offered,
+  not built. (Speed/photo/voice games added later allow 1 player.)
+- Picture-riddle game idea came from the owner (viral "red E + two GO = ready to go" puzzles) → Rebus.
 
 ## Server facts
 
