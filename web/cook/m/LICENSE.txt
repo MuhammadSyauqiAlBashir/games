@@ -1,0 +1,4 @@
+Wok & Roll 3D models — all CC0 (public domain):
+- props-v1.glb: Kenney (www.kenney.nl) Food Kit, Furniture Kit, Mini Market. tools/build_cook_assets.mjs
+- people-v1.glb: Quaternius (quaternius.com) Ultimate Modular Men/Women packs, via poly.pizza. tools/build_people.mjs
+License: Creative Commons Zero http://creativecommons.org/publicdomain/zero/1.0/

@@ -796,3 +796,13 @@ dialog::backdrop { background: rgba(30, 20, 10, .45); }
 .vg-vote { display: grid; grid-template-columns: auto 1fr auto; gap: 8px; align-items: center; }
 .vg-res { padding: 10px 12px; background: var(--card); border-radius: 14px; box-shadow: var(--shadow); margin-bottom: 6px; }
 .vg-res.best { box-shadow: 0 0 0 3px #ffc400, var(--shadow); }
+
+/* Wok & Roll entry card on the home page */
+.ck-entry { position: relative; display: flex; align-items: center; gap: 12px; padding: 16px; margin: 4px 0 14px; border-radius: var(--r); overflow: hidden; border: 0; width: 100%;
+  text-align: left; color: #fff8ec; background: radial-gradient(circle at 85% 20%, #ff9a5a 0, transparent 40%), linear-gradient(135deg, #2b1d3e, #47233f 55%, #6b2f2f);
+  box-shadow: var(--shadow-lg); cursor: pointer; }
+.ck-entry .big { font-size: 46px; filter: drop-shadow(0 6px 10px rgba(0,0,0,.4)); animation: ck-toss 1.6s ease-in-out infinite; }
+.ck-entry b { font-family: var(--display); font-style: italic; font-size: 22px; display: block; }
+.ck-entry small { opacity: .85; font-weight: 700; }
+.ck-entry .go { margin-left: auto; padding: 8px 14px; border-radius: 99px; background: #ffb347; color: #2a1a10; font-weight: 900; white-space: nowrap; }
+@keyframes ck-toss { 0%, 100% { transform: translateY(0) rotate(-8deg); } 50% { transform: translateY(-14px) rotate(8deg); } }
