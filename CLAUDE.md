@@ -45,13 +45,15 @@ detail is missing): `~/work/tx_user.txt` (owner's messages), `~/work/tx_asks.txt
   phases with more points, ⚑ report question and learn from reports; AI content prepared ahead so games never wait.
 - No page scrolling/zooming inside the app (owner request 2026-09-28). Mario minigames keep their Mario names
   even though users speak Indonesian; licensing isn't a concern (private, personal use — owner's words).
-- Bugs the owner reported and that were fixed: Tebak Gambar Kata keyboard kept closing (inputs are now built once
-  and only shown/hidden — keep it that way), penalty needed a ball-into-net animation, Congklak too fast/small
-  (slower sowing animation with dropping seeds, bigger board).
+- Bugs the owner reported and that were fixed: Tebak Gambar Kata (now Picture Riddles) keyboard kept closing
+  (inputs are now built once and only shown/hidden — keep it that way), penalty needed a ball-into-net animation,
+  Congklak too fast/small (slower sowing animation with dropping seeds, bigger board).
 - Testing alone: every game needs ≥2 seats; use a second approved account (e.g. `bashirtest`) in Safari while the
   Home Screen app is logged in as the owner, Santai mode for turn games. A "Coba sendiri" practice mode was offered,
   not built. (Speed/photo/voice games added later allow 1 player.)
-- Picture-riddle game idea came from the owner (viral "red E + two GO = ready to go" puzzles) → Rebus.
+- Picture-riddle game idea came from the owner (viral "red E + two GO = ready to go" puzzles) → Picture Riddles
+  (`rebus`; bank `data/tebak.json`; `data/rebus.json` + `tools/build_rebus.py` are the old, unused bank). Not the
+  same game as Draw & Guess (`drawguess`, old name "Tebak Gambar").
 
 ## Server facts
 
@@ -83,7 +85,7 @@ detail is missing): `~/work/tx_user.txt` (owner's messages), `~/work/tx_asks.txt
   clock; `common.js` (3D dice `makeDie`, `throwDice`, `gated`), `mp.js` (Mario kit), `audiokit.js` (mic, YIN pitch,
   WAV, synth, synced playback), `photokit.js` (camera → JPEG upload). Room seat bar calls `scores(v)` — guarded.
 
-## Games (≈70)
+## Games (68)
 
 Board & dice, cards, quiz & party (see README), Mario minigames (36) + Pesta mode, plus (2026-10-01):
 - **Adu cepat:** Bom Kata (word bomb; Indonesian = PySastrawi roots + stemmer, MIT, `lexicon.py`), Survei 100
@@ -122,6 +124,9 @@ Board & dice, cards, quiz & party (see README), Mario minigames (36) + Pesta mod
 - #7: Bom Kata, Survei 100, Cari Kembar, Refleks Kilat, Ketik Ngebut, Foto Hunt, Ekspresi; tied AI scores share points.
 - #8: Cloudflare backup judge racing Gemini (Ekspresi was "juri sibuk" too often).
 - #9: voice games (Karaoke Klasik, Nyanyi Lagu Hits, Tiru Suara).
+- #10–#11 (10-03): docs only — this CLAUDE.md (full app context from the conversation history).
+- #12 (10-03): docs only — README brought up to date (68 games, categories, judge timeouts, names); Picture
+  Riddles naming clarified. Stale local `master` branch deleted.
 
 ## Open decisions / ideas (waiting for the owner)
 
@@ -133,7 +138,10 @@ Board & dice, cards, quiz & party (see README), Mario minigames (36) + Pesta mod
   di Tangan AI (Death by AI), Kata Rahasia (Contexto race), Tebak Gaya (photo charades), Skala AI (Wavelength),
   Meme Kocak, Sidang Hakim AI, Investor Gila, Kamus Ngarang, Tiru Pose, Roast Barang, Karaoke style ideas.
   Recommended: Kawanan, Siapa Bot?, Nasib di Tangan AI.
-- Optional: practice mode with computer players; always-visible fixed snake joystick.
+- Optional: practice mode with computer players. (Fixed snake joystick: not wanted — owner is happy with the
+  floating stick.)
+- Cleanup (needs an app PR, owner said "not yet" on 2026-10-03): delete the unused `backend/bg/data/rebus.json` +
+  `tools/build_rebus.py`.
 - Claude API as a judge: owner has Claude Pro (personal only, no API access); a pay-as-you-go API key would be
   needed (~$0.01/round with Haiku 4.5; can't do audio). Not set up.
 

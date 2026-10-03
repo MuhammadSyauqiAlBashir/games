@@ -3,18 +3,38 @@
 Private multiplayer games for the owner, his wife and close friends — live on everyone's phone.
 https://games.bashir.my.id · same accounts and approval as lyrsync / finance · installable PWA.
 
-## Games (58)
-Board & dice: Ludo (4-colour board for 2–4, 6-colour board for 5–6), Ular Tangga, Monopoli (world cities,
-Rupiah, official rules or fast mode), Congklak, Dam (international 10×10), Connect 4, SOS, Tic-tac-toe (any size).
-Cards: UNO (official + house-rule switches), Sequence (teams at 4), Poker (Texas Hold'em, Rp1.000.000 per day),
-Gaple (domino, nyangkul). Quiz & party: Trivia (AI question bank, difficulty phases, ⚑ report), Matematika,
-Tebak Gambar Kata (rebus), Anagrams (English), Tebak Gambar (draw & guess), Gambar & Juri AI. Action: Adu Penalti,
-Arena Ular (snake with computer snakes). Rules summaries: `web/js/i18n.js` (RULES). All game names are English (UI text stays Indonesian/English).
+## Games (68)
+Lobby categories (`CATEGORIES` in `backend/bg/games/__init__.py`):
+- **Board & dice:** Ludo (4-colour board for 2–4, 6-colour board for 5–6), Snakes & Ladders, Monopoly (world
+  cities, Rupiah, official rules or fast mode), Congklak, Checkers (international 10×10), Connect 4, SOS,
+  Tic-tac-toe (any size).
+- **Cards:** UNO (official + house-rule switches), Sequence (teams at 4), Poker (Texas Hold'em, Rp1.000.000 per
+  day), Dominoes (Gaple, nyangkul).
+- **Speed challenges** (`speed`): Bom Kata (word bomb), Survei 100 (Family 100), Cari Kembar (Spot it), Refleks
+  Kilat, Ketik Ngebut.
+- **Judged by AI** (`ai`): Foto Hunt, Ekspresi Challenge, Draw & AI Judge.
+- **Sing & sounds** (`voice`): Karaoke Klasik, Nyanyi Lagu Hits, Tiru Suara.
+- **Quiz & party:** Trivia (AI question bank, difficulty phases, ⚑ report), Cak Lontong Quiz, Math Race, Picture
+  Riddles (`rebus`), Anagrams (English), Draw & Guess (`drawguess`).
+- **Action:** Penalty Shootout, Snake Arena (with computer snakes).
+- **Mario minigames** (10) + **More Mario minigames** (26), incl. Minigame Party (`mp_pesta`) — see below.
+
+Rules summaries: `web/js/i18n.js` (RULES). Game names are English (UI text stays Indonesian/English); the games
+added on 2026-10-01 (speed, AI-judged, voice) keep their Indonesian names on purpose.
 
 **Cak Lontong Quiz** (`lontong`, Indonesian): twisted-logic questions with TTS letter boxes; typing a stored "normal"
 answer (trap) gets a MIKIR!; bank in `backend/bg/data/lontong.json` built by `tools/build_lontong.py`.
-**Picture Riddles** (`rebus`, Tebak Gambar style): emoji pictures → tricky idioms/compound words, answered with letter
-tiles, 💡 open-a-letter costs 30 % per letter; bank `data/tebak.json` built by `tools/build_tebak.py` (picture formulas).
+**Picture Riddles** (`rebus`, in the style of the Indonesian "Tebak Gambar" app; older docs call it "Tebak Gambar
+Kata"): emoji pictures → tricky idioms/compound words, answered with letter tiles, 💡 open-a-letter costs 30 % per
+letter; bank `data/tebak.json` built by `tools/build_tebak.py` (picture formulas), read by `content.builtin_rebus()`;
+AI puzzles in `bg_questions` (`kind='rebus'`, `topic='tebak'`). `data/rebus.json` + `tools/build_rebus.py` are the
+old bank (PR #3 replaced it) and are no longer read. Not to be confused with **Draw & Guess** (`drawguess`, old
+name "Tebak Gambar"): one player draws, the others type guesses.
+
+**Speed, AI-judged and voice games (PRs #7–#9):** see `docs/DESIGN.md` (speed challenges, photo games, voice games).
+AI judging (`vision.race`, Gemini first, Cloudflare Workers AI backup): Draw & AI Judge and Ekspresi wait ≤30 s
+(then equal points), the Foto Hunt photo check ≤25 s (then accepted unchecked); the voice games use Gemini only,
+≤30 s (then the players vote).
 
 **Mario minigames** (Super Mario Party Jamboree style, Mario names in both languages, 2–4 players):
 Thwomp the Difference, Big-Top Quiz, Wario's Buzzer Beater, Sleight of Shell, Tricky Turntable, Lost and Pound,
@@ -63,7 +83,7 @@ Kitchen, DK's Konga Line; sensors — Tilt-a-Golf (tilt), Pickax Dash (shake), B
   yet get stand-in questions (data questions / nearest level); generation continues in the background and the
   room swaps stand-ins for real questions before they are shown (`ai_need` → `fulfil` → `provide`). Rebus uses the
   built-in bank while new AI puzzles generate; drawing words fall back to built-in lists after 10 s; the AI judge
-  gives up after 45 s (equal points).
+  gives up after 30 s (equal points).
 - **Web** (`web/`): plain ES modules, one module per game in `web/js/games/`, synthesized sounds (`sound.js`),
   ID/EN (`i18n.js`), light/dark, service worker + push.
 

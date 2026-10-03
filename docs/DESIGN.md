@@ -25,7 +25,8 @@
 - **Monopoly:** official rules with Chance & Community Chest (world cities, Rupiah ×10.000), auctions, trading, houses/hotels, mortgages, jail, bankruptcy; Fast mode (time limit, richest wins); optional Free Parking jackpot.
 - **Trivia:** 22 topics incl. flags, capitals, trick questions, K-pop, Islam, Bahasa Indonesia; difficulty phases ×1/×2/×3/×5; speed scoring.
 - **Matematika:** SD/SMP/SMA, arithmetic, sequences, story problems, logic — generated locally (always correct).
-- **Rebus:** built-in bank (EN + Indonesian emoji "tebak gambar") + AI puzzles rendered from text/emoji layouts.
+- **Picture Riddles** (`rebus`): built-in bank `data/tebak.json` (EN + Indonesian emoji riddles in the style of the "Tebak Gambar"
+  app; the older `data/rebus.json` is no longer read) + AI puzzles rendered from text/emoji layouts.
 - **Speed challenges (2026-10-01):** Bom Kata (`speed.py`; Indonesian words = Sastrawi root list + stemmer, MIT, in
   `lexicon.py`; English = ENABLE; secret fuse per turn, bonus letters = extra life), Survei 100 (`survei.py`; Gemini
   boards with aliases + `data/survei.json` bank, recent questions in `bg_kv survei_recent:<lang>`), Cari Kembar
@@ -81,4 +82,5 @@ in Pesta. Night Lights and Unfriendly Flying Object were left out (duplicates of
 - 3D dice everywhere (Ludo, Snakes & Ladders, Monopoly): CSS cube, time-based tumble that survives re-renders.
 - Ludo: yard pieces centred in their spots. Snake Arena: shaded bodies, 6 skins, tongue, glow food, fills the screen.
 - UNO and Poker: cards/chips fly (Web Animations); poker deals, flips the board, chips to pot with clinks, pot to winner.
-- All game names in English. Picture Riddles rebuilt as Tebak Gambar; new Cak Lontong Quiz.
+- All game names in English. Picture Riddles (`rebus`) rebuilt in the style of the Indonesian "Tebak Gambar" app
+  (new bank `data/tebak.json`); new Cak Lontong Quiz.
