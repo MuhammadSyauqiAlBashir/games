@@ -85,7 +85,7 @@ detail is missing): `~/work/tx_user.txt` (owner's messages), `~/work/tx_asks.txt
   clock; `common.js` (3D dice `makeDie`, `throwDice`, `gated`), `mp.js` (Mario kit), `audiokit.js` (mic, YIN pitch,
   WAV, synth, synced playback), `photokit.js` (camera → JPEG upload). Room seat bar calls `scores(v)` — guarded.
 
-## Games (68)
+## Games (69)
 
 Board & dice, cards, quiz & party (see README), Mario minigames (36) + Pesta mode, plus (2026-10-01):
 - **Adu cepat:** Bom Kata (word bomb; Indonesian = PySastrawi roots + stemmer, MIT, `lexicon.py`), Survei 100
@@ -96,6 +96,11 @@ Board & dice, cards, quiz & party (see README), Mario minigames (36) + Pesta mod
   tracking, `pitch.py` note-by-note scoring, any key; tested right song 100 / wrong song ~45 / random ~20),
   Nyanyi Lagu Hits (round DJ brings the real song clip — file slice or 10 s recorded from a speaker — or just a
   title; Gemini compares singers with the original; vote fallback), Tiru Suara (sound imitations).
+- **Wok & Roll** (2026-10-03, PR #13): 3D-rendered 2.5D cooking career (owner's reference: a Cooking Madness-style
+  screenshot — landscape, big glossy counter, customers behind it with order cards) + **Wok & Roll Duel**. Owner's
+  choices: inside BashGames; "Mix" (ch.1 steak bistro like the picture, ch.2 Indonesian warung); landscape only;
+  career gear/skills/items carry into duels (server-owned economy in `bg/cook.py`, bg_kv `cook:<uid>`); realistic
+  CC0 people (Quaternius) instead of chibi characters. Design + history of the redesigns: `docs/COOKING.md`.
 - Copyright: no copyrighted lyrics/melodies are stored; popular songs only via the owner's own clip (Nyanyi Lagu
   Hits). "Naik-Naik ke Puncak Gunung" (Ibu Sud) left out on purpose.
 
@@ -125,6 +130,7 @@ Board & dice, cards, quiz & party (see README), Mario minigames (36) + Pesta mod
 - #8: Cloudflare backup judge racing Gemini (Ekspresi was "juri sibuk" too often).
 - #9: voice games (Karaoke Klasik, Nyanyi Lagu Hits, Tiru Suara).
 - #10–#11 (10-03): docs only — this CLAUDE.md (full app context from the conversation history).
+- #13 (10-03): Wok & Roll cooking career + duel (three.js, CC0 models, server-side career economy).
 - #12 (10-03): docs only — README brought up to date (68 games, categories, judge timeouts, names); Picture
   Riddles naming clarified. Stale local `master` branch deleted.
 
@@ -138,6 +144,7 @@ Board & dice, cards, quiz & party (see README), Mario minigames (36) + Pesta mod
   di Tangan AI (Death by AI), Kata Rahasia (Contexto race), Tebak Gaya (photo charades), Skala AI (Wavelength),
   Meme Kocak, Sidang Hakim AI, Investor Gila, Kamus Ngarang, Tiru Pose, Roast Barang, Karaoke style ideas.
   Recommended: Kawanan, Siapa Bot?, Nasib di Tangan AI.
+- Wok & Roll next: chapter 3 (Kafe Kekinian), more people/outfits, sounds per dish, a real-iPhone check.
 - Optional: practice mode with computer players. (Fixed snake joystick: not wanted — owner is happy with the
   floating stick.)
 - Cleanup (needs an app PR, owner said "not yet" on 2026-10-03): delete the unused `backend/bg/data/rebus.json` +
@@ -151,6 +158,14 @@ Board & dice, cards, quiz & party (see README), Mario minigames (36) + Pesta mod
 - [ ] Friends register on the site; approve them in Profil → Admin.
 
 ## Gotchas learned
+
+- Wok & Roll / three.js: the site CSP has no `wasm-unsafe-eval` → no meshopt/Draco (models are only quantized);
+  GLTFLoader fetches embedded textures as `blob:` (blocked by `connect-src`) unless `createImageBitmap` is hidden while
+  loading (done in `models.js`); GLTFLoader renames duplicate node names (`Hips_1`, `female-a_1`) → names are
+  stripped on load; bloom threshold must be HDR (~2.4) or the sunny room hazes. Test the production CSP with
+  `CSP=1 LAND=1 python ~/work/bg_t_cook.py <level>` (also `CKSPEED`, test hooks `window.__ck` / `__ckSpeed`).
+  Tools: `~/work/cook-tools` (npm bootstrapped, Node 22 in `node22/`, esbuild, gltf-transform); sources
+  `~/work/cook-assets` (Kenney), `~/work/people` (Quaternius via poly.pizza).
 
 - iOS: AudioContext/mic need a tap first (`soundGate`); playback gets quieter while the mic is open, so the mic is
   only opened for your own turn. Spotify/Apple Music songs can't be picked as files (use "record from speaker").

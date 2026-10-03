@@ -1,5 +1,5 @@
 // The live table: WebSocket connection, seats, turn/timer, chat, reactions, pause/resume, end screen.
-import { $, api, avatar, confetti, el, icon, sheet, share, toast } from "./lib.js?v=__VERSION__"
+import { $, api, avatar, confetti, el, icon, rp, sheet, share, toast } from "./lib.js?v=__VERSION__"
 import { L, RULES, gname, getLang } from "./i18n.js?v=__VERSION__"
 import { isOn, sfx, toggle } from "./sound.js?v=__VERSION__"
 import { go, state } from "./app.js?v=__VERSION__"
@@ -272,6 +272,8 @@ export async function renderRoom(root, code) {
       end.dare ? el("div", { class: "dare-card" }, el("div", { class: "small", text: `🎭 ${L("Tantangan untuk", "Dare for")} ${end.dare.name}` }),
         el("div", { style: { fontWeight: 900, fontSize: "18px" }, text: getLang() === "en" ? end.dare.text_en : end.dare.text_id })) : null,
       end.extra?.stacks ? el("p", { class: "small muted", text: L("Chip poker disimpan ke dompet harianmu.", "Poker chips were saved to your daily wallet.") }) : null,
+      end.extra?.cook?.[me.id] ? el("p", { class: "small", style: { fontWeight: 800 }, text: L(`🍳 Karier: +${rp(end.extra.cook[me.id].money * 1000)} & +${end.extra.cook[me.id].xp} XP`,
+        `🍳 Career: +${rp(end.extra.cook[me.id].money * 1000)} & +${end.extra.cook[me.id].xp} XP`) }) : null,
       el("div", { class: "col", style: { marginTop: "14px" } },
         seat(me.id) ? el("button", { class: "btn primary big wide", type: "button", disabled: iVoted, text: iVoted ? L(`Menunggu yang lain… (${(r.rematch || []).length}/${r.seats.filter((p) => p.online).length})`, `Waiting for others… (${(r.rematch || []).length}/${r.seats.filter((p) => p.online).length})`) : L("Main lagi! 🔁", "Play again! 🔁"),
           onclick: () => send({ t: "rematch" }) }) : null,

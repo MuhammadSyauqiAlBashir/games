@@ -7,6 +7,8 @@ export const L = (id, en) => (lang === "en" ? en : id)
 export const gname = (g) => (g ? (lang === "en" ? g.name_en : g.name_id) : "")
 
 export const RULES = {
+  cookduel: ["Semua memasak hari yang sama (pembeli & pesanan sama) di dapur 3D masing-masing. Skill, alat & item dari karier Wok & Roll ikut terpakai (kecuali mode Setara). Tiap combo 5 dapat kartu jahil: kirim kucing, mati lampu atau hujan ke yang memimpin. Uang terbanyak saat tutup = menang, dan hadiahnya masuk karier!",
+    "Everyone cooks the same day (same customers and orders) in their own 3D kitchen. Your Wok & Roll career skills, gear and items come with you (unless the room is set to Equal). Every 5-combo earns a prank card: send a cat, a power cut or rain to the leader. Most money at closing wins, and the reward goes to your career!"],
   karaoke: ["Dengarkan potongan lagu 10 detik, lalu bergiliran menyanyikannya. HP mengukur nada suaramu dan membandingkannya dengan melodi asli — nada dasar boleh beda, yang penting naik-turunnya pas!",
     "Listen to a 10-second clip, then take turns singing it. Your phone tracks your pitch and compares it with the real melody — any key is fine, the ups and downs must match!"],
   nyanyihits: ["DJ ronde ini memilih lagu hits: pilih file lagu (potongan reff) atau rekam dari speaker, atau cukup tulis judulnya. Semua dengar aslinya, lalu bergiliran menyanyi. Juri AI membandingkan tiap penyanyi dengan lagu aslinya!",
@@ -143,6 +145,7 @@ export const RULES = {
 }
 
 export const TINT = {
+  cookduel: "#6b2f2f",
   ludo: "#e07a5f", ulartangga: "#7cb87a", uno: "#d9534f", monopoly: "#3d8b7a", sequence: "#4f8fcb", poker: "#2f6b58",
   gaple: "#8d6e63", congklak: "#c9a227", checkers: "#5f6b7a", connect4: "#e3a93b", sos: "#8e6c9e", tictactoe: "#d9667e",
   trivia: "#4f8fcb", math: "#3d8b7a", rebus: "#e3a93b", anagrams: "#8e6c9e", drawguess: "#e07a5f", drawjudge: "#5f7a8c",

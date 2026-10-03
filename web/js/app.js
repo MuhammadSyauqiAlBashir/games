@@ -25,12 +25,20 @@ function shell(active) {
 }
 
 let rendering = 0
+let cook = null   // Wok & Roll career, loaded on first visit (3D code stays out of the other pages)
 export async function route() {
   if (!state.me) return
   const [name, arg] = (location.hash.replace(/^#/, "") || "lobby").split("/")
   const my = ++rendering
   if (name !== "room") leaveRoom()
+  if (name !== "cook" && cook) cook.leaveCook()
   try {
+    if (name === "cook") {
+      cook = cook || await import("./cook/career.js?v=__VERSION__")
+      if (my !== rendering) return
+      await cook.renderCook($("#app"), go)
+      return
+    }
     if (name === "room" && arg) {
       await renderRoom($("#app"), arg.toUpperCase())
       return

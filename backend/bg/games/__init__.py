@@ -5,6 +5,7 @@ from .base import Game, IllegalMove
 from .checkers import Checkers
 from .congklak import Congklak
 from .connect4 import Connect4
+from .cookduel import CookDuel
 from .drawing import DrawGuess, DrawJudge
 from .gaple import Gaple
 from .ludo import Ludo
@@ -24,12 +25,13 @@ from .tictactoe import TicTacToe
 from .ulartangga import UlarTangga
 from .uno import Uno
 
-ORDER = [Ludo, UlarTangga, Uno, Monopoly, Sequence, Poker, Gaple, Congklak, Checkers, Connect4, SOS, TicTacToe,
+ORDER = [CookDuel, Ludo, UlarTangga, Uno, Monopoly, Sequence, Poker, Gaple, Congklak, Checkers, Connect4, SOS, TicTacToe,
          Trivia, Matematika, Rebus, Lontong, Anagrams, DrawGuess, DrawJudge, BomKata, Survei, Kembar, Refleks, Ketik,
          FotoHunt, Ekspresi, Karaoke, NyanyiHits, TiruSuara, Penalty, Snake, Pesta, *MINIS, *MINIS2]
 GAMES: dict[str, type[Game]] = {g.key: g for g in ORDER}
 
 CATEGORIES = {
+    "cook": ("Masak", "Cooking", ["cookduel"]),
     "mario": ("Minigame Mario", "Mario minigames", ["mp_pesta"] + [m.key for m in MINIS]),
     "mario2": ("Minigame Mario lainnya", "More Mario minigames", [m.key for m in MINIS2]),
     "board": ("Papan & dadu", "Board & dice", ["ludo", "ulartangga", "monopoly", "congklak", "checkers", "connect4", "sos", "tictactoe"]),

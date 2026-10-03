@@ -19,7 +19,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
-from . import awards, config, content, push, util, wallet
+from . import awards, config, content, cook, push, util, wallet
 from .games import CATEGORIES, GAMES, ORDER
 from .pb import PBError, pb, q
 from .rooms import ROOMS
@@ -434,6 +434,75 @@ async def players(s: Session = Depends(current)):
 @app.get("/api/wallet")
 async def my_wallet(s: Session = Depends(current)):
     return {"balance": await wallet.balance(s.id), "daily": wallet.DAILY}
+
+
+# ---------------------------------------------------------------------------------------------------------
+# Wok & Roll career (progress in bg_kv `cook:<uid>`; the server owns prices, rewards and the kit)
+# ---------------------------------------------------------------------------------------------------------
+
+class CookDayIn(BaseModel):
+    key: str = Field(max_length=8)
+    coins: int = Field(ge=0, le=100000)
+    stars: int = Field(ge=0, le=3)
+    served: int = Field(ge=0, le=200)
+    used: dict[str, int] = Field(default_factory=dict, max_length=10)
+
+
+class CookBuyIn(BaseModel):
+    kind: str = Field(max_length=10)
+    key: str = Field(max_length=20)
+
+
+class CookChefIn(BaseModel):
+    model: str | None = Field(default=None, max_length=20)
+    name: str | None = Field(default=None, max_length=24)
+    hat: str | None = Field(default=None, max_length=20)
+    cart: str | None = Field(default=None, max_length=20)
+    seen: list[str] = Field(default_factory=list, max_length=20)
+
+
+async def cook_state(uid: str, save: dict) -> dict:
+    return {"save": save, "kit": cook.kit(save), "points": cook.skill_points(save), "level": cook.level_of(save["xp"])}
+
+
+@app.get("/api/cook")
+async def cook_get(s: Session = Depends(current)):
+    prof = await profile_of(s.user)
+    save = await cook.load(s.id, prof.get("name", ""))
+    friends = []
+    for p in await pb.all("bg_profiles", fields="user,name,avatar,color", sort="name"):
+        if p["user"] == s.id:
+            continue
+        other = await pb.kv_get(f"cook:{p['user']}")
+        if other:
+            friends.append({"name": p["name"], "avatar": p["avatar"], "color": p["color"], **cook.summary(cook.migrate(other))})
+    return {**await cook_state(s.id, save), "catalog": cook.catalog(), "friends": friends}
+
+
+async def cook_change(s: Session, fn) -> dict:
+    async with cook.lock(s.id):
+        save = await cook.load(s.id)
+        try:
+            extra = fn(save)
+        except cook.CookError as e:
+            raise HTTPException(400, str(e)) from e
+        await cook.store(s.id, save)
+    return {**await cook_state(s.id, save), "result": extra}
+
+
+@app.post("/api/cook/day")
+async def cook_day(body: CookDayIn, s: Session = Depends(current)):
+    return await cook_change(s, lambda sv: cook.apply_day(sv, body.key, body.coins, body.stars, body.served, body.used))
+
+
+@app.post("/api/cook/buy")
+async def cook_buy(body: CookBuyIn, s: Session = Depends(current)):
+    return await cook_change(s, lambda sv: cook.buy(sv, body.kind, body.key))
+
+
+@app.post("/api/cook/chef")
+async def cook_chef(body: CookChefIn, s: Session = Depends(current)):
+    return await cook_change(s, lambda sv: cook.set_chef(sv, body.model_dump(exclude_none=True)))
 
 
 # ---------------------------------------------------------------------------------------------------------

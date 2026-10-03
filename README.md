@@ -3,8 +3,9 @@
 Private multiplayer games for the owner, his wife and close friends — live on everyone's phone.
 https://games.bashir.my.id · same accounts and approval as lyrsync / finance · installable PWA.
 
-## Games (68)
+## Games (69)
 Lobby categories (`CATEGORIES` in `backend/bg/games/__init__.py`):
+- **Cooking:** Wok & Roll Duel (plus the solo **Wok & Roll** career — the big card on the home page). See below.
 - **Board & dice:** Ludo (4-colour board for 2–4, 6-colour board for 5–6), Snakes & Ladders, Monopoly (world
   cities, Rupiah, official rules or fast mode), Congklak, Checkers (international 10×10), Connect 4, SOS,
   Tic-tac-toe (any size).
@@ -63,6 +64,19 @@ Kitchen, DK's Konga Line; sensors — Tilt-a-Golf (tilt), Pickax Dash (shake), B
 - Sensors/mic: iOS asks for motion permission after a tap; the microphone needs `microphone=(self)` in the site's
   Permissions-Policy (`deploy/Caddyfile.games`). Every sensor game has an on-screen fallback (joystick, tap, hold).
   Sensor/mic games are off by default in Pesta (tick them in the options).
+
+**Wok & Roll** (`#cook`, design in `docs/COOKING.md`): a 2.5D cooking career in the style of Cooking Fever /
+Cooking Madness, rendered with three.js (self-hosted `web/vendor/three-r186.js`, no external scripts), landscape only.
+Chapter 1 steak bistro, chapter 2 Indonesian tent warung, story with Nenek Ijah / Chef Gilang / Oyen the cat.
+- Front end `web/js/cook/`: `sim.js` (deterministic kitchen simulation, no 3D), `levels.js` (dishes, customers, layouts,
+  chapters, story), `gfx.js` (renderer, quality levels, particles, picking, HTML pins), `models.js` / `world.js`
+  (3D), `play.js` (one day: input, HUD, flights, hints), `story.js`, `career.js` (hub, shop, skills, items, chef).
+- Server `backend/bg/cook.py`: the economy and each player's career in `bg_kv cook:<uid>` (money, XP/level, skills,
+  equipment, items, cosmetics) → a `kit` the simulation uses; API `/api/cook`, `/api/cook/day|buy|chef`.
+- Duel `games/cookduel.py` (solo-race engine): same seed for everyone, each phone uses its own career kit (read in
+  `prepare` at Start), prank cards, items; `after_finish` pays rewards back into careers.
+- 3D files `web/cook/m/*.glb` (built by `tools/build_cook_assets.mjs`, `tools/build_people.mjs`) are cached by the
+  service worker in a cache that survives deploys. Balance: `node tools/cook_bot.mjs [seconds per tap]` (Node 22).
 
 ## How it works
 - **Server is the referee** (`backend/bg/games/*.py`): every engine keeps its whole state as JSON, rolls dice /
