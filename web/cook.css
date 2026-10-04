@@ -289,3 +289,28 @@
 @media (max-height: 420px) { .ck-card-order .ck-line, .ck-card-order .ck-line img { width: 50px; height: 50px; } }
 .ck-bwrap.side { align-items: flex-start; }
 .ck-bwrap.side .ck-card-order::after { left: -8px; top: 50%; bottom: auto; transform: translateY(-50%); border: 8px solid transparent; border-right-color: #fff; border-left: 0; }
+
+/* ---- taps: the floating timers and the order cards are real buttons too ---- */
+.ck-tap { pointer-events: auto; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.ck-ring.ck-tap::before { content: ""; position: absolute; inset: -12px; border-radius: 50%; }
+.ck-bwrap.side { padding: 6px; margin: -6px; }
+.ck-bwrap.side:active .ck-card-order { transform: scale(.95); }
+.ck-play.dragging .ck-bwrap { pointer-events: none; }
+
+/* ---- result / pause cards never run off a short (landscape) screen ---- */
+.ck-panel, .ck-result { max-height: calc(100% - 20px - var(--safe-t) - var(--safe-b)); overflow-y: auto; overscroll-behavior: contain; }
+.ck-res-btns { gap: 8px; margin-top: 16px; }
+@media (max-height: 520px) {
+  .ck-result { width: min(94%, 660px); padding: 12px 18px 14px; display: grid; grid-template-columns: 1fr 1.25fr; column-gap: 18px; row-gap: 4px;
+    align-items: center; text-align: left; border-radius: 20px; }
+  .ck-result h2 { grid-column: 1; font-size: 20px; margin: 0; }
+  .ck-result .ck-bigstars { grid-column: 1; justify-content: flex-start; margin: 0; }
+  .ck-bigstars i { font-size: 34px; }
+  .ck-bigstars i:nth-child(2) { font-size: 40px; margin-top: -4px; }
+  .ck-result .ck-res-rows { grid-column: 2; grid-row: 1 / span 3; gap: 4px; }
+  .ck-res-rows > div { padding: 5px 10px; font-size: 13px; }
+  .ck-result .ck-levelup, .ck-result .ck-drops { grid-column: 1 / -1; margin-top: 4px; padding: 6px 10px; font-size: 13px; }
+  .ck-result .ck-res-btns { grid-column: 1 / -1; margin-top: 8px; }
+  .ck-result .ck-res-btns .btn { padding: 9px 12px; }
+  .ck-panel { padding: 14px 16px; }
+}
