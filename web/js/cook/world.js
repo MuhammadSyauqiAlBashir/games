@@ -371,6 +371,23 @@ function bistroBackdrop(root, lights) {
   }
 }
 
+// An invisible tap box that matches what the player sees: the piece's own bounds (in its local, unscaled space),
+// a little padding, and some height for flat things (trays, grill cells) so they're easy to hit at an angle.
+function fittedHit(group) {
+  const pos = group.position.clone(), rot = group.rotation.clone(), sc = group.scale.clone()
+  group.position.set(0, 0, 0); group.rotation.set(0, 0, 0); group.scale.set(1, 1, 1)
+  group.updateMatrixWorld(true)
+  const bb = new T.Box3().setFromObject(group)
+  group.position.copy(pos); group.rotation.copy(rot); group.scale.copy(sc)
+  const size = bb.getSize(new T.Vector3()), c = bb.getCenter(new T.Vector3())
+  const pad = 0.05
+  size.x += pad * 2; size.z += pad * 2
+  if (size.y < 0.32) { c.y += (0.32 - size.y) / 2; size.y = 0.32 }
+  const hit = new T.Mesh(new T.BoxGeometry(size.x, size.y, size.z), new T.MeshBasicMaterial({ visible: false }))
+  hit.position.copy(c)
+  return hit
+}
+
 // ---- the world: background + the counter ------------------------------------------------------------------------
 export class World {
   constructor(gfx, L, { cart = "hijau" } = {}) {
@@ -439,10 +456,7 @@ export class World {
     for (const p of this.L.pieces) {
       const res = stationModel(p.model)
       if (res.food && !res.steak) res.food.visible = false
-      const hit = new T.Mesh(new T.BoxGeometry(0.55, 0.55, 0.55), new T.MeshBasicMaterial({ visible: false }))   // in the piece's own (scaled) space
-      hit.position.y = 0.22
-      if (p.model === "fridge") hit.scale.set(2.3, 0.8, 0.9)
-      if (p.model.startsWith("juice")) { hit.scale.set(1.1, 2.2, 1); hit.position.y = 0.55 }
+      const hit = fittedHit(res.group)
       res.group.add(hit)
       res.hit = hit
       res.def = p
@@ -455,7 +469,7 @@ export class World {
       mat_.position.y = 0.007
       const ring = mesh(new T.TorusGeometry(0.305, 0.016, 6, 36), mat(this.isBistro ? 0xe6e1d8 : 0xc58d4a, { rough: 0.5 })); ring.rotation.x = Math.PI / 2; ring.position.y = 0.015
       const dish = new T.Group(); dish.position.y = 0.016; dish.scale.setScalar(1.45)
-      const hit = new T.Mesh(new T.BoxGeometry(0.66, 0.5, 0.66), new T.MeshBasicMaterial({ visible: false })); hit.position.y = 0.2
+      const hit = new T.Mesh(new T.BoxGeometry(0.64, 0.26, 0.64), new T.MeshBasicMaterial({ visible: false })); hit.position.y = 0.11   // the plate itself, not the air above it
       g.add(mat_, ring, dish, hit)
       this.root.add(g)
       this.plateSpots.push({ group: g, dish, hit, key: "" })

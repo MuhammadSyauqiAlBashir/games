@@ -131,6 +131,9 @@ Board & dice, cards, quiz & party (see README), Mario minigames (36) + Pesta mod
 - #9: voice games (Karaoke Klasik, Nyanyi Lagu Hits, Tiru Suara).
 - #10–#11 (10-03): docs only — this CLAUDE.md (full app context from the conversation history).
 - #13 (10-03): Wok & Roll cooking career + duel (three.js, CC0 models, server-side career economy).
+- #14 (10-04): Wok & Roll fixes from the owner's first play: results card cut off in landscape (compact layout),
+  taps not matching what's drawn (tap = visible surface first, fitted tap boxes, tappable timers + order cards,
+  warung counter rearranged so nothing hides a cooker). Check: `~/work/bg_t_cooktap.py <level> <user> [W H]`.
 - #12 (10-03): docs only — README brought up to date (68 games, categories, judge timeouts, names); Picture
   Riddles naming clarified. Stale local `master` branch deleted.
 

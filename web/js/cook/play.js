@@ -73,7 +73,7 @@ export async function playDay(host, opts) {
   renderThumbs(gfx)
   const world = new World(gfx, L0, { cart: kit.cart })
   const sim = new Kitchen(level, kit, opts.seed)
-  window.__ck = { sim, gfx }   // for automated browser tests
+  window.__ck = { sim, gfx, world }   // for automated browser tests
   loading.remove()
   const upgraded = (kit.seats || 0) > 0
 
@@ -81,12 +81,12 @@ export async function playDay(host, opts) {
   const active = new Set(sim.pieces.map((p) => p.id))
   for (const [id, r] of Object.entries(world.pieces)) {
     r.group.visible = active.has(id)
-    if (active.has(id)) gfx.addPick(r.hit, { type: "piece", id }, r.hit)
+    if (active.has(id)) gfx.addPick(r.hit, { type: "piece", id }, r.hit, r.group)
   }
   world.decorate(active)
   world.plateSpots.forEach((s, i) => {
     s.group.visible = i < sim.plates.length
-    if (i < sim.plates.length) gfx.addPick(s.hit, { type: "plate", i }, s.hit)
+    if (i < sim.plates.length) gfx.addPick(s.hit, { type: "plate", i }, s.hit, s.group)
   })
 
   // ---- camera: fit the counter + the customers to the screen, whatever its shape ----------------------------
@@ -166,7 +166,9 @@ export async function playDay(host, opts) {
     const lines = el("div", { class: "ck-lines" })
     const card = el("div", { class: "ck-card-order" }, lines, hearts)   // patience bar sits on the side (CSS)
     const tag = def.critic || def.influencer || def.fussy || def.takeaway ? el("div", { class: "ck-tag", text: L(def.id, def.en) }) : null
-    const wrap = el("div", { class: "ck-bwrap side" }, tag, card)
+    const wrap = el("div", { class: "ck-bwrap side ck-tap", "data-cust": c.id }, tag, card)
+    // the card is the customer: tap it to hand over whatever matches (or drop a dragged plate on it)
+    wrap.addEventListener("pointerdown", (e) => { e.stopPropagation(); if (live()) act({ type: "cust", id: c.id }) })
     const head = new T.Vector3()
     // the order card sits beside the customer at shoulder height, like the reference game
     const unpin = gfx.pin(wrap, () => {
@@ -174,10 +176,11 @@ export async function playDay(host, opts) {
       head.copy(a.root.position); head.x += 0.5; head.y += CUST_H * 0.8
       return head
     }, { anchor: "side" })
-    const hit = new T.Mesh(new T.BoxGeometry(0.7, CUST_H, 0.5), new T.MeshBasicMaterial({ visible: false })); hit.position.y = CUST_H / 2
+    // tap box = the part of the customer you can see above the counter
+    const hit = new T.Mesh(new T.BoxGeometry(0.75, CUST_H - L0.y, 0.5), new T.MeshBasicMaterial({ visible: false })); hit.position.y = L0.y + (CUST_H - L0.y) / 2
     a.root.add(hit)
     const target = { type: "cust", id: c.id, enabled: false }
-    gfx.addPick(hit, target, hit)
+    gfx.addPick(hit, target, hit, a.body)
     const u = { a, c, card, lines, bar, wrap, unpin, target, hit, sig: "", emote: 0,
       place() { a.root.position.copy(custPos(c)) } }
     custUi.set(c.id, u)
@@ -206,7 +209,7 @@ export async function playDay(host, opts) {
     const alert = el("div", { class: "ck-cat-alert", text: "🐱❗" })
     const p = new T.Vector3()
     const unpin = gfx.pin(alert, () => { if (c.state === "flee") return null; p.copy(m.group.position); p.y += 0.7; return p })
-    gfx.addPick(m.group, { type: "cat", id: c.id, priority: true }, m.group)
+    gfx.addPick(m.group, { type: "cat", id: c.id, priority: true }, m.group, m.group)
     catUi.set(c.id, { m, unpin })
   }
 
@@ -294,6 +297,7 @@ export async function playDay(host, opts) {
   // ---- input: tap, or drag a plate / full cup to a customer or the bin ----------------------------------------
   let paused = false, started = false, ended = false
   let press = null
+  const live = () => started && !paused && !ended
   const bounce = (obj) => { if (obj) obj.userData.bounce = 0.25 }
   function act(t) {
     if (!t) return
@@ -307,7 +311,7 @@ export async function playDay(host, opts) {
   const draggable = (t) => t && ((t.type === "plate" && sim.plates[t.i]?.item) || (t.type === "piece" && sim.piece(t.id)?.kind === "drink" && sim.piece(t.id).state === "full"))
   const dragItem = (t) => (t.type === "plate" ? sim.plates[t.i].item : { dish: sim.piece(t.id).makes, tops: [] })
   box.addEventListener("pointerdown", (e) => {
-    if (!started || paused || ended || e.target.closest("button, .ck-panel")) return
+    if (!live() || e.target.closest("button, .ck-panel, .ck-tap")) return
     const t = gfx.pick(e.clientX, e.clientY)
     if (!t) return
     press = { t, x: e.clientX, y: e.clientY, drag: false }
@@ -339,7 +343,8 @@ export async function playDay(host, opts) {
     for (const u of custUi.values()) u.card.classList.remove("match")
     if (p.t.type === "plate") hidePlate.delete(p.t.i)
     const from = p.t.type === "plate" ? { plate: p.t.i } : { drink: p.t.id }
-    const d = gfx.pick(e.clientX, e.clientY)
+    const onCard = document.elementFromPoint(e.clientX, e.clientY)?.closest(".ck-bwrap")
+    const d = onCard ? { type: "cust", id: Number(onCard.dataset.cust) } : gfx.pick(e.clientX, e.clientY)
     if (d && d.type === "cust") { const c = sim.customers.find((x) => x.id === d.id); if (c && c.slot !== null && sim.drop(from, { type: "cust", slot: c.slot })) sfx.click() }
     else if (d && d.type === "piece" && d.id === "trash") sim.drop(from, { type: "trash" })
   }
@@ -498,7 +503,9 @@ export async function playDay(host, opts) {
   const rings = {}
   for (const p of sim.pieces) {
     if (!["cook", "pot", "drink"].includes(p.kind)) continue
-    const ring = el("div", { class: "ck-ring" }, el("i"))
+    const ring = el("div", { class: "ck-ring ck-tap" }, el("i"))
+    // the timer above a pan is part of the pan: tapping it acts on the pan (take, scrape, serve the cup…)
+    ring.addEventListener("pointerdown", (e) => { e.stopPropagation(); if (live()) act({ type: "piece", id: p.id }) })
     rings[p.id] = { ring, last: "", unpin: gfx.pin(ring, () => (["cooking", "ready", "burnt", "refill", "filling"].includes(p.state) ? pieceTop(p.id, p.kind === "drink" ? 0.85 : 0.62) : null)) }
   }
   let lastCoins = -1, lastStars = 0, lastReport = 0
@@ -537,14 +544,14 @@ export async function playDay(host, opts) {
         if (r.coals) r.coals.emissiveIntensity = 1.1 + Math.sin(t * 6) * 0.3 + (cooking ? 0.6 : 0)
         const prog = cooking ? age / sim.cookT(p) : ready ? age / sim.burnT(p) : 1
         const cls = cooking ? "cook" : ready ? (age > sim.burnT(p) - 2.2 ? "warn" : "ready") : burnt ? "burnt" : ""
-        if (cls !== ring.last) { ring.ring.className = `ck-ring ${cls}`; ring.last = cls; ring.ring.dataset.icon = ready ? "✓" : burnt ? "✕" : "" }
+        if (cls !== ring.last) { ring.ring.className = `ck-ring ck-tap ${cls}`; ring.last = cls; ring.ring.dataset.icon = ready ? "✓" : burnt ? "✕" : "" }
         ring.ring.style.setProperty("--p", String(Math.min(1, Math.max(0, prog))))
       } else if (p.kind === "pot") {
         r.balls.forEach((bl, i) => { bl.visible = p.state === "ready" && i < p.portions; bl.position.y = 0.5 + Math.sin(t * 3 + i) * 0.01 })
         if (Math.random() < dt * 4) world.steamAt(world.stationFx(p.id), 1)
         const cls = p.state === "refill" ? "cook" : ""
         if (p.state === "refill") { world.fireAt(p.id, 1); ring.ring.style.setProperty("--p", String(Math.min(1, age / (p.refill * kit.cook * (kit.quick || 1))))) }
-        if (cls !== ring.last) { ring.ring.className = `ck-ring ${cls}`; ring.last = cls }
+        if (cls !== ring.last) { ring.ring.className = `ck-ring ck-tap ${cls}`; ring.last = cls }
       } else if (p.kind === "drink") {
         if (r.cup) {
           r.cup.visible = p.state !== "empty"
@@ -552,7 +559,7 @@ export async function playDay(host, opts) {
           r.cup.scale.y = (r.cup.userData.sy ??= r.cup.scale.y) * (0.3 + 0.7 * k)
         }
         const cls = p.state === "filling" ? "cook" : p.state === "full" ? "ready" : ""
-        if (cls !== ring.last) { ring.ring.className = `ck-ring ${cls}`; ring.last = cls; ring.ring.dataset.icon = p.state === "full" ? "✓" : "" }
+        if (cls !== ring.last) { ring.ring.className = `ck-ring ck-tap ${cls}`; ring.last = cls; ring.ring.dataset.icon = p.state === "full" ? "✓" : "" }
         if (p.state === "filling") ring.ring.style.setProperty("--p", String(Math.min(1, age / (p.prep * (kit.drink || 1)))))
       }
     }

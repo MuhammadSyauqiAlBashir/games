@@ -167,8 +167,9 @@ export class Gfx {
   }
 
   // ---- picking: exact ray hit first, else the nearest target within ~44 px (fat fingers) ------------
-  addPick(obj, target, anchor) { this.pickables.push({ obj, target, anchor: anchor || obj }); return target }
-  removePick(obj) { this.pickables = this.pickables.filter((p) => p.obj !== obj) }
+  // obj = an invisible tap box; visual = the thing the player sees (checked first, so what's under the finger wins)
+  addPick(obj, target, anchor, visual = null) { this.pickables.push({ obj, target, anchor: anchor || obj, visual }); return target }
+  removePick(obj) { this.pickables = this.pickables.filter((p) => p.obj !== obj && p.visual !== obj) }
 
   pick(clientX, clientY) {
     const r = this.canvas.getBoundingClientRect()
@@ -176,22 +177,43 @@ export class Gfx {
     const ndc = new T.Vector2((x / r.width) * 2 - 1, -(y / r.height) * 2 + 1)
     this.ray.setFromCamera(ndc, this.camera)
     const live = this.pickables.filter((p) => p.obj.visible !== false && p.target.enabled !== false)
-    const hits = this.ray.intersectObjects(live.map((p) => p.obj), true)
-    if (hits.length) {
-      for (const h of hits) {
-        let o = h.object
-        while (o) { const p = live.find((q) => q.obj === o); if (p) return p.target; o = o.parent }
-      }
+    // 1) the visible surface under the finger (tap boxes are skipped here)
+    const visuals = live.filter((p) => p.visual && p.visual.visible !== false)
+    const vhits = this.ray.intersectObjects(visuals.map((p) => p.visual), true)
+    for (const h of vhits) {
+      if (h.object.material && h.object.material.visible === false) continue
+      let o = h.object
+      while (o) { const p = visuals.find((q) => q.visual === o); if (p) return p.target; o = o.parent }
     }
-    let best = null, bd = 44
-    const w = new T.Vector3()
+    // 2) the padded tap boxes
+    const hits = this.ray.intersectObjects(live.map((p) => p.obj), true)
+    for (const h of hits) {
+      let o = h.object
+      while (o) { const p = live.find((q) => q.obj === o); if (p) return p.target; o = o.parent }
+    }
+    // no exact hit: the nearest target whose on-screen outline is within ~28 px (fat fingers)
+    let best = null, bd = 28
     for (const p of live) {
-      p.anchor.getWorldPosition(w)
-      const [sx, sy] = this.toScreen(w)
-      const d = Math.hypot(sx - x, sy - y) * (p.target.priority ? 0.8 : 1)
+      const d = this.screenDistance(p.obj, x, y) * (p.target.priority ? 0.7 : 1)
       if (d < bd) { bd = d; best = p.target }
     }
     return best
+  }
+
+  // Distance in px from (x, y) to the screen rectangle of an object's bounds (0 when inside).
+  screenDistance(obj, x, y) {
+    const bb = this._bb || (this._bb = new T.Box3())
+    bb.setFromObject(obj)
+    if (bb.isEmpty()) return Infinity
+    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity
+    const v = this._v || (this._v = new T.Vector3())
+    for (let i = 0; i < 8; i++) {
+      v.set(i & 1 ? bb.max.x : bb.min.x, i & 2 ? bb.max.y : bb.min.y, i & 4 ? bb.max.z : bb.min.z).project(this.camera)
+      const sx = (v.x * 0.5 + 0.5) * this.w, sy = (-v.y * 0.5 + 0.5) * this.h
+      x0 = Math.min(x0, sx); x1 = Math.max(x1, sx); y0 = Math.min(y0, sy); y1 = Math.max(y1, sy)
+    }
+    const dx = Math.max(x0 - x, 0, x - x1), dy = Math.max(y0 - y, 0, y - y1)
+    return Math.hypot(dx, dy)
   }
 
   dispose() {

@@ -257,7 +257,7 @@ export async function renderCook(app, go) {
         r ? el("div", { class: "gain" }, el("span", { text: "XP" }), el("b", { text: `+${got.xp || 0}` })) : null),
       got.level_up ? el("div", { class: "ck-levelup", text: L(`Naik level! Chef Lv ${got.level} — dapat 1 poin skill ✨`, `Level up! Chef Lv ${got.level} — 1 skill point ✨`) }) : null,
       got.drops && Object.keys(got.drops).length ? el("div", { class: "ck-drops" }, L("Hadiah: ", "Reward: "), Object.entries(got.drops).map(([k, n]) => el("span", { text: `${ITEM_ICONS[k]}×${n}` }))) : null,
-      el("div", { class: "row", style: { gap: "8px", marginTop: "16px" } },
+      el("div", { class: "row ck-res-btns" },
         el("button", { class: "btn grow", type: "button", text: L("Ulangi", "Retry"), onclick: () => { close(); startLevel(lv.key) } }),
         next && res.stars ? el("button", { class: "btn primary grow", type: "button", text: L("Lanjut ▶", "Next ▶"), onclick: () => { close(); startLevel(next.key) } }) : null,
         el("button", { class: "btn grow", type: "button", text: L("Peta", "Map"), onclick: close })))
