@@ -8,6 +8,9 @@ export function configure({ sound = true, volume: v = 70 } = {}) {
   volume = Math.max(0, Math.min(1, v / 100))
 }
 export const isOn = () => enabled
+// For richer synth effects elsewhere (emoji sounds): the shared AudioContext when sound is on, and the volume.
+export const audio = () => (enabled ? ac() : null)
+export const masterVolume = () => volume
 export function toggle() { enabled = !enabled; return enabled }
 
 function ac() {

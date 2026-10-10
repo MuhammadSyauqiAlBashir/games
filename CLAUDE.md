@@ -134,6 +134,10 @@ Board & dice, cards, quiz & party (see README), Mario minigames (36) + Pesta mod
 - #14 (10-04): Wok & Roll fixes from the owner's first play: results card cut off in landscape (compact layout),
   taps not matching what's drawn (tap = visible surface first, fitted tap boxes, tappable timers + order cards,
   warung counter rearranged so nothing hides a cooker). Check: `~/work/bg_t_cooktap.py <level> <user> [W H]`.
+- #15 (10-10): silly sounds for emoji reactions (owner: "to make fun of the enemy"): every reaction plays a
+  synthesized sound on every phone (`web/js/emojisfx.js`, no files; each player's sound setting applies), 8 new
+  teasing emojis 🤡 💩 😜 🐔 🐢 😴 🤪 🦗 in an "Ejek lawan" row, server limit 1 reaction / 0.7 s per player
+  (`REACT_GAP`). Check: `~/work/bg_t_emoji.py` (renders every sound offline: peak/rms/length).
 - #12 (10-03): docs only — README brought up to date (68 games, categories, judge timeouts, names); Picture
   Riddles naming clarified. Stale local `master` branch deleted.
 
