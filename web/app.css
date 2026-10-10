@@ -806,3 +806,8 @@ dialog::backdrop { background: rgba(30, 20, 10, .45); }
 .ck-entry small { opacity: .85; font-weight: 700; }
 .ck-entry .go { margin-left: auto; padding: 8px 14px; border-radius: 99px; background: #ffb347; color: #2a1a10; font-weight: 900; white-space: nowrap; }
 @keyframes ck-toss { 0%, 100% { transform: translateY(0) rotate(-8deg); } 50% { transform: translateY(-14px) rotate(8deg); } }
+.react-head { margin: 12px 0 6px; text-align: center; }
+.react-row.silly button { background: linear-gradient(#fff1d6, #ffd9a8); }
+:root[data-theme="dark"] .react-row.silly button { background: linear-gradient(#4a3a1c, #3a2c14); }
+.react-float.silly { animation: floatup 2.2s ease-out forwards, wiggle .25s ease-in-out 6; }
+@keyframes wiggle { 0%, 100% { rotate: -12deg; } 50% { rotate: 12deg; } }

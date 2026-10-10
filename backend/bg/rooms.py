@@ -33,6 +33,7 @@ PAUSE_GRACE = {"realtime": 3.0, "timed": 4.0, "turn": 5.0}
 COUNTDOWN = 3.0
 LOOP_DT = 0.2
 PHOTO_BYTES = 12_000_000  # photo games: at most this much JPEG kept per room (oldest dropped)
+REACT_GAP = 0.7  # seconds between two emoji reactions from the same player (each plays a sound on every phone)
 
 
 class Room:
@@ -46,6 +47,7 @@ class Room:
         self.seats: list[dict] = []
         self.conns: dict[str, set[WebSocket]] = {}
         self.names: dict[str, dict] = {}  # profile snapshot per connected user (spectators too)
+        self.last_react: dict[str, float] = {}
         self.status = "lobby"
         self.game = None
         self.rng = random.Random(secrets.randbits(64))
@@ -212,7 +214,10 @@ class Room:
             return
         if t == "react":
             emoji = str(msg.get("e", ""))[:8]
-            if emoji:
+            # reactions now play a (silly) sound on every phone: at most one per player every 0.7 s
+            last = self.last_react.get(uid, float("-inf"))
+            if emoji and time.monotonic() - last >= REACT_GAP:
+                self.last_react[uid] = time.monotonic()
                 await self.broadcast({"t": "react", "from": uid, "e": emoji})
             return
         if t == "snap":

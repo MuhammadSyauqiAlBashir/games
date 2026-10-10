@@ -4,6 +4,7 @@ import { L, RULES, gname, getLang } from "./i18n.js?v=__VERSION__"
 import { isOn, sfx, toggle } from "./sound.js?v=__VERSION__"
 import { go, state } from "./app.js?v=__VERSION__"
 import { optionsForm } from "./lobby.js?v=__VERSION__"
+import { SILLY, playEmoji } from "./emojisfx.js?v=__VERSION__"
 
 let R = null  // the current room session
 
@@ -12,6 +13,7 @@ export function leaveRoom() {
 }
 
 const REACTIONS = ["😂", "😱", "🔥", "👏", "😭", "😡", "🤯", "😎", "🙏", "💀", "🥳", "❤️"]
+const TAUNTS = SILLY   // the teasing ones (each has its own silly sound)
 
 export async function renderRoom(root, code) {
   leaveRoom()
@@ -106,15 +108,18 @@ export async function renderRoom(root, code) {
   }
   reactBtn.onclick = () => {
     const sh = sheet(L("Reaksi", "React"))
-    sh.body.append(el("div", { class: "react-row" }, REACTIONS.map((e) => el("button", { type: "button", text: e, onclick: () => { send({ t: "react", e }); sh.close() } }))))
+    const btn = (e) => el("button", { type: "button", text: e, onclick: () => { send({ t: "react", e }); sh.close() } })
+    sh.body.append(el("div", { class: "react-row" }, REACTIONS.map(btn)),
+      el("p", { class: "small muted react-head", text: L("Ejek lawan 😈 (pakai suara)", "Tease your rivals 😈 (with sound)") }),
+      el("div", { class: "react-row silly" }, TAUNTS.map(btn)))
   }
   function floatReaction(from, e) {
     const chip = seatsBar.querySelector(`[data-pid="${from}"]`)
     const r = chip ? chip.getBoundingClientRect() : { left: window.innerWidth / 2, top: window.innerHeight / 2, width: 0 }
-    const f = el("div", { class: "react-float", text: e, style: { left: `${r.left + r.width / 2 - 19}px`, top: `${Math.max(60, r.top + 10)}px` } })
+    const f = el("div", { class: `react-float${TAUNTS.includes(e) ? " silly" : ""}`, text: e, style: { left: `${r.left + r.width / 2 - 19}px`, top: `${Math.max(60, r.top + 10)}px` } })
     document.body.append(f)
     setTimeout(() => f.remove(), 2300)
-    sfx.boop()
+    if (!playEmoji(e, from)) sfx.boop()   // every emoji has its own silly sound
   }
 
   // ---- seats bar + timer ----------------------------------------------------------------------------------
